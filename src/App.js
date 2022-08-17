@@ -5,18 +5,50 @@ import { Routes } from 'react-router-dom';
 import SignUp from './Routes/SignUp';
 import Login from './Routes/Login';
 import Dashboard from './Routes/Dashboard';
+import { Container } from '@mui/material';
+import Box from '@mui/material/Box';
+
+
+
+
+
 function App() {
   return (
     <Router>
-      <h1>
-        Bookmarks
-      </h1>
+      <Container
+        sx={{
+          display: 'flex',
+         
+          flexDirection: 'row',
+        }}
+      >
+      <Box
+      sx={{
+        flex: 1,
+        bgcolor: '#5352ED',
+      
+      }}>
+        <Box
+        sx={{
+          color: 'white',
+          fontSize: '30px'
+        }}>
+        Welcome, Get Started
+        </Box>
+      </Box>
+      <Box
+      sx={{
+        flex:2,
+      }}>
       <Routes>
         <Route exact path="/" element={<SignUp/>}/>
         <Route path="/login" element = {<Login/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
+      </Box>
+      </Container>
     </Router>
+   
   );
 }
 

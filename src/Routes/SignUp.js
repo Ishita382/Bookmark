@@ -7,7 +7,7 @@ function SignUp(){
             Name: <input type="text" /><br/>
             Email: <input type="email" /><br/>
             Password: <input type="password" /><br/>
-            <button>Sign Up</button><br/>
+            <button><Link to ="/dashboard">Sign Up</Link></button><br/>
             Already have an account? <Link to="/login">Login</Link>
             
         </div>
