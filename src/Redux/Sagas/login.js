@@ -24,7 +24,7 @@ function* getLoginDetails(action) {
     console.log(result);
     if ("token" in result) {
       yield put({ type: LOGIN_DETAILS_SUCCESS, result });
-      
+
       //setting token to local storage
       localStorage.setItem("auth", JSON.stringify(result.token));
     } else {

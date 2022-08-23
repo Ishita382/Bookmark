@@ -7,42 +7,33 @@ import {
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
+  const dispatch = useDispatch();
 
-    const dispatch = useDispatch();
-
-    const sendRegistrationDetails = (data) => {
-
-        return dispatch({
-            type: REGISTRATION_DETAILS,
+  const sendRegistrationDetails = (data) => {
+    return dispatch({
+      type: REGISTRATION_DETAILS,
       payload: data,
-        });
+    });
+  };
 
-    };
+  const sendLoginDetails = (data) => {
+    return dispatch({
+      type: LOGIN_DETAILS,
+      payload: data,
+    });
+  };
 
-    const sendLoginDetails = (data) => {
+  const getMe = () => {
+    return dispatch({
+      type: GET_ME_REQUEST,
+    });
+  };
 
-        return dispatch({
-            type: LOGIN_DETAILS,
-            payload: data,
-        });
+  const getMyFolders = () => {
+    return dispatch({
+      type: GET_MY_FOLDERS_REQUEST,
+    });
+  };
 
-    };
-
-    const getMe = () => {
-
-        return dispatch({
-            type:GET_ME_REQUEST,
-        });
-
-    };
-
-    const getMyFolders = () => {
-
-        return dispatch({
-            type: GET_MY_FOLDERS_REQUEST,
-        });
-
-    };
-
-    return { sendRegistrationDetails, sendLoginDetails, getMe, getMyFolders };
+  return { sendRegistrationDetails, sendLoginDetails, getMe, getMyFolders };
 };

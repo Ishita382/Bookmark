@@ -1,11 +1,8 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
 
-
 function Dashboard() {
-  const dispatch = useDispatch();
   const { getMe, getMyFolders } = useCustomHooks();
   useEffect(() => {
     getMe();
@@ -18,7 +15,7 @@ function Dashboard() {
       <h3>URL</h3>
       <input type="text" placeholder="paste your link here" />
       <h3>Folder</h3>
-      <input type="text"/>
+      <input type="text" />
       <button>Save</button>
     </div>
   );
