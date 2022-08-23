@@ -22,7 +22,7 @@ function App() {
           flexDirection: 'row',
         }}
       >
-      <Box
+      {/* <Box
       sx={{
         flex: 1,
         bgcolor: '#5352ED',
@@ -35,7 +35,7 @@ function App() {
         }}>
         Welcome, Get Started
         </Box>
-      </Box>
+      </Box> */}
       <Box
       sx={{
         flex:2,
