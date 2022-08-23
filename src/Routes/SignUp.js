@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendRegistrationDetails } from "../Redux/Actions/actions";
-import { Button, Input } from "@mui/material";
+import { useCustomHooks } from "../Redux/hooks/customHooks";
+import { Input } from "@mui/material";
 import styled from "styled-components";
 import { Box } from "@mui/system";
+import Button from '@mui/material/Button';
 const CustomHeading =  styled(Box)`
 color:white;
 font-size: 35px;
@@ -18,16 +19,22 @@ font-family: Arial;
 letter-spacing: 0.03em;
 `
 const LeftBox = styled(Box)`
-    flex: 1;
-    
+background-color: #5352ed;
+display: flex;
+flex-direction: column;
+color: #ffffff;
     
 `
 const RightBox = styled(Box)`
-    flex: 2;
-    justify-content: center;
+    display: flex;
+    
 `
 const CustomBox = styled(Box)`
-    display: flex;
+display: grid;
+grid-template-columns: 30% 70%;
+height: 100vh;
+width: 100vw;
+    
 
 `
 const SignUpBox = styled(Box)`
@@ -35,9 +42,9 @@ const SignUpBox = styled(Box)`
  padding-top: 150px;
 `
 const HeadingBox = styled(Box)`
-background-color: #5352ED;
-height: 100%;
-width:100%; 
+padding-left: 30px;
+padding-top: 20px;
+
 
 `
 const CustomInput = styled(Input)`
@@ -53,11 +60,12 @@ height: 50px;
 background: #FFFFFF;
 border: 1px solid #F1F1FA;
 border-radius: 16px;
+
 `
 const CustomButton = styled(Button)`
   width: 350px;
   height: 50px;
-  border-radius: 15px;
+  border-radius: 30px;
   background-color: #5352ED;
   color: #ffffff;
   margin-top: 40px;
@@ -67,13 +75,43 @@ const CustomButton = styled(Button)`
     background-color: grey;
   }
 `;
+
+const LoginBox = styled(Box)`
+position: absolute;
+width: 345.01px;
+height: 26.87px;
+padding-left: 55px;
+font-family: Arial;
+font-style: normal;
+font-weight: 500;
+font-size: 17px;
+line-height: 27px;
+color: #91919F;
+`
+const CustomLink = styled(Link)`
+  color: #5352ed;
+`;
+
+const CustomCheckBox = styled(Box)`
+position: absolute;
+width: 411.47px;
+height: 50.9px;
+font-family: Arial;
+font-style: normal;
+font-weight: 500;
+font-size: 10px;
+line-height: 25px;
+display: flex;
+align-items: center;
+color: #000000;
+`
 function SignUp(){
 
     const [regName, setRegName] = useState("");
     const [regEmail, setRegEmail] = useState("");
     const [regPassword, setRegPassword] = useState("");
-    const dispatch = useDispatch();
-
+    //const dispatch = useDispatch();
+    const { sendRegistrationDetails } = useCustomHooks();
     const registerName = (e) => {
         return setRegName(e.target.value);
     }
@@ -94,13 +132,17 @@ function SignUp(){
             <CustomHeading>Welcome,<br/> Get Started</CustomHeading></HeadingBox></LeftBox>
             <RightBox>
             <SignUpBox>
-            <Box><CustomInput type="text" onChange={registerName} placeholder="Name" disableUnderline></CustomInput></Box>
-            <Box><CustomInput type="email" onChange={registerEmail} placeholder="Email" disableUnderline></CustomInput></Box>
+            <Box><CustomInput type="text" onChange={registerName} placeholder="Name" disableUnderline></CustomInput></Box><br/>
+            <Box><CustomInput type="email" onChange={registerEmail} placeholder="Email" disableUnderline></CustomInput></Box><br/>
             <Box><CustomInput type="password" onChange={registerPassword} placeholder="Password" disableUnderline></CustomInput></Box>
+            <Box></Box>
+            {/* <CustomCheckBox>By signing up, you agree to the Terms of Service and Privacy Policy</CustomCheckBox> */}
            <Box>
-            <CustomButton onClick={()=>dispatch(sendRegistrationDetails(data))}><Link to ="/dashboard">Sign Up</Link></CustomButton>
+            <CustomButton onClick={()=>sendRegistrationDetails(data)}><CustomLink to ="/dashboard" disableUnderline>Sign Up</CustomLink></CustomButton>
             </Box>
-            Already have an account? <Link to="/login">Login</Link>
+                <LoginBox>
+            Already have an account? <CustomLink to="/login" disableUnderline>Login</CustomLink>
+            </LoginBox>
             </SignUpBox>
             </RightBox>
         </CustomBox>

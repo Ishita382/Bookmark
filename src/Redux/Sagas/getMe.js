@@ -1,5 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { GET_ME, GET_ME_FAILURE, GET_ME_SUCCESS } from "../Actions/constant";
+import { GET_ME_REQUEST, GET_ME_FAILURE, GET_ME_SUCCESS } from "../Actions/constant";
 import send_request from "../Request";
 
 //const getMeApi = "https://bookmarks-app-server.herokuapp.com/me";
@@ -22,7 +22,7 @@ function* getUser() {
 }
 
 function* getUserDashboard() {
-  yield takeLatest(GET_ME, getUser);
+  yield takeLatest(GET_ME_REQUEST, getUser);
 }
 
 export default getUserDashboard;

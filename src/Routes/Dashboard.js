@@ -1,15 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getMe } from "../Redux/Actions/actions";
-import { getMyFolders } from "../Redux/Actions/actions";
+import { useCustomHooks } from "../Redux/hooks/customHooks";
+
 
 function Dashboard() {
   const dispatch = useDispatch();
-
+  const { getMe, getMyFolders } = useCustomHooks();
   useEffect(() => {
-    dispatch(getMe());
-    dispatch(getMyFolders());
+    getMe();
+    getMyFolders();
   });
   return (
     <div>

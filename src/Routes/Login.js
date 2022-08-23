@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendLoginDetails } from "../Redux/Actions/actions";
+import { useCustomHooks } from "../Redux/hooks/customHooks";
 
 function Login() {
   const dispatch = useDispatch();
-
+  const { sendLoginDetails } = useCustomHooks();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,7 +30,7 @@ function Login() {
       <br />
       Password: <input type="password" onChange={setPasswordValue} />
       <br />
-      <button onClick={() => dispatch(sendLoginDetails(data))}>
+      <button onClick={() => sendLoginDetails(data)}>
         <Link to="/dashboard">Login</Link>
       </button>
     </div>
