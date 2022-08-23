@@ -4,7 +4,7 @@ import {
   LOGIN_DETAILS,
   GET_ME_REQUEST,
   GET_MY_FOLDERS_REQUEST,
-} from "../Actions/constant";
+} from "../actions/constant";
 
 export const useCustomHooks = () => {
 

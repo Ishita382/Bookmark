@@ -3,7 +3,7 @@ import {
   LOGIN_DETAILS_SUCCESS,
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
-} from "../Actions/constant";
+} from "../actions/constant";
 
 export const loginDetails = (state = [], action) => {
   const response = action.result;

@@ -3,7 +3,7 @@ import {
   LOGIN_DETAILS,
   LOGIN_DETAILS_FAILED,
   LOGIN_DETAILS_SUCCESS,
-} from "../Actions/constant";
+} from "../actions/constant";
 
 const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 

@@ -1,5 +1,5 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { GET_MY_FOLDERS_REQUEST, GET_MY_FOLDERS_FAILURE, GET_MY_FOLDERS_SUCCESS } from "../Actions/constant";
+import { GET_MY_FOLDERS_REQUEST, GET_MY_FOLDERS_FAILURE, GET_MY_FOLDERS_SUCCESS } from "../actions/constant";
 import send_request from "../Request";
 
 function* getUserFolders(){
