@@ -7,3 +7,6 @@ export const REGISTRATION_FAILED = "registration_failed";
 export const GET_ME = "get_me";
 export const GET_ME_FAILURE = "get_me_failure";
 export const GET_ME_SUCCESS = "get_me_success";
+export const GET_MY_FOLDERS_REQUEST = "GET_MY_FOLDERS_REQUEST";
+export const GET_MY_FOLDERS_SUCCESS = "GET_MY_FOLDERS_SUCCESS";
+export const GET_MY_FOLDERS_FAILURE = "GET_MY_FOLDERS_FAILURE";

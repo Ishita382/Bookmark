@@ -1,5 +1,7 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { REGISTRATION_DETAILS, REGISTRATION_SUCCESS, REGISTRATION_FAILED } from "../Actions/constant";
+//import send_request from "../Request";
+
 const register_api = "https://bookmarks-app-server.herokuapp.com/register";
 function* getRegistrationDetails(action) {
   const data = action.payload;

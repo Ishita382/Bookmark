@@ -1,4 +1,4 @@
-import { LOGIN_DETAILS, GET_ME } from "./constant";
+import { LOGIN_DETAILS, GET_ME , GET_MY_FOLDERS_REQUEST} from "./constant";
 import { REGISTRATION_DETAILS } from "./constant";
 
 export const sendLoginDetails = (data) => {
@@ -21,4 +21,10 @@ export const getMe = () => {
     type: GET_ME,
   };
 };
+
+export const getMyFolders = () => {
+  return {
+    type: GET_MY_FOLDERS_REQUEST,
+  };
+} ;
 
