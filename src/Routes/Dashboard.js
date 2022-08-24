@@ -1,22 +1,23 @@
 import React from "react";
 import { useEffect } from "react";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
-
+import { useDispatch } from "react-redux";
+import Leftpanel from "../components/Leftpanel";
+import Quicklink from "../components/QuickLink";
+import { initialState } from "../Redux/reducers/reducers";
 function Dashboard() {
   const { getMe, getMyFolders } = useCustomHooks();
+  const dispatch = useDispatch();
   useEffect(() => {
     getMe();
     getMyFolders();
-  });
+  }, [dispatch]);
+
   return (
     <div>
-      <h1>This is Dashboard.</h1>
-      <h2>Quick Link</h2>
-      <h3>URL</h3>
-      <input type="text" placeholder="paste your link here" />
-      <h3>Folder</h3>
-      <input type="text" />
-      <button>Save</button>
+      
+      <Quicklink />
+      <Leftpanel />
     </div>
   );
 }

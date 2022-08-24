@@ -1,17 +1,19 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import {
-  LOGIN_DETAILS,
   LOGIN_DETAILS_FAILED,
   LOGIN_DETAILS_SUCCESS,
 } from "../actions/constant";
+import { initialState } from "../reducers/reducers";
 
 const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 
-function* getLoginDetails(action) {
+export function* getLoginDetails(action) {
+  initialState.folders = [];
+  localStorage.clear();
+  console.log("check",initialState);
   let data = action.payload;
-
   if (data !== "") {
-    let result = yield fetch(login_api, {
+    let response = yield fetch(login_api, {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -20,21 +22,15 @@ function* getLoginDetails(action) {
       body: JSON.stringify(data),
     });
 
-    result = yield result.json();
-    console.log(result);
-    if ("token" in result) {
-      yield put({ type: LOGIN_DETAILS_SUCCESS, result });
+    response = yield response.json();
+    console.log(response);
+    if ("token" in response) {
+      yield put({ type: LOGIN_DETAILS_SUCCESS, response });
 
       //setting token to local storage
-      localStorage.setItem("auth", JSON.stringify(result.token));
+      localStorage.setItem("auth", JSON.stringify(response.token));
     } else {
       yield put({ type: LOGIN_DETAILS_FAILED });
     }
   }
 }
-
-function* loginDetails() {
-  yield takeLatest(LOGIN_DETAILS, getLoginDetails);
-}
-
-export default loginDetails;

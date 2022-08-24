@@ -3,10 +3,14 @@ import {
   LOGIN_DETAILS_SUCCESS,
   REGISTRATION_FAILED,
   REGISTRATION_SUCCESS,
+  GET_MY_FOLDERS_SUCCESS
 } from "../actions/constant";
 
-export const loginDetails = (state = [], action) => {
-  const response = action.result;
+export const initialState = {
+  folders : [],
+};
+export const loginDetails = (state = initialState, action) => {
+  const response = action.response;
   switch (action.type) {
     case LOGIN_DETAILS_SUCCESS:
       console.log("reducer is running");
@@ -20,6 +24,9 @@ export const loginDetails = (state = [], action) => {
 
     case REGISTRATION_FAILED:
       return { ...state, response };
+
+      case GET_MY_FOLDERS_SUCCESS:
+        return { ...state, folders : response};
     default:
       return state;
   }

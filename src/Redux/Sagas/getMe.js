@@ -1,6 +1,6 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import {
-  GET_ME_REQUEST,
+ 
   GET_ME_FAILURE,
   GET_ME_SUCCESS,
 } from "../actions/constant";
@@ -8,7 +8,7 @@ import send_request from "../Request";
 
 //const getMeApi = "https://bookmarks-app-server.herokuapp.com/me";
 
-function* getUser() {
+export function* getUser() {
   if (localStorage.getItem("auth")) {
     try {
       let response = yield send_request("me", "GET", {});
@@ -20,8 +20,3 @@ function* getUser() {
   }
 }
 
-function* getUserDashboard() {
-  yield takeLatest(GET_ME_REQUEST, getUser);
-}
-
-export default getUserDashboard;

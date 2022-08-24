@@ -1,17 +1,13 @@
-import { put, takeLatest } from "redux-saga/effects";
-import {
-  REGISTRATION_DETAILS,
-  REGISTRATION_SUCCESS,
-  REGISTRATION_FAILED,
-} from "../actions/constant";
+import { put } from "redux-saga/effects";
+import { REGISTRATION_SUCCESS, REGISTRATION_FAILED } from "../actions/constant";
 //import send_request from "../Request";
 
 const register_api = "https://bookmarks-app-server.herokuapp.com/register";
-function* getRegistrationDetails(action) {
+export function* getRegistrationDetails(action) {
   const data = action.payload;
   const { regName: name, regEmail: email, regPassword: password } = data;
   if (data !== "") {
-    let result = yield fetch(register_api, {
+    let response = yield fetch(register_api, {
       method: "post",
       headers: {
         Accept: "application/json",
@@ -20,19 +16,14 @@ function* getRegistrationDetails(action) {
       body: JSON.stringify({ name, email, password }),
     });
 
-    result = yield result.json();
-    console.log(result);
-    if ("token" in result) {
-      yield put({ type: REGISTRATION_SUCCESS, result });
+    response = yield response.json();
+    console.log(response);
+    if ("token" in response) {
+      yield put({ type: REGISTRATION_SUCCESS, response });
       //sending token to local storage
-      localStorage.setItem("auth", JSON.stringify(result.token));
+      localStorage.setItem("auth", JSON.stringify(response.token));
     } else {
       yield put({ type: REGISTRATION_FAILED });
     }
   }
 }
-function* registrationDetails() {
-  yield takeLatest(REGISTRATION_DETAILS, getRegistrationDetails);
-}
-
-export default registrationDetails;

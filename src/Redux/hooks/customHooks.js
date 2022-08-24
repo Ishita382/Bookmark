@@ -4,6 +4,7 @@ import {
   LOGIN_DETAILS,
   GET_ME_REQUEST,
   GET_MY_FOLDERS_REQUEST,
+  CREATE_FOLDER_REQUEST
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -35,5 +36,13 @@ export const useCustomHooks = () => {
     });
   };
 
-  return { sendRegistrationDetails, sendLoginDetails, getMe, getMyFolders };
+  const createFolder = (name) => {
+    console.log("folder name", name);
+    return dispatch({
+      type: CREATE_FOLDER_REQUEST,
+      payload: name,
+    });
+  };
+
+  return { sendRegistrationDetails, sendLoginDetails, getMe, getMyFolders, createFolder };
 };

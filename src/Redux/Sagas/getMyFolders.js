@@ -1,12 +1,11 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 import {
-  GET_MY_FOLDERS_REQUEST,
   GET_MY_FOLDERS_FAILURE,
   GET_MY_FOLDERS_SUCCESS,
 } from "../actions/constant";
 import send_request from "../Request";
 
-function* getUserFolders() {
+export function* getUserFolders() {
   if (localStorage.getItem("auth")) {
     try {
       let response = yield send_request("folders", "GET", {});
@@ -17,9 +16,3 @@ function* getUserFolders() {
     }
   }
 }
-
-function* userFolders() {
-  yield takeLatest(GET_MY_FOLDERS_REQUEST, getUserFolders);
-}
-
-export default userFolders;
