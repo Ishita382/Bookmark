@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
 import { Input } from "@mui/material";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 const CustomHeading = styled(Box)`
@@ -53,15 +53,17 @@ const CustomInput = styled(Input)`
   background: #ffffff;
   border: 1px solid #f1f1fa;
   border-radius: 16px;
+  text-decoration: none;
+  border-bottom: none;
 `;
 const CustomButton = styled(Button)`
   width: 350px;
-  height: 50px;
-  border-radius: 30px;
+  height: 48px;
+  border-radius: 15px;
   background-color: #5352ed;
   color: #ffffff;
-  margin-top: 40px;
-  margin-left: 200px;
+  margin-top: 70px;
+
   :hover {
     color: black;
     background-color: grey;
@@ -81,9 +83,15 @@ const LoginBox = styled(Box)`
   color: #91919f;
 `;
 const CustomLink = styled(Link)`
-  color: #5352ed;
+  color: white;
+  font-weight:bold;
+  text-decoration: none;
 `;
 
+const LoginLink = styled(Link)`
+color: #5352ed,
+
+`
 
 function SignUp() {
   const [regName, setRegName] = useState("");
@@ -124,7 +132,7 @@ function SignUp() {
               disableUnderline
             ></CustomInput>
           </Box>
-          <br />
+          <br /><br/><br/><br/>
           <Box>
             <CustomInput
               type="email"
@@ -133,7 +141,7 @@ function SignUp() {
               disableUnderline
             ></CustomInput>
           </Box>
-          <br />
+          <br /><br/><br/><br/>
           <Box>
             <CustomInput
               type="password"
@@ -146,16 +154,16 @@ function SignUp() {
          
           <Box>
             <CustomButton onClick={() => sendRegistrationDetails(data)}>
-              <CustomLink to="/dashboard" disableUnderline>
+              <CustomLink to="/dashboard" >
                 Sign Up
               </CustomLink>
             </CustomButton>
           </Box>
           <LoginBox>
             Already have an account?{" "}
-            <CustomLink to="/login" disableUnderline>
+            <LoginLink to="/login" >
               Login
-            </CustomLink>
+            </LoginLink>
           </LoginBox>
         </SignUpBox>
       </RightBox>

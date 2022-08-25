@@ -1,24 +1,35 @@
 import React from "react";
 import { useEffect } from "react";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import Leftpanel from "../components/Leftpanel";
-import Quicklink from "../components/QuickLink";
-import { initialState } from "../Redux/reducers/reducers";
+
+import styled from "@emotion/styled";
+import { Box } from "@mui/system";
+import Bookmark from "../components/Bookmark";
+
+
+
+const CustomBox = styled(Box)`
+display: grid;
+  grid-template-columns: 15% 85%;
+  height: 100vh;
+  width: 100vw;
+`
 function Dashboard() {
   const { getMe, getMyFolders } = useCustomHooks();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   useEffect(() => {
     getMe();
     getMyFolders();
-  }, [dispatch]);
+  });
 
   return (
-    <div>
+    <CustomBox>
       
-      <Quicklink />
       <Leftpanel />
-    </div>
+      <Bookmark/>
+    </CustomBox>
   );
 }
 

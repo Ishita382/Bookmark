@@ -3,14 +3,14 @@ import {
   LOGIN_DETAILS_FAILED,
   LOGIN_DETAILS_SUCCESS,
 } from "../actions/constant";
-import { initialState } from "../reducers/reducers";
+//import { initialState } from "../reducers/reducers";
+//import { initialState } from "../reducers/reducers";
 
 const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 
 export function* getLoginDetails(action) {
-  initialState.folders = [];
-  localStorage.clear();
-  console.log("check",initialState);
+ 
+
   let data = action.payload;
   if (data !== "") {
     let response = yield fetch(login_api, {
@@ -23,14 +23,17 @@ export function* getLoginDetails(action) {
     });
 
     response = yield response.json();
-    console.log(response);
+    console.log("login api", response);
+    try{
     if ("token" in response) {
       yield put({ type: LOGIN_DETAILS_SUCCESS, response });
-
       //setting token to local storage
       localStorage.setItem("auth", JSON.stringify(response.token));
-    } else {
-      yield put({ type: LOGIN_DETAILS_FAILED });
+      
+    } 
+  }
+  catch(error) {
+      yield put({ type: LOGIN_DETAILS_FAILED }, error);
     }
   }
 }
