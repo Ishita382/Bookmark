@@ -13,7 +13,7 @@ const send_request = async (path, method, data) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${auth}`
+      Authorization: `Bearer ${auth}`,
     },
     body: JSON.stringify(data),
   };

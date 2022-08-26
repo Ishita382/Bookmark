@@ -8,14 +8,12 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Bookmark from "../components/Bookmark";
 
-
-
 const CustomBox = styled(Box)`
-display: grid;
+  display: grid;
   grid-template-columns: 15% 85%;
   height: 100vh;
   width: 100vw;
-`
+`;
 function Dashboard() {
   const { getMe, getMyFolders } = useCustomHooks();
   // const dispatch = useDispatch();
@@ -26,9 +24,8 @@ function Dashboard() {
 
   return (
     <CustomBox>
-      
       <Leftpanel />
-      <Bookmark/>
+      <Bookmark />
     </CustomBox>
   );
 }

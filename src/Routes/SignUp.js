@@ -84,14 +84,13 @@ const LoginBox = styled(Box)`
 `;
 const CustomLink = styled(Link)`
   color: white;
-  font-weight:bold;
+  font-weight: bold;
   text-decoration: none;
 `;
 
 const LoginLink = styled(Link)`
-color: #5352ed,
-
-`
+  color: #5352ed;
+`;
 
 function SignUp() {
   const [regName, setRegName] = useState("");
@@ -132,7 +131,10 @@ function SignUp() {
               disableUnderline
             ></CustomInput>
           </Box>
-          <br /><br/><br/><br/>
+          <br />
+          <br />
+          <br />
+          <br />
           <Box>
             <CustomInput
               type="email"
@@ -141,7 +143,10 @@ function SignUp() {
               disableUnderline
             ></CustomInput>
           </Box>
-          <br /><br/><br/><br/>
+          <br />
+          <br />
+          <br />
+          <br />
           <Box>
             <CustomInput
               type="password"
@@ -151,19 +156,14 @@ function SignUp() {
             ></CustomInput>
           </Box>
           <Box></Box>
-         
+
           <Box>
             <CustomButton onClick={() => sendRegistrationDetails(data)}>
-              <CustomLink to="/dashboard" >
-                Sign Up
-              </CustomLink>
+              <CustomLink to="/dashboard">Sign Up</CustomLink>
             </CustomButton>
           </Box>
           <LoginBox>
-            Already have an account?{" "}
-            <LoginLink to="/login" >
-              Login
-            </LoginLink>
+            Already have an account? <LoginLink to="/login">Login</LoginLink>
           </LoginBox>
         </SignUpBox>
       </RightBox>

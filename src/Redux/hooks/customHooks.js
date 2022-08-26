@@ -5,7 +5,7 @@ import {
   GET_ME_REQUEST,
   GET_MY_FOLDERS_REQUEST,
   CREATE_FOLDER_REQUEST,
-  LOGOUT_REQUEST
+  LOGOUT_REQUEST,
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -47,10 +47,17 @@ export const useCustomHooks = () => {
 
   const logout = (navigate) => {
     return dispatch({
-      type : LOGOUT_REQUEST,
-      navigate : navigate,
+      type: LOGOUT_REQUEST,
+      navigate: navigate,
     });
   };
 
-  return { sendRegistrationDetails, sendLoginDetails, getMe, getMyFolders, createFolder, logout };
+  return {
+    sendRegistrationDetails,
+    sendLoginDetails,
+    getMe,
+    getMyFolders,
+    createFolder,
+    logout,
+  };
 };

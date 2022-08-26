@@ -9,8 +9,6 @@ import {
 const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 
 export function* getLoginDetails(action) {
- 
-
   let data = action.payload;
   if (data !== "") {
     let response = yield fetch(login_api, {
@@ -24,15 +22,13 @@ export function* getLoginDetails(action) {
 
     response = yield response.json();
     console.log("login api", response);
-    try{
-    if ("token" in response) {
-      yield put({ type: LOGIN_DETAILS_SUCCESS, response });
-      //setting token to local storage
-      localStorage.setItem("auth", JSON.stringify(response.token));
-      
-    } 
-  }
-  catch(error) {
+    try {
+      if ("token" in response) {
+        yield put({ type: LOGIN_DETAILS_SUCCESS, response });
+        //setting token to local storage
+        localStorage.setItem("auth", JSON.stringify(response.token));
+      }
+    } catch (error) {
       yield put({ type: LOGIN_DETAILS_FAILED }, error);
     }
   }

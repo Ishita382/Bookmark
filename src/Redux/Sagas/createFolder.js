@@ -9,7 +9,7 @@ export function* createMyFolder(action) {
   // const {folder : name} = data;
   if (localStorage.getItem("auth")) {
     try {
-      let response = yield send_request("folder", "POST", {name});
+      let response = yield send_request("folder", "POST", { name });
       yield put({ type: CREATE_FOLDER_SUCCESS, response });
       console.log("create my folder", response);
     } catch (error) {
