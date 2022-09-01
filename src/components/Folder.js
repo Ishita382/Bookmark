@@ -36,7 +36,7 @@ const FolderName = styled(Box)`
 const AddButton = styled(Button)``;
 function Folder(props) {
   const { item } = props;
-  const { openModal, renameFolder } = useCustomHooks();
+  const { openModal, openRenameModal } = useCustomHooks();
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -88,7 +88,18 @@ function Folder(props) {
             Add Subfolder
           </MenuItem>
           <MenuItem onClick={handleClose}>Delete</MenuItem>
-          <MenuItem onClick={() => {{handleClose();}}}>Rename</MenuItem>
+          <MenuItem
+            onClick={() => {
+              {
+                handleClose();
+              }
+              {
+                openRenameModal();
+              }
+            }}
+          >
+            Rename
+          </MenuItem>
         </Menu>
       </FolderBox>
     </Box>

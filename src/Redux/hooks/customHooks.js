@@ -11,6 +11,7 @@ import {
   ADD_SUBFOLDER_REQUEST,
   OPEN_MODAL,
   CLOSE_MODAL,
+  OPEN_RENAME_MODAL
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -101,6 +102,12 @@ export const useCustomHooks = () => {
       type: CLOSE_MODAL,
     });
   };
+
+  const openRenameModal = () => {
+    return dispatch({
+      type : OPEN_RENAME_MODAL,
+    })
+  }
 
   return {
     sendRegistrationDetails,
