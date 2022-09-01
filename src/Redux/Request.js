@@ -28,10 +28,21 @@ const send_request = async (path, method, item) => {
     body: JSON.stringify(item),
   };
 
+  const putMethods = {
+    method: "PUT",
+    headers:{
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization : `Bearer ${auth}`,
+    },
+    body: JSON.stringify(item),
+  }
+
   let result = fetch(
     url.concat(path),
     method === "GET" ? getMethods : 
-    method === "POST" ? postMethods : delMethods
+    method === "POST" ? postMethods : 
+    method === "PUT" ? putMethods : delMethods
   );
 
   let api_response = await result.then((response) => response.json());

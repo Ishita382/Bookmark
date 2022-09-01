@@ -11,7 +11,9 @@ import {
   ADD_SUBFOLDER_REQUEST,
   OPEN_MODAL,
   CLOSE_MODAL,
-  OPEN_RENAME_MODAL
+  OPEN_RENAME_MODAL,
+  CLOSE_RENAME_MODAL,
+  GET_FOLDER_CHILDREN_REQUEST
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -68,13 +70,13 @@ export const useCustomHooks = () => {
     });
   };
 
-  const renameFolder = (folderId, name) => {
-    console.log(name, folderId);
+  const renameFolder = (renameFolderId, folderName) => {
+    console.log(renameFolderId, folderName);
     return dispatch({
       type: RENAME_FOLDER_REQUEST,
       payload: {
-        folderId: folderId,
-        name: name,
+        folderId: renameFolderId,
+        name: folderName,
       },
     });
   };
@@ -103,9 +105,23 @@ export const useCustomHooks = () => {
     });
   };
 
-  const openRenameModal = () => {
+  const openRenameModal = (id) => {
     return dispatch({
       type : OPEN_RENAME_MODAL,
+      payload: id
+    })
+  }
+  
+  const closeRenameModal = () => {
+    return dispatch({
+      type: CLOSE_RENAME_MODAL
+    });
+  };
+
+  const getFolderChildren = (id) => {
+    return dispatch({
+      type: GET_FOLDER_CHILDREN_REQUEST,
+      payload : id
     })
   }
 
@@ -121,5 +137,8 @@ export const useCustomHooks = () => {
     addSubFolder,
     openModal,
     closeModal,
+    openRenameModal,
+    closeRenameModal,
+    getFolderChildren
   };
 };

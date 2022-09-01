@@ -12,16 +12,21 @@ import {
   DELETE_FOLDER_SUCCESS,
   OPEN_MODAL,
   CLOSE_MODAL,
+  OPEN_RENAME_MODAL,
+  CLOSE_RENAME_MODAL,
+  CREATE_FOLDER_REQUEST,
 } from "../actions/constant";
 
 export const initialState = {
-  folders: [],
+  folders: {},
   folderLoading: "initial",
   loginLoading: "initial",
-  rootIds: [],
+  folderIds: [],
   create: false,
   createFolderParent: "",
   childFolders: [],
+  renameModal: false,
+  renameFolderId: ""
 };
 export const loginDetails = (state = initialState, action) => {
   const payload = action.payload;
@@ -46,20 +51,25 @@ export const loginDetails = (state = initialState, action) => {
       return { ...state, folderLoading: "inProgress" };
 
     case GET_MY_FOLDERS_SUCCESS: {
-      return { ...state, folders: payload.response, folderLoading: "false" };
+      const temp = [];
+      action.payload.response.map((item) => {temp.push(item.id)});
+      const obj = {}
+      action.payload.response.map((item) => {obj[item.id] = item});
+      return { ...state, folders: obj, folderIds : temp, folderLoading: "false" };
     }
 
     case GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
     case CREATE_FOLDER_SUCCESS:
-      let new_folders = [...state.folders];
-      if (state.createFolderParent === "") {
-        new_folders.push(action.payload.response);
+      
+      state.folders[action.payload.response.id] = action.payload.response;
+     if (state.createFolderParent === "") {
+        state.folderIds.push(action.payload.response.id);
       } else {
-        state.childFolders.push(action.payload.response);
+       state.folders[state.createFolderParent].childIds.push(action.payload.response.id);
       }
-      return { ...state, folders: [...new_folders] };
+      return { ...state };
 
     case LOGOUT_SUCCESS:
       return { ...initialState };
@@ -75,6 +85,15 @@ export const loginDetails = (state = initialState, action) => {
 
       case CLOSE_MODAL:
         return {...state, create: false};
+
+        case OPEN_RENAME_MODAL:
+          return {...state, renameModal : true, renameFolderId: action.payload }
+
+          case CLOSE_RENAME_MODAL:
+            return {...state, renameModal : false};
+
+            case CREATE_FOLDER_REQUEST:
+              return {...state, create : false};
 
     default:
       return state;

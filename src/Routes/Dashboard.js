@@ -28,9 +28,9 @@ margin-top: 300px;
 `;
 
 function Dashboard() {
-  const initials = useSelector((state) => state.loginDetails);
-  const { create, createFolderParent } = initials;
-  const { getMe, getMyFolders, createFolder, closeModal } = useCustomHooks();
+  const initial = useSelector((state) => state.loginDetails);
+  const { create, createFolderParent, renameModal, renameFolderId } = initial;
+  const { getMe, getMyFolders, createFolder, closeModal, renameFolder, closeRenameModal } = useCustomHooks();
 
   useEffect(() => {
     getMe();
@@ -57,6 +57,12 @@ function Dashboard() {
               <button onClick={() => closeModal()}>close</button>
             </ModalBox>
           </Modal>
+          {/* <Modal open= {renameModal}>
+            <ModalBox>
+              New Name: <input type="text" onChange={newFolderName}/>
+              <button onClick={() => {{renameFolder(renameFolderId, folderName);}{closeRenameModal();}}}>Submit</button>
+            </ModalBox>
+          </Modal> */}
           <Rightpanel />
         </CustomBox>
       ) : (

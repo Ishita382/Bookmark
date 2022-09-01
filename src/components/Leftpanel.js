@@ -102,9 +102,8 @@ const SaveButton = styled(Button)`
 
 function Leftpanel() {
   const initial = useSelector((state) => state.loginDetails);
-  const myFolders = initial.folders;
-  const childFolders = initial.childFolders;
-  console.log(childFolders);
+  const { folderIds, folders} = initial;
+  // console.log(childFolders);
   const { logout, createFolder } = useCustomHooks();
   const navigate = useNavigate();
   const [folder, setFolder] = useState();
@@ -118,8 +117,8 @@ function Leftpanel() {
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
       <FolderBox>
         {/* folders mapping */}
-        {Object.keys(myFolders).length !== 0 &&
-          myFolders.map((item) => <Folder key={item.id} item={item} />)}
+        {Object.keys(folderIds).length !== 0 &&
+          folderIds.map((item) => <Folder key={item} item={folders[item]} />)}
       </FolderBox>
       <NewFolderInput
         type="text"

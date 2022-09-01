@@ -36,7 +36,7 @@ const FolderName = styled(Box)`
 const AddButton = styled(Button)``;
 function Folder(props) {
   const { item } = props;
-  const { openModal, openRenameModal } = useCustomHooks();
+  const { openModal, openRenameModal, getFolderChildren } = useCustomHooks();
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -49,7 +49,7 @@ function Folder(props) {
   return (
     <Box>
       <FolderBox>
-        <ArrowButton>
+        <ArrowButton onClick={() => getFolderChildren(item.id)}>
           <ArrowRightIcon />
         </ArrowButton>
         <FolderButton>
@@ -94,7 +94,7 @@ function Folder(props) {
                 handleClose();
               }
               {
-                openRenameModal();
+                openRenameModal(item.id);
               }
             }}
           >
