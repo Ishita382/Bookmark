@@ -2,18 +2,22 @@ import React from "react";
 import styled from "@emotion/styled";
 import Quicklink from "./QuickLink";
 import { Box } from "@mui/material";
+import Bookmark from "./Bookmarks";
 const CustomBox = styled(Box)`
-  flex: 3;
+  display : flex;
+  flex-direction: column;
   height: 100%;
   widht: 100%;
-  background-color: pink;
+  overflow: hidden;
+ 
 `;
-function Bookmark() {
+function Rightpanel() {
   return (
     <CustomBox>
       <Quicklink />
+      <Bookmark/>
     </CustomBox>
   );
 }
 
-export default Bookmark;
+export default Rightpanel;

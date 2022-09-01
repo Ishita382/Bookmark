@@ -6,6 +6,11 @@ import {
   GET_MY_FOLDERS_REQUEST,
   CREATE_FOLDER_REQUEST,
   LOGOUT_REQUEST,
+  DELETE_FOLDER_REQUEST,
+  RENAME_FOLDER_REQUEST,
+  ADD_SUBFOLDER_REQUEST,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -37,11 +42,14 @@ export const useCustomHooks = () => {
     });
   };
 
-  const createFolder = (name) => {
+  const createFolder = (name, createFolderParent) => {
     console.log("folder name", name);
     return dispatch({
       type: CREATE_FOLDER_REQUEST,
-      payload: name,
+      payload: {
+        name : name,
+        id : createFolderParent
+      }
     });
   };
 
@@ -52,6 +60,48 @@ export const useCustomHooks = () => {
     });
   };
 
+  const delete_folder = (folderId) => {
+    return dispatch({
+      type: DELETE_FOLDER_REQUEST,
+      payload: folderId,
+    });
+  };
+
+  const renameFolder = (name, folderId) => {
+    console.log(name, folderId);
+    return dispatch({
+      type: RENAME_FOLDER_REQUEST,
+      payload: {
+        name: name,
+        folderId: folderId,
+      },
+    });
+  };
+
+  const addSubFolder = (folderId) => {
+    console.log(folderId);
+    return dispatch({
+      type: ADD_SUBFOLDER_REQUEST,
+      payload: {
+        folderId: folderId,
+      },
+    });
+  };
+
+  const openModal = (id) => {
+    console.log(id);
+    return dispatch({
+      type: OPEN_MODAL,
+      payload: id,
+    });
+  };
+
+  const closeModal = () =>{
+    return dispatch({
+      type: CLOSE_MODAL
+    })
+  }
+
   return {
     sendRegistrationDetails,
     sendLoginDetails,
@@ -59,5 +109,10 @@ export const useCustomHooks = () => {
     getMyFolders,
     createFolder,
     logout,
+    delete_folder,
+    renameFolder,
+    addSubFolder,
+    openModal,
+    closeModal
   };
 };

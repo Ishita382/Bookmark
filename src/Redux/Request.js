@@ -1,4 +1,4 @@
-const send_request = async (path, method, data) => {
+const send_request = async (path, method, item) => {
   const auth = JSON.parse(localStorage.getItem("auth"));
 
   const url = "https://bookmarks-app-server.herokuapp.com/";
@@ -15,12 +15,23 @@ const send_request = async (path, method, data) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${auth}`,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(item),
+  };
+
+  const delMethods = {
+    method:"DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${auth}`,
+    },
+    body: JSON.stringify(item),
   };
 
   let result = fetch(
     url.concat(path),
-    method === "GET" ? getMethods : postMethods
+    method === "GET" ? getMethods : 
+    method === "POST" ? postMethods : delMethods
   );
 
   let api_response = await result.then((response) => response.json());

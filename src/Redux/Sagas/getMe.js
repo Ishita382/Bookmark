@@ -8,7 +8,7 @@ export function* getUser() {
   if (localStorage.getItem("auth")) {
     try {
       let response = yield send_request("me", "GET", {});
-      yield put({ type: GET_ME_SUCCESS, response });
+      yield put({ type: GET_ME_SUCCESS, payload : { response } });
       console.log("get me api", response);
     } catch (error) {
       yield put({ type: GET_ME_FAILURE }, error);
