@@ -119,7 +119,7 @@ function Leftpanel() {
       <FolderBox>
         {/* folders mapping */}
         {Object.keys(myFolders).length !== 0 &&
-          myFolders.map((item) => <Folder item={item} />)}
+          myFolders.map((item) => <Folder key={item.id} item={item} />)}
       </FolderBox>
       <NewFolderInput
         type="text"

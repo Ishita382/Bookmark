@@ -10,7 +10,7 @@ import {
   RENAME_FOLDER_REQUEST,
   ADD_SUBFOLDER_REQUEST,
   OPEN_MODAL,
-  CLOSE_MODAL
+  CLOSE_MODAL,
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -47,9 +47,9 @@ export const useCustomHooks = () => {
     return dispatch({
       type: CREATE_FOLDER_REQUEST,
       payload: {
-        name : name,
-        id : createFolderParent
-      }
+        name: name,
+        id: createFolderParent,
+      },
     });
   };
 
@@ -67,13 +67,13 @@ export const useCustomHooks = () => {
     });
   };
 
-  const renameFolder = (name, folderId) => {
+  const renameFolder = (folderId, name) => {
     console.log(name, folderId);
     return dispatch({
       type: RENAME_FOLDER_REQUEST,
       payload: {
-        name: name,
         folderId: folderId,
+        name: name,
       },
     });
   };
@@ -96,11 +96,11 @@ export const useCustomHooks = () => {
     });
   };
 
-  const closeModal = () =>{
+  const closeModal = () => {
     return dispatch({
-      type: CLOSE_MODAL
-    })
-  }
+      type: CLOSE_MODAL,
+    });
+  };
 
   return {
     sendRegistrationDetails,
@@ -113,6 +113,6 @@ export const useCustomHooks = () => {
     renameFolder,
     addSubFolder,
     openModal,
-    closeModal
+    closeModal,
   };
 };
