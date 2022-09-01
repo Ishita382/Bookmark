@@ -10,6 +10,7 @@ import Rightpanel from "../components/Rightpanel";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
+
 const CustomBox = styled(Box)`
   display: grid;
   grid-template-columns: 15% 85%;
@@ -20,9 +21,10 @@ const CustomBox = styled(Box)`
 `;
 
 const ModalBox = styled(Box)`
-  align-items: center;
-  margin-left: 600px;
-  margin-top: 300px;
+align-items : center;
+margin-left: 600px;
+margin-top: 300px;
+
 `;
 
 function Dashboard() {
@@ -50,17 +52,8 @@ function Dashboard() {
             <ModalBox>
               Name: <input type="text" onChange={newFolderName} />
               <button
-                onClick={() => {
-                  {
-                    createFolder(folderName, createFolderParent);
-                  }
-                  {
-                    closeModal();
-                  }
-                }}
-              >
-                Submit
-              </button>
+                onClick={() => {{createFolder(folderName, createFolderParent);}{closeModal();}}}
+              >Submit</button>
               <button onClick={() => closeModal()}>close</button>
             </ModalBox>
           </Modal>
