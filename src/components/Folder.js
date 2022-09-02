@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
+import { useSelector } from "react-redux/es/exports";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
 
 const FolderButton = styled(Button)`
@@ -32,11 +32,16 @@ const FolderName = styled(Box)`
   color: #77757f;
   font-weight: 500;
 `;
+const SubFolderBox = styled(Box)`
+  margin-left: 20px;
+`;
 
 const AddButton = styled(Button)``;
 function Folder(props) {
   const { item } = props;
-  const { openModal, openRenameModal, getFolderChildren } = useCustomHooks();
+  const { openModal, openRenameModal, getFolderChildren, getBookmarks } =
+    useCustomHooks();
+  const { folders } = useSelector((state) => state.loginDetails);
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -52,7 +57,7 @@ function Folder(props) {
         <ArrowButton onClick={() => getFolderChildren(item.id)}>
           <ArrowRightIcon />
         </ArrowButton>
-        <FolderButton>
+        <FolderButton onClick={() => getBookmarks(item.id)}>
           <FolderIcon />
           <FolderName>{item.name}</FolderName>
         </FolderButton>
@@ -102,6 +107,13 @@ function Folder(props) {
           </MenuItem>
         </Menu>
       </FolderBox>
+      <SubFolderBox>
+        {item.hasOwnProperty("childIds") &&
+          item.childIds.length > 0 &&
+          item.childIds.map((item) => (
+            <Folder key={item} item={folders[item]} />
+          ))}
+      </SubFolderBox>
     </Box>
   );
 }

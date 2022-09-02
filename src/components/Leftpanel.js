@@ -102,7 +102,7 @@ const SaveButton = styled(Button)`
 
 function Leftpanel() {
   const initial = useSelector((state) => state.loginDetails);
-  const { folderIds, folders} = initial;
+  const { folderIds, folders } = initial;
   // console.log(childFolders);
   const { logout, createFolder } = useCustomHooks();
   const navigate = useNavigate();
@@ -127,7 +127,7 @@ function Leftpanel() {
         placeholder="+ New"
       />
       <SaveButton onClick={() => createFolder(folder)}>Save</SaveButton>
-          
+
       <LogoutBox>
         <LogoutButton onClick={() => logout(navigate)}>
           <LogoutIcon />

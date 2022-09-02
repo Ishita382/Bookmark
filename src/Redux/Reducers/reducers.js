@@ -15,6 +15,10 @@ import {
   OPEN_RENAME_MODAL,
   CLOSE_RENAME_MODAL,
   CREATE_FOLDER_REQUEST,
+  GET_FOLDER_CHILDREN_REQUEST,
+  GET_FOLDER_CHILDREN_SUCCESS,
+  GET_BOOKMARKS_REQUEST,
+  GET_BOOKMARKS_SUCCESS,
 } from "../actions/constant";
 
 export const initialState = {
@@ -26,7 +30,12 @@ export const initialState = {
   createFolderParent: "",
   childFolders: [],
   renameModal: false,
-  renameFolderId: ""
+  renameFolderId: "",
+  parentId: "",
+  selectedFolder: "",
+  bookmarkFolder: "",
+  bookmarks: {},
+  rootBookmarks: [],
 };
 export const loginDetails = (state = initialState, action) => {
   const payload = action.payload;
@@ -52,22 +61,47 @@ export const loginDetails = (state = initialState, action) => {
 
     case GET_MY_FOLDERS_SUCCESS: {
       const temp = [];
-      action.payload.response.map((item) => {temp.push(item.id)});
-      const obj = {}
-      action.payload.response.map((item) => {obj[item.id] = item});
-      return { ...state, folders: obj, folderIds : temp, folderLoading: "false" };
+      action.payload.response.map((item) => {
+        temp.push(item.id);
+      });
+      const obj = {};
+      action.payload.response.map((item) => {
+        obj[item.id] = item;
+      });
+      return {
+        ...state,
+        folders: obj,
+        folderIds: temp,
+        folderLoading: "false",
+      };
     }
 
     case GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
+    case GET_FOLDER_CHILDREN_REQUEST:
+      return { ...state, parentId: action.payload };
+
+    case GET_FOLDER_CHILDREN_SUCCESS:
+      const arr = [];
+      action.payload.response.map((item) => (state.folders[item.id] = item));
+      action.payload.response.map((item) => arr.push(item.id));
+      state.folders[state.parentId].childIds = arr;
+      return { ...state };
+
     case CREATE_FOLDER_SUCCESS:
-      
+      console.log("bookmark folders", state.folders);
       state.folders[action.payload.response.id] = action.payload.response;
-     if (state.createFolderParent === "") {
+      if (state.createFolderParent === "") {
         state.folderIds.push(action.payload.response.id);
       } else {
-       state.folders[state.createFolderParent].childIds.push(action.payload.response.id);
+        console.log(
+          "create folder parent",
+          state.folders[state.createFolderParent]
+        );
+        state.folders[state.createFolderParent].childIds.push(
+          action.payload.response.id
+        );
       }
       return { ...state };
 
@@ -83,17 +117,44 @@ export const loginDetails = (state = initialState, action) => {
       console.log("open modal reducer", action.payload);
       return { ...state, create: true, createFolderParent: action.payload };
 
-      case CLOSE_MODAL:
-        return {...state, create: false};
+    case CLOSE_MODAL:
+      return { ...state, create: false };
 
-        case OPEN_RENAME_MODAL:
-          return {...state, renameModal : true, renameFolderId: action.payload }
+    case OPEN_RENAME_MODAL:
+      return { ...state, renameModal: true, renameFolderId: action.payload };
 
-          case CLOSE_RENAME_MODAL:
-            return {...state, renameModal : false};
+    case CLOSE_RENAME_MODAL:
+      return { ...state, renameModal: false };
 
-            case CREATE_FOLDER_REQUEST:
-              return {...state, create : false};
+    case CREATE_FOLDER_REQUEST:
+      return { ...state, create: false };
+
+    case GET_BOOKMARKS_REQUEST:
+      return {
+        ...state,
+        selectedFolder: action.payload,
+        bookmarkFolder: action.payload,
+      };
+
+    case GET_BOOKMARKS_SUCCESS: {
+      const bookmarkId = [];
+      const rootBookmarkId = [];
+      action.payload.response.map((item) =>
+        state.bookmarkFolder === ""
+          ? rootBookmarkId.push(item.id)
+          : bookmarkId.push(item.id)
+      );
+      const object = {};
+      action.payload.response.map((item) => (object[item.id] = item));
+      if (state.bookmarkFolder !== "") {
+        state.folders[state.bookmarkFolder].bIds = bookmarkId;
+      }
+      return {
+        ...state,
+        rootBookmarks: rootBookmarkId,
+        bookmarks: { ...state.bookmarks, ...object },
+      };
+    }
 
     default:
       return state;

@@ -14,11 +14,15 @@ import {
   LOGOUT_REQUEST,
   DELETE_FOLDER_REQUEST,
   RENAME_FOLDER_REQUEST,
-  GET_FOLDER_CHILDREN_REQUEST
+  GET_FOLDER_CHILDREN_REQUEST,
+  GET_CURRENT_FOLDER_REQUEST,
+  GET_BOOKMARKS_REQUEST,
 } from "../actions/constant";
 import logoutUser from "./logout";
 import renameFolder from "./rename";
 import getFolderChildren from "./getFolderChildren";
+import currentFolder from "./currentFolder";
+import getMyBookmarks from "./getBookmarks";
 
 function* mySaga() {
   yield takeLatest(LOGIN_DETAILS, getLoginDetails);
@@ -30,7 +34,8 @@ function* mySaga() {
   yield takeLatest(DELETE_FOLDER_REQUEST, delete_folder);
   yield takeLatest(RENAME_FOLDER_REQUEST, renameFolder);
   yield takeLatest(GET_FOLDER_CHILDREN_REQUEST, getFolderChildren);
-  
+  yield takeLatest(GET_CURRENT_FOLDER_REQUEST, currentFolder);
+  yield takeLatest(GET_BOOKMARKS_REQUEST, getMyBookmarks);
 }
 
 export default mySaga;

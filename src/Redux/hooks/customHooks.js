@@ -13,7 +13,9 @@ import {
   CLOSE_MODAL,
   OPEN_RENAME_MODAL,
   CLOSE_RENAME_MODAL,
-  GET_FOLDER_CHILDREN_REQUEST
+  GET_FOLDER_CHILDREN_REQUEST,
+  GET_CURRENT_FOLDER_REQUEST,
+  GET_BOOKMARKS_REQUEST,
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -107,23 +109,37 @@ export const useCustomHooks = () => {
 
   const openRenameModal = (id) => {
     return dispatch({
-      type : OPEN_RENAME_MODAL,
-      payload: id
-    })
-  }
-  
+      type: OPEN_RENAME_MODAL,
+      payload: id,
+    });
+  };
+
   const closeRenameModal = () => {
     return dispatch({
-      type: CLOSE_RENAME_MODAL
+      type: CLOSE_RENAME_MODAL,
     });
   };
 
   const getFolderChildren = (id) => {
     return dispatch({
       type: GET_FOLDER_CHILDREN_REQUEST,
-      payload : id
-    })
-  }
+      payload: id,
+    });
+  };
+
+  const getCurrentFolder = (id) => {
+    return dispatch({
+      type: GET_CURRENT_FOLDER_REQUEST,
+      payload: id,
+    });
+  };
+
+  const getBookmarks = (id) => {
+    return dispatch({
+      type: GET_BOOKMARKS_REQUEST,
+      payload: id,
+    });
+  };
 
   return {
     sendRegistrationDetails,
@@ -139,6 +155,8 @@ export const useCustomHooks = () => {
     closeModal,
     openRenameModal,
     closeRenameModal,
-    getFolderChildren
+    getFolderChildren,
+    getCurrentFolder,
+    getBookmarks,
   };
 };

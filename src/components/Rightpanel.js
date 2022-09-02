@@ -4,18 +4,17 @@ import Quicklink from "./QuickLink";
 import { Box } from "@mui/material";
 import Bookmark from "./Bookmarks";
 const CustomBox = styled(Box)`
-  display : flex;
+  display: flex;
   flex-direction: column;
   height: 100%;
   widht: 100%;
   overflow: hidden;
- 
 `;
 function Rightpanel() {
   return (
     <CustomBox>
       <Quicklink />
-      <Bookmark/>
+      <Bookmark />
     </CustomBox>
   );
 }
