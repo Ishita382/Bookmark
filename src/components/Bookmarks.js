@@ -11,38 +11,57 @@ const CustomBox = styled(Box)`
 const BookmarkBox = styled(Box)`
   margin-bottom: 400px;
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const Card = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-
-  padding: 25px;
+  padding: 20px;
   gap: 25px;
-
-  margin-right: 35px;
+  margin-right: 45px;
   margin-top: 30px;
-  width: 100px;
+  width: 170px;
   height: 140px;
-
   background: #ffffff;
   box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
     0px 8px 24px -4px rgba(24, 39, 75, 0.08);
   border-radius: 20px;
+  font-family: Arial;
 `;
 
 const LoadingBox = styled(Box)`
-font-size:35px;
-color: gray;
-font-family: Arial;
-margin-top: 200px;
-margin-left: 370px;
-box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
+  font-size: 30px;
+  color: gray;
+  font-family: Arial;
+  margin-top: 200px;
+  margin-left: 370px;
+  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
     0px 8px 24px -4px rgba(24, 39, 75, 0.08);
-  
-`
+`;
 
+const Img = styled.img`
+  width: 250px;
+  height: 200px;
+  border-radius: 15px;
+  margin: 20px 20px 0px 20px;
+`;
+
+const Description = styled(Box)`
+  font-size: 12px;
+  background-color: #F5F5F5;
+  justify-content:center;
+  padding : 4px;
+  border-radius: 6px;
+`;
+
+const Name = styled(Box)`
+font-size: 12px;
+font-weight:bold;
+margin-bottom: -20px;
+color: #808080;
+`
 function Bookmark() {
   const initial = useSelector((state) => state.loginDetails);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
@@ -50,14 +69,23 @@ function Bookmark() {
   return (
     <CustomBox>
       <BookmarkBox>
-        {bookmarkLoading === "initial"
-          ? <LoadingBox>No Bookmarks</LoadingBox>
-          : bookmarkFolder !== "" && bookmarkLoading === "false"
-          ? folders[bookmarkFolder].bIds.map((item) => (
-              <Card key={item}>{bookmarks[item].name}<br/><br/>
-              </Card>
-            ))
-          : <LoadingBox>...Loading</LoadingBox>}
+        {bookmarkLoading === "initial" ? (
+          <LoadingBox>No Bookmarks</LoadingBox>
+        ) : bookmarkFolder !== "" && bookmarkLoading === "false" ? (
+          folders[bookmarkFolder].bIds.map((item) => (
+            <Card key={item}>
+              <Img src="Saly-10.jpg" alt="title" />
+             <Name>{bookmarks[item].name}</Name>
+              <Description>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+              </Description>
+             
+            </Card>
+          ))
+        ) : (
+          <LoadingBox>...Loading</LoadingBox>
+        )}
       </BookmarkBox>
     </CustomBox>
   );

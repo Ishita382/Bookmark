@@ -87,16 +87,17 @@ const RootFolder = styled(Box)`
   padding: 8px;
   gap: 10px;
   position: absolute;
-  width: 200px;
-  height: 40px;
+  width: 170px;
+  height: 25px;
   color: #fcfcfc;
   flex: none;
   order: 0;
   flex-grow: 0;
-  font-size: 12px;
+  font-size: 16px;
   top: 190px;
   background: #6c6bf9;
   border-radius: 16px;
+  font-family: Arial;
 `;
 const CustomButton = styled(Button)`
   display: flex;
@@ -109,13 +110,13 @@ const CustomButton = styled(Button)`
   width: 100px;
   height: 40px;
   top: 190px;
-  left: 700px;
+  left: 630px;
   background: #ffffff;
   border-radius: 16px;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 400;
   :hover {
-    color: white;
+    color: #fcfcfc;
   }
 `;
 
@@ -136,7 +137,7 @@ function Quicklink() {
         <URLHeading>URL</URLHeading>
         <URLInput
           type="text"
-          placeholder="https://xd.adobe.com/view/c9822b2d-182f-4501-4126"
+          placeholder="Paste URL here"
           disableUnderline
           onChange={setBookmarkLink}
         ></URLInput>

@@ -9,7 +9,7 @@ function* delete_folder(action) {
   const folderId = action.payload.folderId;
 
   try {
-    let response = yield send_request("folder", "DELETE", { folderId });
+    let response = yield send_request("folder", "DELETE", {folderId});
     yield put({ type: DELETE_FOLDER_SUCCESS, payload: { response } });
     // console.log(response[0].id);
     console.log(response);

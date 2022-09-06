@@ -7,13 +7,12 @@ import {
 
 function* createBookmark(action) {
   try {
-    let data = { url: action.payload.url };
-    if (action.payload.folderId !== "") {
-      data.folderId = action.payload.folderId;
-    }
-    const response = send_request("bookmark", "POST", data);
+    const item = {};
+    item.url = action.payload.url;
+    item.folderId = action.payload.folderId;
+    let response = send_request("bookmark", "POST", item);
     yield put({ type: CREATE_BOOKMARK_SUCCESS, payload: { response } });
-    console.log(response);
+    console.log("saga response", response);
   } catch (error) {
     yield put({ type: CREATE_BOOKMARK_FAILURE }, error);
   }

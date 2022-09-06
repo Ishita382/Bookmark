@@ -111,18 +111,7 @@ function Folder(props) {
           >
             Add Subfolder
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              {
-                handleClose();
-              }
-              {
-                deleteFolder(item.id);
-              }
-            }}
-          >
-            Delete
-          </MenuItem>
+          
           <MenuItem
             onClick={() => {
               {
