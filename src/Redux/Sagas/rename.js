@@ -6,12 +6,14 @@ import {
 import send_request from "../Request";
 
 function* renameFolder(action) {
-  const folderId = action.payload.folderId;
-  const name = action.payload.name;
-  const data = { folderId, name };
+  const { folderId, name } = action.payload;
   try {
-    const response = yield send_request("rename-folder", "PUT", { data });
+    const response = yield send_request("rename-folder", "PUT", {
+      folderId,
+      name,
+    });
     yield put({ type: RENAME_FOLDER_SUCCESS, payload: { response } });
+    console.log(response);
   } catch (error) {
     yield put({ type: RENAME_FOLDER_FAILURE }, error);
   }

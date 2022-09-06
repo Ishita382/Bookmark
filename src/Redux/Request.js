@@ -46,6 +46,7 @@ const send_request = async (path, method, item) => {
   );
 
   let api_response = await result.then((response) => response.json());
+  console.log("this is response",api_response);
   return api_response;
 };
 

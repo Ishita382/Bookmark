@@ -3,10 +3,10 @@ import { useCustomHooks } from "../Redux/hooks/customHooks";
 import Box from "@mui/material/Box";
 import styled from "@emotion/styled";
 import { Button, Input } from "@mui/material";
-
+import { useSelector } from "react-redux";
+import { useState } from "react";
 const CustomBox = styled(Box)`
   flex: 1;
-
   height: 100%;
   width: 100%;
 `;
@@ -79,7 +79,7 @@ const FolderHeading = styled(Box)`
   font-family: Arial;
 `;
 
-const FolderInput = styled(Input)`
+const RootFolder = styled(Box)`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -118,7 +118,17 @@ const CustomButton = styled(Button)`
     color: white;
   }
 `;
+
 function Quicklink() {
+  const { selectedFolder, folders } = useSelector(
+    (state) => state.loginDetails
+  );
+  const [link, setLink] = useState();
+  const { createBookmark } = useCustomHooks();
+  const setBookmarkLink = (e) => {
+    return setLink(e.target.value);
+  };
+
   return (
     <CustomBox>
       <CustomLinkBox>
@@ -128,10 +138,15 @@ function Quicklink() {
           type="text"
           placeholder="https://xd.adobe.com/view/c9822b2d-182f-4501-4126"
           disableUnderline
+          onChange={setBookmarkLink}
         ></URLInput>
         <FolderHeading>Folder</FolderHeading>
-        <FolderInput disableUnderline></FolderInput>
-        <CustomButton>Save</CustomButton>
+        <RootFolder disableUnderline>
+          {selectedFolder === "" ? "Root" : folders[selectedFolder].name}
+        </RootFolder>
+        <CustomButton onClick={() => createBookmark(link, selectedFolder)}>
+          Save
+        </CustomButton>
       </CustomLinkBox>
     </CustomBox>
   );

@@ -16,6 +16,9 @@ import {
   GET_FOLDER_CHILDREN_REQUEST,
   GET_CURRENT_FOLDER_REQUEST,
   GET_BOOKMARKS_REQUEST,
+  CREATE_BOOKMARK_REQUEST,
+  SET_PARENT_ID,
+  SET_BOOKMARK_FOLDER,
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -65,10 +68,10 @@ export const useCustomHooks = () => {
     });
   };
 
-  const delete_folder = (folderId) => {
+  const deleteFolder = (folderId) => {
     return dispatch({
       type: DELETE_FOLDER_REQUEST,
-      payload: folderId,
+      payload: { folderId: folderId },
     });
   };
 
@@ -141,6 +144,30 @@ export const useCustomHooks = () => {
     });
   };
 
+  const createBookmark = (url, folderId) => {
+    return dispatch({
+      type: CREATE_BOOKMARK_REQUEST,
+      payload: {
+        url: url,
+        folderId: folderId,
+      },
+    });
+  };
+
+  const setParent = (id) => {
+    return dispatch({
+      type: SET_PARENT_ID,
+      payload: id,
+    });
+  };
+
+  const setBookmarkFolder = (id) => {
+    return dispatch({
+      type: SET_BOOKMARK_FOLDER,
+      payload: id,
+    });
+  };
+
   return {
     sendRegistrationDetails,
     sendLoginDetails,
@@ -148,7 +175,7 @@ export const useCustomHooks = () => {
     getMyFolders,
     createFolder,
     logout,
-    delete_folder,
+    deleteFolder,
     renameFolder,
     addSubFolder,
     openModal,
@@ -158,5 +185,8 @@ export const useCustomHooks = () => {
     getFolderChildren,
     getCurrentFolder,
     getBookmarks,
+    createBookmark,
+    setParent,
+    setBookmarkFolder,
   };
 };

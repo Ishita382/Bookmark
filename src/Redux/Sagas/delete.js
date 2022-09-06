@@ -6,7 +6,7 @@ import send_request from "../Request";
 import { put } from "redux-saga/effects";
 
 function* delete_folder(action) {
-  const folderId = action.payload;
+  const folderId = action.payload.folderId;
 
   try {
     let response = yield send_request("folder", "DELETE", { folderId });

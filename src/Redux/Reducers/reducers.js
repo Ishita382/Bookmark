@@ -19,6 +19,10 @@ import {
   GET_FOLDER_CHILDREN_SUCCESS,
   GET_BOOKMARKS_REQUEST,
   GET_BOOKMARKS_SUCCESS,
+  CREATE_BOOKMARK_SUCCESS,
+  SET_BOOKMARK_FOLDER,
+  SET_PARENT_ID,
+  RENAME_FOLDER_SUCCESS,
 } from "../actions/constant";
 
 export const initialState = {
@@ -36,6 +40,8 @@ export const initialState = {
   bookmarkFolder: "",
   bookmarks: {},
   rootBookmarks: [],
+  bookmarkLoading: "initial",
+  isOpen: {},
 };
 export const loginDetails = (state = initialState, action) => {
   const payload = action.payload;
@@ -79,8 +85,12 @@ export const loginDetails = (state = initialState, action) => {
     case GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
-    case GET_FOLDER_CHILDREN_REQUEST:
+    case GET_FOLDER_CHILDREN_REQUEST: {
+      state.isOpen.hasOwnProperty(action.payload.id)
+        ? (state.isOpen[action.payload.id] = !state.isOpen[action.payload.id])
+        : (state.isOpen[action.payload.id] = true);
       return { ...state, parentId: action.payload };
+    }
 
     case GET_FOLDER_CHILDREN_SUCCESS:
       const arr = [];
@@ -88,6 +98,12 @@ export const loginDetails = (state = initialState, action) => {
       action.payload.response.map((item) => arr.push(item.id));
       state.folders[state.parentId].childIds = arr;
       return { ...state };
+
+    case SET_PARENT_ID:
+      state.isOpen.hasOwnProperty(action.payload.id)
+        ? (state.isOpen[action.payload.id] = !state.isOpen[action.payload.id])
+        : (state.isOpen[action.payload.id] = true);
+      return { ...state, parentId: action.payload.id };
 
     case CREATE_FOLDER_SUCCESS:
       console.log("bookmark folders", state.folders);
@@ -126,6 +142,12 @@ export const loginDetails = (state = initialState, action) => {
     case CLOSE_RENAME_MODAL:
       return { ...state, renameModal: false };
 
+      case RENAME_FOLDER_SUCCESS:
+        {
+          state.folders[state.renameFolderId].name = action.payload.response.name;
+        }
+        return{...state};
+
     case CREATE_FOLDER_REQUEST:
       return { ...state, create: false };
 
@@ -134,11 +156,19 @@ export const loginDetails = (state = initialState, action) => {
         ...state,
         selectedFolder: action.payload,
         bookmarkFolder: action.payload,
+        bookmarkLoading: "inProgress",
+      };
+
+    case SET_BOOKMARK_FOLDER:
+      return {
+        ...state,
+        bookmarkFolder: action.payload,
+        selectedFolder: action.payload,
       };
 
     case GET_BOOKMARKS_SUCCESS: {
-      const bookmarkId = [];
-      const rootBookmarkId = [];
+      let bookmarkId = [];
+      let rootBookmarkId = [];
       action.payload.response.map((item) =>
         state.bookmarkFolder === ""
           ? rootBookmarkId.push(item.id)
@@ -149,11 +179,27 @@ export const loginDetails = (state = initialState, action) => {
       if (state.bookmarkFolder !== "") {
         state.folders[state.bookmarkFolder].bIds = bookmarkId;
       }
+      console.log("reducer bookmarks",object);
       return {
         ...state,
         rootBookmarks: rootBookmarkId,
         bookmarks: { ...state.bookmarks, ...object },
+        bookmarkLoading: "false",
       };
+    }
+
+    case CREATE_BOOKMARK_SUCCESS: {
+      console.log("my bookmarks", state.bookmarks);
+      state.bookmarks[action.payload.response.id] = action.payload.response;
+      if (state.selectedFolder === "") {
+        state.rootBookmarks.push(action.payload.response.id);
+      } else {
+        state.folders[state.bookmarkFolder].bIds.push(
+          action.payload.response.id
+        );
+      }
+
+      return { ...state };
     }
 
     default:
