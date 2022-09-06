@@ -36,18 +36,10 @@ const SubFolderBox = styled(Box)`
   margin-left: 20px;
 `;
 
-const AddButton = styled(Button)``;
 function Folder(props) {
   const { item } = props;
-  const {
-    openModal,
-    openRenameModal,
-    getFolderChildren,
-    getBookmarks,
-    setParent,
-    setBookmarkFolder,
-    deleteFolder,
-  } = useCustomHooks();
+  const { openModal, openRenameModal, getFolderChildren, getBookmarks } =
+    useCustomHooks();
   const { folders } = useSelector((state) => state.loginDetails);
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
@@ -58,22 +50,10 @@ function Folder(props) {
     setAnchorEl(null);
   };
 
-  const folderClick = () => {
-    !item.hasOwnProperty("cIds")
-      ? getFolderChildren(item.id)
-      : setParent(item.id);
-  };
-
-  // const bookmarkClick = () => {
-  //   !item.hasOwnProperty("bIds")
-  //   ? getBookmarks(item.id)
-  //   : setBookmarkFolder(item.id);
-  // }
-
   return (
     <Box>
       <FolderBox>
-        <ArrowButton onClick={() => folderClick()}>
+        <ArrowButton onClick={() => getFolderChildren(item.id)}>
           <ArrowRightIcon />
         </ArrowButton>
         <FolderButton onClick={() => getBookmarks(item.id)}>
@@ -101,25 +81,17 @@ function Folder(props) {
         >
           <MenuItem
             onClick={() => {
-              {
-                handleClose();
-              }
-              {
-                openModal(item.id);
-              }
+              handleClose();
+              openModal(item.id);
             }}
           >
             Add Subfolder
           </MenuItem>
-          
+
           <MenuItem
             onClick={() => {
-              {
-                handleClose();
-              }
-              {
-                openRenameModal(item.id);
-              }
+              handleClose();
+              openRenameModal(item.id);
             }}
           >
             Rename

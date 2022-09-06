@@ -41,27 +41,20 @@ const LoadingBox = styled(Box)`
     0px 8px 24px -4px rgba(24, 39, 75, 0.08);
 `;
 
-const Img = styled.img`
-  width: 250px;
-  height: 200px;
-  border-radius: 15px;
-  margin: 20px 20px 0px 20px;
-`;
-
 const Description = styled(Box)`
   font-size: 12px;
-  background-color: #F5F5F5;
-  justify-content:center;
-  padding : 4px;
+  background-color: #f5f5f5;
+  justify-content: center;
+  padding: 4px;
   border-radius: 6px;
 `;
 
 const Name = styled(Box)`
-font-size: 12px;
-font-weight:bold;
-margin-bottom: -20px;
-color: #808080;
-`
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: -20px;
+  color: #808080;
+`;
 function Bookmark() {
   const initial = useSelector((state) => state.loginDetails);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
@@ -74,13 +67,11 @@ function Bookmark() {
         ) : bookmarkFolder !== "" && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
-              <Img src="Saly-10.jpg" alt="title" />
-             <Name>{bookmarks[item].name}</Name>
+              <Name>{bookmarks[item].name}</Name>
               <Description>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </Description>
-             
             </Card>
           ))
         ) : (

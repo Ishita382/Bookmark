@@ -12,7 +12,6 @@ function* createBookmark(action) {
     item.folderId = action.payload.folderId;
     let response = send_request("bookmark", "POST", item);
     yield put({ type: CREATE_BOOKMARK_SUCCESS, payload: { response } });
-    console.log("saga response", response);
   } catch (error) {
     yield put({ type: CREATE_BOOKMARK_FAILURE }, error);
   }

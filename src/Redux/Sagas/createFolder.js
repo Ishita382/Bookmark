@@ -16,7 +16,6 @@ export function* createMyFolder(action) {
       }
       let response = yield send_request("folder", "POST", item);
       yield put({ type: CREATE_FOLDER_SUCCESS, payload: { response } });
-      console.log("create my folder", response);
     } catch (error) {
       yield put({ type: CREATE_FOLDER_FAILURE }, error);
     }

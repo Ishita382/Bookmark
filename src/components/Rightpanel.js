@@ -4,7 +4,7 @@ import Quicklink from "./QuickLink";
 import { Box } from "@mui/material";
 import Bookmark from "./Bookmarks";
 const CustomBox = styled(Box)`
-flex: 3;
+  flex: 3;
   display: flex;
   flex-direction: column;
   height: 100%;

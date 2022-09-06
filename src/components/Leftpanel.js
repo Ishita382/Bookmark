@@ -15,7 +15,6 @@ const CustomBox = styled(Box)`
   width: 100%;
   flex-direction: row;
   overflow: hidden;
-  
 `;
 
 const FolderBox = styled(Box)`
@@ -104,7 +103,6 @@ const SaveButton = styled(Button)`
 function Leftpanel() {
   const initial = useSelector((state) => state.loginDetails);
   const { folderIds, folders } = initial;
-  // console.log(childFolders);
   const { logout, createFolder } = useCustomHooks();
   const navigate = useNavigate();
   const [folder, setFolder] = useState();

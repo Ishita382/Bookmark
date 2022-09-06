@@ -10,7 +10,6 @@ export function* getUserFolders() {
     try {
       let response = yield send_request("folders", "GET", {});
       yield put({ type: GET_MY_FOLDERS_SUCCESS, payload: { response } });
-      console.log("My folders", response);
     } catch (error) {
       yield put({ type: GET_MY_FOLDERS_FAILURE }, error);
     }

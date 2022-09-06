@@ -1,4 +1,3 @@
-import React from "react";
 import send_request from "../Request";
 import { put } from "redux-saga/effects";
 import {
@@ -14,7 +13,6 @@ function* currentFolder(action) {
       {}
     );
     yield put({ type: GET_CURRENT_FOLDER_SUCCESS, payload: { response } });
-    console.log(response);
   } catch (error) {
     yield put({ type: GET_CURRENT_FOLDER_FAILURE }, error);
   }

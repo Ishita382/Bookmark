@@ -1,4 +1,3 @@
-import React from "react";
 import send_request from "../Request";
 import { put } from "redux-saga/effects";
 import {
@@ -14,7 +13,6 @@ function* getFolderChildren(action) {
       {}
     );
     yield put({ type: GET_FOLDER_CHILDREN_SUCCESS, payload: { response } });
-    console.log(response);
   } catch (error) {
     yield put({ type: GET_FOLDER_CHILDREN_FAILURE }, error);
   }

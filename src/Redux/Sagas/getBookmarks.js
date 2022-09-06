@@ -13,7 +13,6 @@ function* getMyBookmarks(action) {
       {}
     );
     yield put({ type: GET_BOOKMARKS_SUCCESS, payload: { response } });
-    console.log("bookmarks", response);
   } catch (error) {
     yield put({ type: GET_BOOKMARKS_FAILURE }, error);
   }

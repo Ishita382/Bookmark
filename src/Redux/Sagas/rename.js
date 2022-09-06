@@ -13,7 +13,6 @@ function* renameFolder(action) {
       name,
     });
     yield put({ type: RENAME_FOLDER_SUCCESS, payload: { response } });
-    console.log(response);
   } catch (error) {
     yield put({ type: RENAME_FOLDER_FAILURE }, error);
   }

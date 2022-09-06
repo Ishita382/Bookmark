@@ -19,7 +19,7 @@ const send_request = async (path, method, item) => {
   };
 
   const delMethods = {
-    method:"DELETE",
+    method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -30,23 +30,27 @@ const send_request = async (path, method, item) => {
 
   const putMethods = {
     method: "PUT",
-    headers:{
+    headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization : `Bearer ${auth}`,
+      Authorization: `Bearer ${auth}`,
     },
     body: JSON.stringify(item),
-  }
+  };
 
   let result = fetch(
     url.concat(path),
-    method === "GET" ? getMethods : 
-    method === "POST" ? postMethods : 
-    method === "PUT" ? putMethods : delMethods
+    method === "GET"
+      ? getMethods
+      : method === "POST"
+      ? postMethods
+      : method === "PUT"
+      ? putMethods
+      : delMethods
   );
 
   let api_response = await result.then((response) => response.json());
-  console.log("this is response",api_response);
+
   return api_response;
 };
 

@@ -9,7 +9,6 @@ import {
   GET_MY_FOLDERS_FAILURE,
   LOGIN_DETAILS,
   LOGOUT_SUCCESS,
-  DELETE_FOLDER_SUCCESS,
   OPEN_MODAL,
   CLOSE_MODAL,
   OPEN_RENAME_MODAL,
@@ -20,8 +19,6 @@ import {
   GET_BOOKMARKS_REQUEST,
   GET_BOOKMARKS_SUCCESS,
   CREATE_BOOKMARK_SUCCESS,
-  SET_BOOKMARK_FOLDER,
-  SET_PARENT_ID,
   RENAME_FOLDER_SUCCESS,
 } from "../actions/constant";
 
@@ -67,13 +64,9 @@ export const loginDetails = (state = initialState, action) => {
 
     case GET_MY_FOLDERS_SUCCESS: {
       const temp = [];
-      action.payload.response.map((item) => {
-        temp.push(item.id);
-      });
+      action.payload.response.map((item) => temp.push(item.id));
       const obj = {};
-      action.payload.response.map((item) => {
-        obj[item.id] = item;
-      });
+      action.payload.response.map((item) => (obj[item.id] = item));
       return {
         ...state,
         folders: obj,
@@ -99,14 +92,7 @@ export const loginDetails = (state = initialState, action) => {
       state.folders[state.parentId].childIds = arr;
       return { ...state };
 
-    case SET_PARENT_ID:
-      state.isOpen.hasOwnProperty(action.payload.id)
-        ? (state.isOpen[action.payload.id] = !state.isOpen[action.payload.id])
-        : (state.isOpen[action.payload.id] = true);
-      return { ...state, parentId: action.payload.id };
-
     case CREATE_FOLDER_SUCCESS:
-      console.log("bookmark folders", state.folders);
       state.folders[action.payload.response.id] = action.payload.response;
       if (state.createFolderParent === "") {
         state.folderIds.push(action.payload.response.id);
@@ -124,13 +110,7 @@ export const loginDetails = (state = initialState, action) => {
     case LOGOUT_SUCCESS:
       return { ...initialState };
 
-    case DELETE_FOLDER_SUCCESS: {
-      // const remainingFolders = state.folders.filter((item) => item.id!==payload.id);
-      return { ...state };
-    }
-
     case OPEN_MODAL:
-      console.log("open modal reducer", action.payload);
       return { ...state, create: true, createFolderParent: action.payload };
 
     case CLOSE_MODAL:
@@ -142,11 +122,9 @@ export const loginDetails = (state = initialState, action) => {
     case CLOSE_RENAME_MODAL:
       return { ...state, renameModal: false };
 
-      case RENAME_FOLDER_SUCCESS:
-        {
-          state.folders[state.renameFolderId].name = action.payload.response.name;
-        }
-        return{...state};
+    case RENAME_FOLDER_SUCCESS:
+      state.folders[state.renameFolderId].name = action.payload.response.name;
+      return { ...state };
 
     case CREATE_FOLDER_REQUEST:
       return { ...state, create: false };
@@ -157,13 +135,6 @@ export const loginDetails = (state = initialState, action) => {
         selectedFolder: action.payload,
         bookmarkFolder: action.payload,
         bookmarkLoading: "inProgress",
-      };
-
-    case SET_BOOKMARK_FOLDER:
-      return {
-        ...state,
-        bookmarkFolder: action.payload,
-        selectedFolder: action.payload,
       };
 
     case GET_BOOKMARKS_SUCCESS: {
@@ -179,7 +150,7 @@ export const loginDetails = (state = initialState, action) => {
       if (state.bookmarkFolder !== "") {
         state.folders[state.bookmarkFolder].bIds = bookmarkId;
       }
-      console.log("reducer bookmarks",object);
+
       return {
         ...state,
         rootBookmarks: rootBookmarkId,
@@ -189,7 +160,6 @@ export const loginDetails = (state = initialState, action) => {
     }
 
     case CREATE_BOOKMARK_SUCCESS: {
-      console.log("my bookmarks", state.bookmarks);
       state.bookmarks[action.payload.response.id] = action.payload.response;
       if (state.selectedFolder === "") {
         state.rootBookmarks.push(action.payload.response.id);

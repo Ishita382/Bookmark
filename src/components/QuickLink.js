@@ -142,7 +142,7 @@ function Quicklink() {
           onChange={setBookmarkLink}
         ></URLInput>
         <FolderHeading>Folder</FolderHeading>
-        <RootFolder disableUnderline>
+        <RootFolder>
           {selectedFolder === "" ? "Root" : folders[selectedFolder].name}
         </RootFolder>
         <CustomButton onClick={() => createBookmark(link, selectedFolder)}>

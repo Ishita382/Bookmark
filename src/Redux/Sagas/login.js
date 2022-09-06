@@ -21,7 +21,7 @@ export function* getLoginDetails(action) {
     });
 
     response = yield response.json();
-    console.log("login api", response);
+   
     try {
       if ("token" in response) {
         yield put({ type: LOGIN_DETAILS_SUCCESS, response });

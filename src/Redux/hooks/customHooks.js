@@ -6,7 +6,6 @@ import {
   GET_MY_FOLDERS_REQUEST,
   CREATE_FOLDER_REQUEST,
   LOGOUT_REQUEST,
-  DELETE_FOLDER_REQUEST,
   RENAME_FOLDER_REQUEST,
   ADD_SUBFOLDER_REQUEST,
   OPEN_MODAL,
@@ -17,8 +16,6 @@ import {
   GET_CURRENT_FOLDER_REQUEST,
   GET_BOOKMARKS_REQUEST,
   CREATE_BOOKMARK_REQUEST,
-  SET_PARENT_ID,
-  SET_BOOKMARK_FOLDER,
 } from "../actions/constant";
 
 export const useCustomHooks = () => {
@@ -51,7 +48,6 @@ export const useCustomHooks = () => {
   };
 
   const createFolder = (name, createFolderParent) => {
-    console.log("folder name", name);
     return dispatch({
       type: CREATE_FOLDER_REQUEST,
       payload: {
@@ -68,15 +64,7 @@ export const useCustomHooks = () => {
     });
   };
 
-  const deleteFolder = (folderId) => {
-    return dispatch({
-      type: DELETE_FOLDER_REQUEST,
-      payload: { folderId: folderId },
-    });
-  };
-
   const renameFolder = (renameFolderId, folderName) => {
-    console.log(renameFolderId, folderName);
     return dispatch({
       type: RENAME_FOLDER_REQUEST,
       payload: {
@@ -87,7 +75,6 @@ export const useCustomHooks = () => {
   };
 
   const addSubFolder = (folderId) => {
-    console.log(folderId);
     return dispatch({
       type: ADD_SUBFOLDER_REQUEST,
       payload: {
@@ -97,7 +84,6 @@ export const useCustomHooks = () => {
   };
 
   const openModal = (id) => {
-    console.log(id);
     return dispatch({
       type: OPEN_MODAL,
       payload: id,
@@ -154,20 +140,6 @@ export const useCustomHooks = () => {
     });
   };
 
-  const setParent = (id) => {
-    return dispatch({
-      type: SET_PARENT_ID,
-      payload: id,
-    });
-  };
-
-  const setBookmarkFolder = (id) => {
-    return dispatch({
-      type: SET_BOOKMARK_FOLDER,
-      payload: id,
-    });
-  };
-
   return {
     sendRegistrationDetails,
     sendLoginDetails,
@@ -175,7 +147,7 @@ export const useCustomHooks = () => {
     getMyFolders,
     createFolder,
     logout,
-    deleteFolder,
+
     renameFolder,
     addSubFolder,
     openModal,
@@ -186,7 +158,5 @@ export const useCustomHooks = () => {
     getCurrentFolder,
     getBookmarks,
     createBookmark,
-    setParent,
-    setBookmarkFolder,
   };
 };

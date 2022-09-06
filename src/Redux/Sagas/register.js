@@ -17,7 +17,7 @@ export function* getRegistrationDetails(action) {
     });
 
     response = yield response.json();
-    console.log(response);
+
     if ("token" in response) {
       yield put({ type: REGISTRATION_SUCCESS, response });
       //sending token to local storage
