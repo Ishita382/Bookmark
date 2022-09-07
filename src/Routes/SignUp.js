@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,  Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useCustomHooks } from "../Redux/hooks/customHooks";
 import { Input } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
+import { useSelector } from "react-redux";
 const CustomHeading = styled(Box)`
   color: white;
   font-size: 35px;
@@ -82,11 +83,7 @@ const LoginBox = styled(Box)`
   line-height: 27px;
   color: #91919f;
 `;
-const CustomLink = styled(Link)`
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-`;
+
 
 const LoginLink = styled(Link)`
   color: #5352ed;
@@ -96,7 +93,8 @@ function SignUp() {
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
-  //const dispatch = useDispatch();
+  const initial = useSelector((state)=>state.loginDetails);
+  const { registrationLoading} = initial;
   const { sendRegistrationDetails } = useCustomHooks();
   const registerName = (e) => {
     return setRegName(e.target.value);
@@ -121,6 +119,7 @@ function SignUp() {
           </CustomHeading>
         </HeadingBox>
       </LeftBox>
+      {localStorage.getItem("auth")?(<Navigate to="/dashboard" />):(
       <RightBox>
         <SignUpBox>
           <Box>
@@ -159,7 +158,7 @@ function SignUp() {
 
           <Box>
             <CustomButton onClick={() => sendRegistrationDetails(data)}>
-              <CustomLink to="/dashboard">Sign Up</CustomLink>
+              {registrationLoading==="inProgress"?"...Loading":"Sign Up"}
             </CustomButton>
           </Box>
           <LoginBox>
@@ -167,6 +166,7 @@ function SignUp() {
           </LoginBox>
         </SignUpBox>
       </RightBox>
+      )}
     </CustomBox>
   );
 }

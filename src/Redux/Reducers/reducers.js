@@ -20,6 +20,7 @@ import {
   GET_BOOKMARKS_SUCCESS,
   CREATE_BOOKMARK_SUCCESS,
   RENAME_FOLDER_SUCCESS,
+  REGISTRATION_DETAILS,
 } from "../actions/constant";
 
 export const initialState = {
@@ -39,9 +40,10 @@ export const initialState = {
   rootBookmarks: [],
   bookmarkLoading: "initial",
   isOpen: {},
+  registrationLoading:"initial"
 };
 export const loginDetails = (state = initialState, action) => {
-  const payload = action.payload;
+ 
   switch (action.type) {
     case LOGIN_DETAILS_SUCCESS:
       console.log("reducer is running");
@@ -53,11 +55,14 @@ export const loginDetails = (state = initialState, action) => {
     case LOGIN_DETAILS:
       return { ...state, loginLoading: "inProgress" };
 
+      case REGISTRATION_DETAILS:
+        return { ...state, registrationLoading: "inProgress" };
+
     case REGISTRATION_SUCCESS:
-      return { ...state, payload };
+      return { ...state, registrationLoading: "false" };
 
     case REGISTRATION_FAILED:
-      return { ...state, payload };
+      return { ...state, registrationLoading: "true" };
 
     case GET_MY_FOLDERS_REQUEST:
       return { ...state, folderLoading: "inProgress" };

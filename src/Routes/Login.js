@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 
+
 const CustomHeading = styled(Box)`
   color: white;
   font-size: 35px;
@@ -90,6 +91,7 @@ const LoginLink = styled(Link)`
   color: #5352ed;
 `;
 
+
 function Login() {
   const { sendLoginDetails } = useCustomHooks();
   const [email, setEmail] = useState("");
@@ -118,6 +120,7 @@ function Login() {
             <br /> Get Started
           </CustomHeading>
         </HeadingBox>
+       
       </LeftBox>
       {localStorage.getItem("auth") ? (
         <Navigate to="/dashboard" />
