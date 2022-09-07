@@ -20,8 +20,9 @@ const Card = styled(Box)`
   justify-content: flex-end;
   padding: 20px;
   gap: 25px;
-  margin-right: 45px;
+  margin-right: 66px;
   margin-top: 30px;
+ 
   width: 170px;
   height: 140px;
   background: #ffffff;
