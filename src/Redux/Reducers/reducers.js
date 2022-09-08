@@ -23,23 +23,23 @@ export const initialState = {
 export const loginDetails = (state = initialState, action) => {
  
   switch (action.type) {
-    case authConst.LOGIN_DETAILS_SUCCESS:
+    case authConst.LOGIN_SUCCESS:
       console.log("reducer is running");
       return { ...state, loginLoading: "false" };
 
-    case authConst.LOGIN_DETAILS_FAILED:
+    case authConst.LOGIN_FAILED:
       return { ...state, loginLoading: "true" };
 
-    case authConst.LOGIN_DETAILS:
+    case authConst.LOGIN_REQUEST:
       return { ...state, loginLoading: "inProgress" };
 
-      case authConst.REGISTRATION_DETAILS:
+      case authConst.REGISTRATION_REQUEST:
         return { ...state, registrationLoading: "inProgress" };
 
     case authConst.REGISTRATION_SUCCESS:
       return { ...state, registrationLoading: "false" };
 
-    case authConst.REGISTRATION_FAILED:
+    case authConst.REGISTRATION_FAILURE:
       return { ...state, registrationLoading: "true" };
 
     case folderConst.GET_MY_FOLDERS_REQUEST:

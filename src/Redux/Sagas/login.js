@@ -20,12 +20,12 @@ export function* getLoginDetails(action) {
    
     try {
       if ("token" in response) {
-        yield put({ type: authConst.LOGIN_DETAILS_SUCCESS, response });
+        yield put({ type: authConst.LOGIN_SUCCESS, response });
         
         localStorage.setItem("auth", JSON.stringify(response.token));
       }
     } catch (error) {
-      yield put({ type: authConst.LOGIN_DETAILS_FAILED }, error);
+      yield put({ type: authConst.LOGIN_FAILED }, error);
     }
   }
 }

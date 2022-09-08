@@ -15,8 +15,8 @@ import getMyBookmarks from "./getBookmarks";
 import createBookmark from "./createBookmark";
 
 function* mySaga() {
-  yield takeLatest(authConst.LOGIN_DETAILS, getLoginDetails);
-  yield takeLatest(authConst.REGISTRATION_DETAILS, getRegistrationDetails);
+  yield takeLatest(authConst.LOGIN_REQUEST, getLoginDetails);
+  yield takeLatest(authConst.REGISTRATION_REQUEST, getRegistrationDetails);
   yield takeLatest(authConst.GET_ME_REQUEST, getUser);
   yield takeLatest(authConst.LOGOUT_REQUEST, logoutUser);
   yield takeLatest(folderConst.CREATE_FOLDER_REQUEST, createMyFolder);

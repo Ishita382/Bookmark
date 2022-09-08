@@ -7,14 +7,14 @@ export const useCustomHooks = () => {
 
   const sendRegistrationDetails = (data) => {
     return dispatch({
-      type: authConst.REGISTRATION_DETAILS,
+      type: authConst.REGISTRATION_REQUEST,
       payload: data,
     });
   };
 
   const sendLoginDetails = (data) => {
     return dispatch({
-      type: authConst.LOGIN_DETAILS,
+      type: authConst.LOGIN_REQUEST,
       payload: data,
     });
   };
