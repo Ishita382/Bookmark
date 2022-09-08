@@ -1,6 +1,6 @@
-import send_request from "../Request";
-import { put } from "redux-saga/effects";
 
+import { put } from "redux-saga/effects";
+import send_request from "../Request";
 import { folderConst } from "../actions/folderConstants";
 function* currentFolder(action) {
   try {
