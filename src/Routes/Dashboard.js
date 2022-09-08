@@ -61,7 +61,7 @@ const CustomButton = styled(Button)`
 
 function Dashboard() {
   const initial = useSelector((state) => state.loginDetails);
-  const { create, createFolderParent, renameModal, renameFolderId } = initial;
+  const { openModal, createFolderParent, renameModal, renameFolderId } = initial;
 
   const { getMe } = useAuthHooks();
   const {
@@ -88,7 +88,7 @@ function Dashboard() {
       {localStorage.getItem("auth") ? (
         <CustomBox>
           <Leftpanel />
-          <Modal open={create}>
+          <Modal open={openModal}>
             <ModalBox>
               <Name>Enter Folder Name</Name>{" "}
               <CustomInput type="text" onChange={newFolderName} />

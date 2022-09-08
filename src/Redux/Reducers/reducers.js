@@ -6,7 +6,7 @@ export const initialState = {
   folderLoading: "initial",
   loginLoading: "initial",
   folderIds: [],
-  create: false,
+  openModal: false,
   createFolderParent: "",
   childFolders: [],
   renameModal: false,
@@ -92,10 +92,10 @@ export const loginDetails = (state = initialState, action) => {
       return { ...initialState };
 
     case folderConst.OPEN_MODAL:
-      return { ...state, create: true, createFolderParent: action.payload };
+      return { ...state, openModal: true, createFolderParent: action.payload };
 
     case folderConst.CLOSE_MODAL:
-      return { ...state, create: false };
+      return { ...state, openModal: false };
 
     case folderConst.OPEN_RENAME_MODAL:
       return { ...state, renameModal: true,  renameFolderId: action.payload };
