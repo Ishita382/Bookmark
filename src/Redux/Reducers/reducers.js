@@ -25,7 +25,7 @@ export const loginDetails = (state = initialState, action) => {
  
   switch (action.type) {
     case authConst.LOGIN_SUCCESS:
-      console.log("reducer is running");
+      
       return { ...state, loginLoading: "false" };
 
     case authConst.LOGIN_FAILED:
