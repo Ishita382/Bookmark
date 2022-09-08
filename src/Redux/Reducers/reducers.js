@@ -7,7 +7,6 @@ export const initialState = {
   folderIds: [],
   openModal: false,
   createFolderParent: "",
-  childFolders: [],
   renameModal: false,
   renameFolderId: "",
   parentId: "",
