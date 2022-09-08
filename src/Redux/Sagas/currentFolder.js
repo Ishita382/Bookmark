@@ -1,11 +1,11 @@
 
 import { put } from "redux-saga/effects";
-import send_request from "../Request";
+import sendRequest from "../Request";
 
 import { asyncFolderTypes } from "../actions/asyncTypes";
 function* currentFolder(action) {
   try {
-    const response = yield send_request(
+    const response = yield sendRequest(
       `folders?folderId=${action.payload}`,
       "GET",
       {}

@@ -1,12 +1,12 @@
 import { put } from "redux-saga/effects";
 
-import send_request from "../Request";
+import sendRequest from "../Request";
 
 import { asyncFolderTypes } from "../actions/asyncTypes";
 function* renameFolder(action) {
   const { folderId, name } = action.payload;
   try {
-    const response = yield send_request("rename-folder", "PUT", {
+    const response = yield sendRequest("rename-folder", "PUT", {
       folderId,
       name,
     });

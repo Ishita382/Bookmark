@@ -94,7 +94,7 @@ const LoginLink = styled(Link)`
 
 
 function Login() {
-  const { sendLoginDetails } = useAuthHooks();
+  const { loginUser } = useAuthHooks();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const initial = useSelector((state) => state.loginDetails);
@@ -156,7 +156,7 @@ function Login() {
             <Box></Box>
 
             <Box>
-              <CustomButton onClick={() => sendLoginDetails(data)}>
+              <CustomButton onClick={() => loginUser(data)}>
                 {loginLoading === "inProgress" ? "Loading..." : "Login"}
               </CustomButton>
             </Box>

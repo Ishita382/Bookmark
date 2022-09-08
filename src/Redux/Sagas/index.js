@@ -1,4 +1,4 @@
-import { takeLatest } from "redux-saga/effects";
+import { takeLatest, takeEvery } from "redux-saga/effects";
 import { getLoginDetails } from "./login";
 import { getRegistrationDetails } from "./register";
 import { getUser } from "./getMe";
@@ -17,13 +17,13 @@ function* mySaga() {
   yield takeLatest(syncAuthTypes.REGISTRATION_REQUEST, getRegistrationDetails);
   yield takeLatest(syncAuthTypes.GET_ME_REQUEST, getUser);
   yield takeLatest(syncAuthTypes.LOGOUT_REQUEST, logoutUser);
-  yield takeLatest(syncFolderTypes.CREATE_FOLDER_REQUEST, createMyFolder);
+  yield takeEvery(syncFolderTypes.CREATE_FOLDER_REQUEST, createMyFolder);
   yield takeLatest(syncFolderTypes.GET_MY_FOLDERS_REQUEST, getUserFolders);
   yield takeLatest(syncFolderTypes.RENAME_FOLDER_REQUEST, renameFolder);
   yield takeLatest(syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST, getFolderChildren);
   yield takeLatest(syncFolderTypes.GET_CURRENT_FOLDER_REQUEST, currentFolder);
   yield takeLatest(syncBookmarkTypes.GET_BOOKMARKS_REQUEST, getMyBookmarks);
-  yield takeLatest(syncBookmarkTypes.CREATE_BOOKMARK_REQUEST, createBookmark);
+  yield takeEvery(syncBookmarkTypes.CREATE_BOOKMARK_REQUEST, createBookmark);
 }
 
 export default mySaga;

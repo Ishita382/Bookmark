@@ -3,14 +3,14 @@ import { syncAuthTypes } from "../actions/syncTypes";
 export const useAuthHooks = () => {
   const dispatch = useDispatch();
 
-  const sendRegistrationDetails = (data) => {
+  const registerUser = (data) => {
     return dispatch({
       type: syncAuthTypes.REGISTRATION_REQUEST,
       payload: data,
     });
   };
 
-  const sendLoginDetails = (data) => {
+  const loginUser = (data) => {
     return dispatch({
       type: syncAuthTypes.LOGIN_REQUEST,
       payload: data,
@@ -31,9 +31,9 @@ export const useAuthHooks = () => {
   };
 
   return {
-    sendLoginDetails,
+    loginUser,
     logout,
     getMe,
-    sendRegistrationDetails,
+    registerUser,
   };
 };

@@ -1,10 +1,10 @@
 import { put } from "redux-saga/effects";
-import send_request from "../Request";
+import sendRequest from "../Request";
 import { asyncBookmarkTypes } from "../actions/asyncTypes";
 
 function* getMyBookmarks(action) {
   try {
-    const response = yield send_request(
+    const response = yield sendRequest(
       `folder-bookmarks?folderId=${action.payload}`,
       "GET",
       {}

@@ -97,7 +97,7 @@ function SignUp() {
   const [regPassword, setRegPassword] = useState("");
   const initial = useSelector((state)=>state.loginDetails);
   const { registrationLoading} = initial;
-  const { sendRegistrationDetails } = useAuthHooks();
+  const { registerUser } = useAuthHooks();
   const registerName = (e) => {
     return setRegName(e.target.value);
   };
@@ -159,7 +159,7 @@ function SignUp() {
           <Box></Box>
 
           <Box>
-            <CustomButton onClick={() => sendRegistrationDetails(data)}>
+            <CustomButton onClick={() => registerUser(data)}>
               {registrationLoading==="inProgress"?"...Loading":"Sign Up"}
             </CustomButton>
           </Box>

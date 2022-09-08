@@ -1,10 +1,10 @@
 
 import { put } from "redux-saga/effects";
-import send_request from "../Request";
+import sendRequest from "../Request";
 
 import { asyncFolderTypes } from "../actions/asyncTypes";
 export function* createMyFolder(action) {
-  // const {folder : name} = data;
+ 
   if (localStorage.getItem("auth")) {
     try {
       let item = {
@@ -13,7 +13,7 @@ export function* createMyFolder(action) {
       if (action.payload.id !== "") {
         item.parentId = action.payload.id;
       }
-      let response = yield send_request("folder", "POST", item);
+      let response = yield sendRequest("folder", "POST", item);
       yield put({ type: asyncFolderTypes.CREATE_FOLDER_SUCCESS, payload: { response } });
     } catch (error) {
       yield put({ type: asyncFolderTypes.CREATE_FOLDER_FAILURE }, error);

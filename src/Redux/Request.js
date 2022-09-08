@@ -1,4 +1,4 @@
-const send_request = async (path, method, item) => {
+const sendRequest = async (path, method, item) => {
   const auth = JSON.parse(localStorage.getItem("auth"));
 
   const url = "https://bookmarks-app-server.herokuapp.com/";
@@ -54,4 +54,4 @@ const send_request = async (path, method, item) => {
   return api_response;
 };
 
-export default send_request;
+export default sendRequest;

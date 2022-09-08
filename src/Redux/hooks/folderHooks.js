@@ -29,14 +29,7 @@ export const useFolderHooks = () => {
     });
   };
 
-  const addSubFolder = (folderId) => {
-    return dispatch({
-      type: syncFolderTypes.ADD_SUBFOLDER_REQUEST,
-      payload: {
-        folderId: folderId,
-      },
-    });
-  };
+
 
   const openModal = (id) => {
     return dispatch({
@@ -87,7 +80,7 @@ export const useFolderHooks = () => {
     openModal,
     closeRenameModal,
     openRenameModal,
-    addSubFolder,
+   
     createFolder,
   };
 };
