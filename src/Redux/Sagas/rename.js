@@ -1,8 +1,8 @@
 import { put } from "redux-saga/effects";
 
 import send_request from "../Request";
-import { folderConst } from "../actions/folderConstants";
 
+import { asyncFolderTypes } from "../actions/asyncTypes";
 function* renameFolder(action) {
   const { folderId, name } = action.payload;
   try {
@@ -10,9 +10,9 @@ function* renameFolder(action) {
       folderId,
       name,
     });
-    yield put({ type: folderConst.RENAME_FOLDER_SUCCESS, payload: { response } });
+    yield put({ type: asyncFolderTypes.RENAME_FOLDER_SUCCESS, payload: { response } });
   } catch (error) {
-    yield put({ type: folderConst.RENAME_FOLDER_FAILURE }, error);
+    yield put({ type: asyncFolderTypes.RENAME_FOLDER_FAILURE }, error);
   }
 }
 

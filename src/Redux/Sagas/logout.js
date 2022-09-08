@@ -1,13 +1,14 @@
 import { put } from "redux-saga/effects";
 
-import { authConst } from "../actions/authConstants";
+
+import { asyncAuthTypes } from "../actions/asyncTypes";
 function* logoutUser(action) {
   try {
     localStorage.clear();
-    yield put({ type: authConst.LOGOUT_SUCCESS });
+    yield put({ type: asyncAuthTypes.LOGOUT_SUCCESS });
     action.navigate("/login");
   } catch (error) {
-    yield put({ type: authConst.LOGOUT_FAILED });
+    yield put({ type: asyncAuthTypes.LOGOUT_FAILED });
   }
 }
 

@@ -1,7 +1,7 @@
 import { put } from "redux-saga/effects";
 
-import { authConst } from "../actions/authConstants";
 
+import { asyncAuthTypes } from "../actions/asyncTypes";
 const register_api = "https://bookmarks-app-server.herokuapp.com/register";
 export function* getRegistrationDetails(action) {
   const data = action.payload;
@@ -19,11 +19,11 @@ export function* getRegistrationDetails(action) {
     response = yield response.json();
 
     if ("token" in response) {
-      yield put({ type: authConst.REGISTRATION_SUCCESS, response });
-      //sending token to local storage
+      yield put({ type: asyncAuthTypes.REGISTRATION_SUCCESS, response });
+      
       localStorage.setItem("auth", JSON.stringify(response.token));
     } else {
-      yield put({ type: authConst.REGISTRATION_FAILED });
+      yield put({ type: asyncAuthTypes.REGISTRATION_FAILED });
     }
   }
 }

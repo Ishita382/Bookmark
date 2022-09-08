@@ -1,6 +1,5 @@
-import { authConst } from "../actions/authConstants";
-import { folderConst } from "../actions/folderConstants";
-import { bookmarkConst } from "../actions/bookmarkConstants";
+import { syncFolderTypes, syncAuthTypes, syncBookmarkTypes } from "../actions/syncTypes";
+import { asyncBookmarkTypes, asyncAuthTypes, asyncFolderTypes } from "../actions/asyncTypes";
 export const initialState = {
   folders: {},
   folderLoading: "initial",
@@ -22,35 +21,35 @@ export const initialState = {
  
 };
 export const loginDetails = (state = initialState, action) => {
- 
+ const payload = action.payload;
   switch (action.type) {
-    case authConst.LOGIN_SUCCESS:
+    case asyncAuthTypes.LOGIN_SUCCESS:
       
       return { ...state, loginLoading: "false" };
 
-    case authConst.LOGIN_FAILED:
+    case asyncAuthTypes.LOGIN_FAILED:
       return { ...state, loginLoading: "true" };
 
-    case authConst.LOGIN_REQUEST:
+    case syncAuthTypes.LOGIN_REQUEST:
       return { ...state, loginLoading: "inProgress" };
 
-      case authConst.REGISTRATION_REQUEST:
+      case syncAuthTypes.REGISTRATION_REQUEST:
         return { ...state, registrationLoading: "inProgress" };
 
-    case authConst.REGISTRATION_SUCCESS:
+    case asyncAuthTypes.REGISTRATION_SUCCESS:
       return { ...state, registrationLoading: "false" };
 
-    case authConst.REGISTRATION_FAILURE:
+    case asyncAuthTypes.REGISTRATION_FAILURE:
       return { ...state, registrationLoading: "true" };
 
-    case folderConst.GET_MY_FOLDERS_REQUEST:
+    case syncFolderTypes.GET_MY_FOLDERS_REQUEST:
       return { ...state, folderLoading: "inProgress" };
 
-    case folderConst.GET_MY_FOLDERS_SUCCESS: {
+    case asyncFolderTypes.GET_MY_FOLDERS_SUCCESS: {
       const temp = [];
-      action.payload.response.map((item) => temp.push(item.id));
+      payload.response.map((item) => temp.push(item.id));
       const obj = {};
-      action.payload.response.map((item) => (obj[item.id] = item));
+      payload.response.map((item) => (obj[item.id] = item));
       return {
         ...state,
         folders: obj,
@@ -59,75 +58,75 @@ export const loginDetails = (state = initialState, action) => {
       };
     }
 
-    case folderConst.GET_MY_FOLDERS_FAILURE:
+    case asyncFolderTypes.GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
-    case folderConst.GET_FOLDER_CHILDREN_REQUEST: {
-      state.isOpen.hasOwnProperty(action.payload.id)
-        ? (state.isOpen[action.payload.id] = !state.isOpen[action.payload.id])
-        : (state.isOpen[action.payload.id] = true);
-      return { ...state, parentId: action.payload };
+    case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
+      state.isOpen.hasOwnProperty(payload.id)
+        ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
+        : (state.isOpen[payload.id] = true);
+      return { ...state, parentId: payload };
     }
 
-    case folderConst.GET_FOLDER_CHILDREN_SUCCESS:
+    case asyncFolderTypes.GET_FOLDER_CHILDREN_SUCCESS:
       const arr = [];
-      action.payload.response.map((item) => (state.folders[item.id] = item));
-      action.payload.response.map((item) => arr.push(item.id));
+      payload.response.map((item) => (state.folders[item.id] = item));
+      payload.response.map((item) => arr.push(item.id));
       state.folders[state.parentId].childIds = arr;
       return { ...state };
 
-    case folderConst.CREATE_FOLDER_SUCCESS:
-      state.folders[action.payload.response.id] = action.payload.response;
+    case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
+      state.folders[payload.response.id] = payload.response;
       if (state.createFolderParent === "") {
-        state.folderIds.push(action.payload.response.id);
+        state.folderIds.push(payload.response.id);
       } else {
         
         state.folders[state.createFolderParent].childIds.push(
-          action.payload.response.id
+          payload.response.id
         );
       }
       return { ...state };
 
-    case authConst.LOGOUT_SUCCESS:
+    case asyncAuthTypes.LOGOUT_SUCCESS:
       return { ...initialState };
 
-    case folderConst.OPEN_MODAL:
-      return { ...state, openModal: true, createFolderParent: action.payload };
+    case syncFolderTypes.OPEN_MODAL:
+      return { ...state, openModal: true, createFolderParent: payload };
 
-    case folderConst.CLOSE_MODAL:
+    case syncFolderTypes.CLOSE_MODAL:
       return { ...state, openModal: false };
 
-    case folderConst.OPEN_RENAME_MODAL:
-      return { ...state, renameModal: true,  renameFolderId: action.payload };
+    case syncFolderTypes.OPEN_RENAME_MODAL:
+      return { ...state, renameModal: true,  renameFolderId: payload };
 
-    case folderConst.CLOSE_RENAME_MODAL:
+    case syncFolderTypes.CLOSE_RENAME_MODAL:
       return { ...state, renameModal: false };
 
-    case folderConst.RENAME_FOLDER_SUCCESS:
-      state.folders[state.renameFolderId].name = action.payload.response.name;
+    case asyncFolderTypes.RENAME_FOLDER_SUCCESS:
+      state.folders[state.renameFolderId].name = payload.response.name;
       return { ...state };
 
-    case folderConst.CREATE_FOLDER_REQUEST:
+    case syncFolderTypes.CREATE_FOLDER_REQUEST:
       return { ...state, create: false };
 
-    case bookmarkConst.GET_BOOKMARKS_REQUEST:
+    case syncBookmarkTypes.GET_BOOKMARKS_REQUEST:
       return {
         ...state,
-        selectedFolder: action.payload,
-        bookmarkFolder: action.payload,
+        selectedFolder: payload,
+        bookmarkFolder: payload,
         bookmarkLoading: "inProgress",
       };
 
-    case bookmarkConst.GET_BOOKMARKS_SUCCESS: {
+    case asyncBookmarkTypes.GET_BOOKMARKS_SUCCESS: {
       let bookmarkId = [];
       let rootBookmarkId = [];
-      action.payload.response.map((item) =>
+      payload.response.map((item) =>
         state.bookmarkFolder === ""
           ? rootBookmarkId.push(item.id)
           : bookmarkId.push(item.id)
       );
       const object = {};
-      action.payload.response.map((item) => (object[item.id] = item));
+      payload.response.map((item) => (object[item.id] = item));
       if (state.bookmarkFolder !== "") {
         state.folders[state.bookmarkFolder].bIds = bookmarkId;
       }
@@ -140,13 +139,13 @@ export const loginDetails = (state = initialState, action) => {
       };
     }
 
-    case bookmarkConst.CREATE_BOOKMARK_SUCCESS: {
-      state.bookmarks[action.payload.response.id] = action.payload.response;
+    case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
+      state.bookmarks[payload.response.id] = payload.response;
       if (state.selectedFolder === "") {
-        state.rootBookmarks.push(action.payload.response.id);
+        state.rootBookmarks.push(payload.response.id);
       } else {
         state.folders[state.bookmarkFolder].bIds.push(
-          action.payload.response.id
+          payload.response.id
         );
       }
 
