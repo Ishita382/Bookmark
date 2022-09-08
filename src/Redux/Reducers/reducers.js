@@ -18,7 +18,8 @@ export const initialState = {
   rootBookmarks: [],
   bookmarkLoading: "initial",
   isOpen: {},
-  registrationLoading:"initial"
+  registrationLoading:"initial",
+ 
 };
 export const loginDetails = (state = initialState, action) => {
  
@@ -80,10 +81,7 @@ export const loginDetails = (state = initialState, action) => {
       if (state.createFolderParent === "") {
         state.folderIds.push(action.payload.response.id);
       } else {
-        console.log(
-          "create folder parent",
-          state.folders[state.createFolderParent]
-        );
+        
         state.folders[state.createFolderParent].childIds.push(
           action.payload.response.id
         );
@@ -100,7 +98,7 @@ export const loginDetails = (state = initialState, action) => {
       return { ...state, create: false };
 
     case folderConst.OPEN_RENAME_MODAL:
-      return { ...state, renameModal: true, renameFolderId: action.payload };
+      return { ...state, renameModal: true,  renameFolderId: action.payload };
 
     case folderConst.CLOSE_RENAME_MODAL:
       return { ...state, renameModal: false };

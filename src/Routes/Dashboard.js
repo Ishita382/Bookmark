@@ -66,6 +66,7 @@ function Dashboard() {
     closeModal,
     renameFolder,
     closeRenameModal,
+    openRenameModal
   } = useCustomHooks();
 
   useEffect(() => {
