@@ -1,10 +1,7 @@
 import send_request from "../Request";
 import { put } from "redux-saga/effects";
-import {
-  GET_FOLDER_CHILDREN_FAILURE,
-  GET_FOLDER_CHILDREN_SUCCESS,
-} from "../actions/constant";
 
+import { folderConst } from "../actions/folderConstants";
 function* getFolderChildren(action) {
   try {
     const response = yield send_request(
@@ -12,9 +9,9 @@ function* getFolderChildren(action) {
       "GET",
       {}
     );
-    yield put({ type: GET_FOLDER_CHILDREN_SUCCESS, payload: { response } });
+    yield put({ type: folderConst.GET_FOLDER_CHILDREN_SUCCESS, payload: { response } });
   } catch (error) {
-    yield put({ type: GET_FOLDER_CHILDREN_FAILURE }, error);
+    yield put({ type: folderConst.GET_FOLDER_CHILDREN_FAILURE }, error);
   }
 }
 

@@ -1,10 +1,7 @@
 import send_request from "../Request";
 import { put } from "redux-saga/effects";
-import {
-  GET_CURRENT_FOLDER_FAILURE,
-  GET_CURRENT_FOLDER_SUCCESS,
-} from "../actions/constant";
 
+import { folderConst } from "../actions/folderConstants";
 function* currentFolder(action) {
   try {
     const response = yield send_request(
@@ -12,9 +9,9 @@ function* currentFolder(action) {
       "GET",
       {}
     );
-    yield put({ type: GET_CURRENT_FOLDER_SUCCESS, payload: { response } });
+    yield put({ type: folderConst.GET_CURRENT_FOLDER_SUCCESS, payload: { response } });
   } catch (error) {
-    yield put({ type: GET_CURRENT_FOLDER_FAILURE }, error);
+    yield put({ type: folderConst.GET_CURRENT_FOLDER_FAILURE }, error);
   }
 }
 

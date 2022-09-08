@@ -1,28 +1,6 @@
-import {
-  LOGIN_DETAILS_FAILED,
-  LOGIN_DETAILS_SUCCESS,
-  REGISTRATION_FAILED,
-  REGISTRATION_SUCCESS,
-  GET_MY_FOLDERS_SUCCESS,
-  CREATE_FOLDER_SUCCESS,
-  GET_MY_FOLDERS_REQUEST,
-  GET_MY_FOLDERS_FAILURE,
-  LOGIN_DETAILS,
-  LOGOUT_SUCCESS,
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  OPEN_RENAME_MODAL,
-  CLOSE_RENAME_MODAL,
-  CREATE_FOLDER_REQUEST,
-  GET_FOLDER_CHILDREN_REQUEST,
-  GET_FOLDER_CHILDREN_SUCCESS,
-  GET_BOOKMARKS_REQUEST,
-  GET_BOOKMARKS_SUCCESS,
-  CREATE_BOOKMARK_SUCCESS,
-  RENAME_FOLDER_SUCCESS,
-  REGISTRATION_DETAILS,
-} from "../actions/constant";
-
+import { authConst } from "../actions/authConstants";
+import { folderConst } from "../actions/folderConstants";
+import { bookmarkConst } from "../actions/bookmarkConstants";
 export const initialState = {
   folders: {},
   folderLoading: "initial",
@@ -45,29 +23,29 @@ export const initialState = {
 export const loginDetails = (state = initialState, action) => {
  
   switch (action.type) {
-    case LOGIN_DETAILS_SUCCESS:
+    case authConst.LOGIN_DETAILS_SUCCESS:
       console.log("reducer is running");
       return { ...state, loginLoading: "false" };
 
-    case LOGIN_DETAILS_FAILED:
+    case authConst.LOGIN_DETAILS_FAILED:
       return { ...state, loginLoading: "true" };
 
-    case LOGIN_DETAILS:
+    case authConst.LOGIN_DETAILS:
       return { ...state, loginLoading: "inProgress" };
 
-      case REGISTRATION_DETAILS:
+      case authConst.REGISTRATION_DETAILS:
         return { ...state, registrationLoading: "inProgress" };
 
-    case REGISTRATION_SUCCESS:
+    case authConst.REGISTRATION_SUCCESS:
       return { ...state, registrationLoading: "false" };
 
-    case REGISTRATION_FAILED:
+    case authConst.REGISTRATION_FAILED:
       return { ...state, registrationLoading: "true" };
 
-    case GET_MY_FOLDERS_REQUEST:
+    case folderConst.GET_MY_FOLDERS_REQUEST:
       return { ...state, folderLoading: "inProgress" };
 
-    case GET_MY_FOLDERS_SUCCESS: {
+    case folderConst.GET_MY_FOLDERS_SUCCESS: {
       const temp = [];
       action.payload.response.map((item) => temp.push(item.id));
       const obj = {};
@@ -80,24 +58,24 @@ export const loginDetails = (state = initialState, action) => {
       };
     }
 
-    case GET_MY_FOLDERS_FAILURE:
+    case folderConst.GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
-    case GET_FOLDER_CHILDREN_REQUEST: {
+    case folderConst.GET_FOLDER_CHILDREN_REQUEST: {
       state.isOpen.hasOwnProperty(action.payload.id)
         ? (state.isOpen[action.payload.id] = !state.isOpen[action.payload.id])
         : (state.isOpen[action.payload.id] = true);
       return { ...state, parentId: action.payload };
     }
 
-    case GET_FOLDER_CHILDREN_SUCCESS:
+    case folderConst.GET_FOLDER_CHILDREN_SUCCESS:
       const arr = [];
       action.payload.response.map((item) => (state.folders[item.id] = item));
       action.payload.response.map((item) => arr.push(item.id));
       state.folders[state.parentId].childIds = arr;
       return { ...state };
 
-    case CREATE_FOLDER_SUCCESS:
+    case folderConst.CREATE_FOLDER_SUCCESS:
       state.folders[action.payload.response.id] = action.payload.response;
       if (state.createFolderParent === "") {
         state.folderIds.push(action.payload.response.id);
@@ -112,29 +90,29 @@ export const loginDetails = (state = initialState, action) => {
       }
       return { ...state };
 
-    case LOGOUT_SUCCESS:
+    case authConst.LOGOUT_SUCCESS:
       return { ...initialState };
 
-    case OPEN_MODAL:
+    case folderConst.OPEN_MODAL:
       return { ...state, create: true, createFolderParent: action.payload };
 
-    case CLOSE_MODAL:
+    case folderConst.CLOSE_MODAL:
       return { ...state, create: false };
 
-    case OPEN_RENAME_MODAL:
+    case folderConst.OPEN_RENAME_MODAL:
       return { ...state, renameModal: true, renameFolderId: action.payload };
 
-    case CLOSE_RENAME_MODAL:
+    case folderConst.CLOSE_RENAME_MODAL:
       return { ...state, renameModal: false };
 
-    case RENAME_FOLDER_SUCCESS:
+    case folderConst.RENAME_FOLDER_SUCCESS:
       state.folders[state.renameFolderId].name = action.payload.response.name;
       return { ...state };
 
-    case CREATE_FOLDER_REQUEST:
+    case folderConst.CREATE_FOLDER_REQUEST:
       return { ...state, create: false };
 
-    case GET_BOOKMARKS_REQUEST:
+    case bookmarkConst.GET_BOOKMARKS_REQUEST:
       return {
         ...state,
         selectedFolder: action.payload,
@@ -142,7 +120,7 @@ export const loginDetails = (state = initialState, action) => {
         bookmarkLoading: "inProgress",
       };
 
-    case GET_BOOKMARKS_SUCCESS: {
+    case bookmarkConst.GET_BOOKMARKS_SUCCESS: {
       let bookmarkId = [];
       let rootBookmarkId = [];
       action.payload.response.map((item) =>
@@ -164,7 +142,7 @@ export const loginDetails = (state = initialState, action) => {
       };
     }
 
-    case CREATE_BOOKMARK_SUCCESS: {
+    case bookmarkConst.CREATE_BOOKMARK_SUCCESS: {
       state.bookmarks[action.payload.response.id] = action.payload.response;
       if (state.selectedFolder === "") {
         state.rootBookmarks.push(action.payload.response.id);

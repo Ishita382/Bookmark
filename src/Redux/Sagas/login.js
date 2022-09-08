@@ -1,9 +1,6 @@
 import { put } from "redux-saga/effects";
-import {
-  LOGIN_DETAILS_FAILED,
-  LOGIN_DETAILS_SUCCESS,
-} from "../actions/constant";
 
+import { authConst } from "../actions/authConstants";
 
 const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 
@@ -23,12 +20,12 @@ export function* getLoginDetails(action) {
    
     try {
       if ("token" in response) {
-        yield put({ type: LOGIN_DETAILS_SUCCESS, response });
-        //setting token to local storage
+        yield put({ type: authConst.LOGIN_DETAILS_SUCCESS, response });
+        
         localStorage.setItem("auth", JSON.stringify(response.token));
       }
     } catch (error) {
-      yield put({ type: LOGIN_DETAILS_FAILED }, error);
+      yield put({ type: authConst.LOGIN_DETAILS_FAILED }, error);
     }
   }
 }

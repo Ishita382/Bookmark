@@ -1,9 +1,7 @@
 import send_request from "../Request";
 import { put } from "redux-saga/effects";
-import {
-  CREATE_FOLDER_FAILURE,
-  CREATE_FOLDER_SUCCESS,
-} from "../actions/constant";
+
+import { folderConst } from "../actions/folderConstants";
 export function* createMyFolder(action) {
   // const {folder : name} = data;
   if (localStorage.getItem("auth")) {
@@ -15,9 +13,9 @@ export function* createMyFolder(action) {
         item.parentId = action.payload.id;
       }
       let response = yield send_request("folder", "POST", item);
-      yield put({ type: CREATE_FOLDER_SUCCESS, payload: { response } });
+      yield put({ type: folderConst.CREATE_FOLDER_SUCCESS, payload: { response } });
     } catch (error) {
-      yield put({ type: CREATE_FOLDER_FAILURE }, error);
+      yield put({ type: folderConst.CREATE_FOLDER_FAILURE }, error);
     }
   }
 }
