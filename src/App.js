@@ -17,14 +17,18 @@ const RouteBox = styled(Box)`
   flex: 2;
 `;
 function App() {
+
+  const login = "/login";
+  const dashboard = "/dashboard";
+  const exact ="/";
   return (
     <Router>
       <AppContainer>
         <RouteBox>
           <Routes>
-            <Route exact path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route exact path={exact} element={<SignUp />} />
+            <Route path={login} element={<Login />} />
+            <Route path={dashboard} element={<Dashboard />} />
           </Routes>
         </RouteBox>
       </AppContainer>
