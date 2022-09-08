@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useCustomHooks } from "../Redux/hooks/customHooks";
+
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@mui/material";
 import styled from "@emotion/styled";
@@ -8,7 +8,9 @@ import { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import Folder from "./Folder";
+import { useFolderHooks } from "../Redux/hooks/folderHooks";
 
+import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   flex: 1;
   height: 100%;
@@ -103,7 +105,8 @@ const SaveButton = styled(Button)`
 function Leftpanel() {
   const initial = useSelector((state) => state.loginDetails);
   const { folderIds, folders } = initial;
-  const { logout, createFolder } = useCustomHooks();
+  const { logout } = useAuthHooks();
+  const { createFolder} = useFolderHooks();
   const navigate = useNavigate();
   const [folder, setFolder] = useState();
   const folderName = (e) => {

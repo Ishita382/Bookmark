@@ -4,7 +4,10 @@ import styled from "@emotion/styled";
 import { Button, Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import { useCustomHooks } from "../Redux/hooks/customHooks";
+
+
+import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
+
 const CustomBox = styled(Box)`
   flex: 1;
   height: 100%;
@@ -125,7 +128,7 @@ function Quicklink() {
     (state) => state.loginDetails
   );
   const [link, setLink] = useState();
-  const { createBookmark } = useCustomHooks();
+  const { createBookmark } = useBookmarkHooks();
   const setBookmarkLink = (e) => {
     return setLink(e.target.value);
   };

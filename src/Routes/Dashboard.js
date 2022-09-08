@@ -12,9 +12,12 @@ import { useState } from "react";
 import { Close } from "@mui/icons-material";
 import { Input } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useCustomHooks } from "../Redux/hooks/customHooks";
+
 import Rightpanel from "../components/Rightpanel";
 import Leftpanel from "../components/Leftpanel";
+import { useFolderHooks } from "../Redux/hooks/folderHooks";
+
+import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   display: grid;
   grid-template-columns: 15% 85%;
@@ -59,15 +62,15 @@ const CustomButton = styled(Button)`
 function Dashboard() {
   const initial = useSelector((state) => state.loginDetails);
   const { create, createFolderParent, renameModal, renameFolderId } = initial;
+
+  const { getMe } = useAuthHooks();
   const {
-    getMe,
     getMyFolders,
     createFolder,
     closeModal,
     renameFolder,
     closeRenameModal,
-    openRenameModal
-  } = useCustomHooks();
+  } = useFolderHooks();
 
   useEffect(() => {
     getMe();

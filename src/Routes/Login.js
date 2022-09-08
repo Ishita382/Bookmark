@@ -7,8 +7,9 @@ import { Input } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-import { useCustomHooks } from "../Redux/hooks/customHooks";
 
+
+import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomHeading = styled(Box)`
   color: white;
   font-size: 35px;
@@ -93,7 +94,7 @@ const LoginLink = styled(Link)`
 
 
 function Login() {
-  const { sendLoginDetails } = useCustomHooks();
+  const { sendLoginDetails } = useAuthHooks();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const initial = useSelector((state) => state.loginDetails);

@@ -9,8 +9,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux/es/exports";
-import { useCustomHooks } from "../Redux/hooks/customHooks";
 
+
+import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
+import { useAuthHooks } from "../Redux/hooks/authHooks";
 const FolderButton = styled(Button)`
   margin-top: 3px;
   font-weight: bold;
@@ -38,8 +40,9 @@ const SubFolderBox = styled(Box)`
 
 function Folder(props) {
   const { item } = props;
-  const { openModal, openRenameModal, getFolderChildren, getBookmarks } =
-    useCustomHooks();
+  const { openModal, openRenameModal, getFolderChildren } =
+    useAuthHooks();
+    const { getBookmarks } = useBookmarkHooks();
   const { folders } = useSelector((state) => state.loginDetails);
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
