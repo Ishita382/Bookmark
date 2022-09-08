@@ -61,7 +61,7 @@ const CustomButton = styled(Button)`
 
 function Dashboard() {
   const initial = useSelector((state) => state.loginDetails);
-  const { openModal, createFolderParent, renameModal, renameFolderId } = initial;
+  const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } = initial;
 
   const { getMe } = useAuthHooks();
   const {
@@ -106,7 +106,7 @@ function Dashboard() {
               </CloseButton>
             </ModalBox>
           </Modal>
-          <Modal open={renameModal}>
+          <Modal open={setFolderIdToRename}>
             <ModalBox>
               <Name>Enter New Name</Name>{" "}
               <CustomInput type="text" onChange={newFolderName} />

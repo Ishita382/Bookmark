@@ -6,16 +6,16 @@ export const initialState = {
   loginLoading: "initial",
   folderIds: [],
   openModal: false,
-  createFolderParent: "",
-  renameModal: false,
+  currentParentFolderId: "",
+  setFolderIdToRename: false,
   renameFolderId: "",
   parentId: "",
-  selectedFolder: "",
+  
   bookmarkFolder: "",
   bookmarks: {},
   rootBookmarks: [],
   bookmarkLoading: "initial",
-  isOpen: {},
+  
   registrationLoading:"initial",
  
 };
@@ -61,9 +61,7 @@ export const loginDetails = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      state.isOpen.hasOwnProperty(payload.id)
-        ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
-        : (state.isOpen[payload.id] = true);
+      
       return { ...state, parentId: payload };
     }
 
@@ -76,11 +74,11 @@ export const loginDetails = (state = initialState, action) => {
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
       state.folders[payload.response.id] = payload.response;
-      if (state.createFolderParent === "") {
+      if (state.currentParentFolderId === "") {
         state.folderIds.push(payload.response.id);
       } else {
         
-        state.folders[state.createFolderParent].childIds.push(
+        state.folders[state.currentParentFolderId].childIds.push(
           payload.response.id
         );
       }
@@ -90,16 +88,16 @@ export const loginDetails = (state = initialState, action) => {
       return { ...initialState };
 
     case syncFolderTypes.OPEN_MODAL:
-      return { ...state, openModal: true, createFolderParent: payload };
+      return { ...state, openModal: true, currentParentFolderId: payload };
 
     case syncFolderTypes.CLOSE_MODAL:
       return { ...state, openModal: false };
 
     case syncFolderTypes.OPEN_RENAME_MODAL:
-      return { ...state, renameModal: true,  renameFolderId: payload };
+      return { ...state, setFolderIdToRename: true,  renameFolderId: payload };
 
     case syncFolderTypes.CLOSE_RENAME_MODAL:
-      return { ...state, renameModal: false };
+      return { ...state, setFolderIdToRename: false };
 
     case asyncFolderTypes.RENAME_FOLDER_SUCCESS:
       state.folders[state.renameFolderId].name = payload.response.name;
@@ -111,7 +109,7 @@ export const loginDetails = (state = initialState, action) => {
     case syncBookmarkTypes.GET_BOOKMARKS_REQUEST:
       return {
         ...state,
-        selectedFolder: payload,
+       
         bookmarkFolder: payload,
         bookmarkLoading: "inProgress",
       };
@@ -140,7 +138,7 @@ export const loginDetails = (state = initialState, action) => {
 
     case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
       state.bookmarks[payload.response.id] = payload.response;
-      if (state.selectedFolder === "") {
+      if (state.bookmarkFolder === "") {
         state.rootBookmarks.push(payload.response.id);
       } else {
         state.folders[state.bookmarkFolder].bIds.push(

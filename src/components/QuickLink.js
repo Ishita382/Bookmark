@@ -124,7 +124,7 @@ const CustomButton = styled(Button)`
 `;
 
 function Quicklink() {
-  const { selectedFolder, folders } = useSelector(
+  const { bookmarkFolder, folders } = useSelector(
     (state) => state.loginDetails
   );
   const [link, setLink] = useState();
@@ -146,9 +146,9 @@ function Quicklink() {
         ></URLInput>
         <FolderHeading>Folder</FolderHeading>
         <RootFolder>
-          {selectedFolder === "" ? "Root" : folders[selectedFolder].name}
+          {bookmarkFolder === "" ? "Root" : folders[bookmarkFolder].name}
         </RootFolder>
-        <CustomButton onClick={() => createBookmark(link, selectedFolder)}>
+        <CustomButton onClick={() => createBookmark(link, folders[bookmarkFolder].name)}>
           Save
         </CustomButton>
       </CustomLinkBox>
