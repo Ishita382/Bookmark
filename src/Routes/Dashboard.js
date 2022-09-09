@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect } from "react";
 
 import Modal from "@mui/material/Modal";
@@ -61,7 +61,8 @@ const CustomButton = styled(Button)`
 
 function Dashboard() {
   const initial = useSelector(loginDetails);
-  const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } = initial;
+  const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } =
+    initial;
 
   const { getMe } = useAuthHooks();
   const {
@@ -82,6 +83,11 @@ function Dashboard() {
   const newFolderName = (e) => {
     return setFolderName(e.target.value);
   };
+
+  const renameFolderModal = useCallback(() => {
+    renameFolder(renameFolderId, folderName);
+    closeRenameModal();
+  });
 
   return (
     <Box>
@@ -110,15 +116,7 @@ function Dashboard() {
             <ModalBox>
               <Name>Enter New Name</Name>{" "}
               <CustomInput type="text" onChange={newFolderName} />
-              <CustomButton
-                onClick={() => {
-                  renameFolder(renameFolderId, folderName);
-
-                  closeRenameModal();
-                }}
-              >
-                Submit
-              </CustomButton>
+              <CustomButton onClick={renameFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeRenameModal()}>
                 <Close />
               </CloseButton>
