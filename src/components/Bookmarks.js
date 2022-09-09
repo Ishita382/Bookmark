@@ -2,6 +2,7 @@ import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
+import Link from '@mui/material/Link';
 
 const CustomBox = styled(Box)`
   display: flex;
@@ -76,13 +77,14 @@ function Bookmark() {
           <LoadingBox>Please Select Folder</LoadingBox>
         ) : !bookmarkFolder.isEmpty  && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
-            <Card key={item}>
+            <Link href={item.url}><Card key={item}>
               <Name>{bookmarks[item].name}</Name>
               <Description>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </Description>
             </Card>
+            </Link>
           ))
         ) : (
           bookmarkLoading==="inProgress"?
