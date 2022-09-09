@@ -1,1 +1,1 @@
-export const loginDetails = (state) => state.loginDetails;
+export const appReducers = (state) => state.appReducers;

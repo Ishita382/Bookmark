@@ -1,5 +1,13 @@
-import { syncFolderTypes, syncAuthTypes, syncBookmarkTypes } from "../actions/syncTypes";
-import { asyncBookmarkTypes, asyncAuthTypes, asyncFolderTypes } from "../actions/asyncTypes";
+import {
+  syncFolderTypes,
+  syncAuthTypes,
+  syncBookmarkTypes,
+} from "../actions/syncTypes";
+import {
+  asyncBookmarkTypes,
+  asyncAuthTypes,
+  asyncFolderTypes,
+} from "../actions/asyncTypes";
 export const initialState = {
   folders: {},
   folderLoading: "initial",
@@ -10,20 +18,18 @@ export const initialState = {
   setFolderIdToRename: false,
   renameFolderId: "",
   parentId: "",
-  
+
   bookmarkFolder: "",
   bookmarks: {},
   rootBookmarks: [],
   bookmarkLoading: "initial",
-  
-  registrationLoading:"initial",
- 
+
+  registrationLoading: "initial",
 };
-export const loginDetails = (state = initialState, action) => {
- const payload = action.payload;
+export const appReducers = (state = initialState, action) => {
+  const payload = action.payload;
   switch (action.type) {
     case asyncAuthTypes.LOGIN_SUCCESS:
-      
       return { ...state, loginLoading: "false" };
 
     case asyncAuthTypes.LOGIN_FAILED:
@@ -32,8 +38,8 @@ export const loginDetails = (state = initialState, action) => {
     case syncAuthTypes.LOGIN_REQUEST:
       return { ...state, loginLoading: "inProgress" };
 
-      case syncAuthTypes.REGISTRATION_REQUEST:
-        return { ...state, registrationLoading: "inProgress" };
+    case syncAuthTypes.REGISTRATION_REQUEST:
+      return { ...state, registrationLoading: "inProgress" };
 
     case asyncAuthTypes.REGISTRATION_SUCCESS:
       return { ...state, registrationLoading: "false" };
@@ -61,7 +67,6 @@ export const loginDetails = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      
       return { ...state, parentId: payload };
     }
 
@@ -72,7 +77,7 @@ export const loginDetails = (state = initialState, action) => {
       payload.response.map((item) => (cloneFolders[item.id] = item));
       payload.response.map((item) => arr.push(item.id));
       cloneFolders[state.parentId].childIds = arr;
-      return { ...state , folders: cloneFolders};
+      return { ...state, folders: cloneFolders };
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
       let updatedFolders = {};
@@ -81,7 +86,6 @@ export const loginDetails = (state = initialState, action) => {
       if (state.currentParentFolderId === "") {
         state.folderIds.push(payload.response.id);
       } else {
-        
         updatedFolders[state.currentParentFolderId].childIds.push(
           payload.response.id
         );
@@ -98,7 +102,7 @@ export const loginDetails = (state = initialState, action) => {
       return { ...state, openModal: false };
 
     case syncFolderTypes.OPEN_RENAME_MODAL:
-      return { ...state, setFolderIdToRename: true,  renameFolderId: payload };
+      return { ...state, setFolderIdToRename: true, renameFolderId: payload };
 
     case syncFolderTypes.CLOSE_RENAME_MODAL:
       return { ...state, setFolderIdToRename: false };
@@ -113,7 +117,7 @@ export const loginDetails = (state = initialState, action) => {
     case syncBookmarkTypes.GET_BOOKMARKS_REQUEST:
       return {
         ...state,
-       
+
         bookmarkFolder: payload,
         bookmarkLoading: "inProgress",
       };
@@ -145,9 +149,7 @@ export const loginDetails = (state = initialState, action) => {
       if (state.bookmarkFolder.isEmpty) {
         state.rootBookmarks.push(payload.response.id);
       } else {
-        state.folders[state.bookmarkFolder].bIds.push(
-          payload.response.id
-        );
+        state.folders[state.bookmarkFolder].bIds.push(payload.response.id);
       }
 
       return { ...state };

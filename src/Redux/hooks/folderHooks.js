@@ -64,17 +64,11 @@ export const useFolderHooks = () => {
     });
   };
 
-  const getCurrentFolder = (id) => {
-    return dispatch({
-      type: syncFolderTypes.GET_CURRENT_FOLDER_REQUEST,
-      payload: id,
-    });
-  };
 
   return {
     getMyFolders,
     renameFolder,
-    getCurrentFolder,
+    
     getFolderChildren,
     closeModal,
     openModal,

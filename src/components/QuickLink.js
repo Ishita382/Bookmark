@@ -5,7 +5,7 @@ import { Button, Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-import { loginDetails } from "../Redux/selector";
+import { appReducers } from "../Redux/selector";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 
 const CustomBox = styled(Box)`
@@ -131,7 +131,7 @@ const Img = styled.img`
 `;
 
 function Quicklink() {
-  const { bookmarkFolder, folders } = useSelector(loginDetails);
+  const { bookmarkFolder, folders } = useSelector(appReducers);
   const [link, setLink] = useState();
   const { createBookmark } = useBookmarkHooks();
   //const imgUrl = card;

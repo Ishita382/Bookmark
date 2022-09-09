@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 
-import { loginDetails } from "../Redux/selector";
+import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomHeading = styled(Box)`
   color: white;
@@ -103,7 +103,7 @@ function Login() {
   const { loginUser } = useAuthHooks();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const initial = useSelector(loginDetails);
+  const initial = useSelector(appReducers);
   const { loginLoading } = initial;
   const setEmailValue = (e) => {
     return setEmail(e.target.value);

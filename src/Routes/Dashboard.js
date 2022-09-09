@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Rightpanel from "../components/Rightpanel";
 import Leftpanel from "../components/Leftpanel";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
-import { loginDetails } from "../Redux/selector";
+import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   display: grid;
@@ -79,11 +79,11 @@ width: 30px;
 `
 
 function Dashboard() {
-  const initial = useSelector(loginDetails);
+  const initial = useSelector(appReducers);
   const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } =
     initial;
 
-  const { getMe } = useAuthHooks();
+  const { getMe, useGetMe } = useAuthHooks();
   const {
     getMyFolders,
     createFolder,
@@ -92,11 +92,12 @@ function Dashboard() {
     closeRenameModal,
   } = useFolderHooks();
 
+  useGetMe(
   useEffect(() => {
     getMe();
     getMyFolders();
-  }, []);
-
+  }, [])
+  );
   const [folderName, setFolderName] = useState();
 
   const newFolderName = (e) => {

@@ -3,6 +3,7 @@ export const syncAuthTypes = {
   REGISTRATION_REQUEST: "REGISTRATION_REQUEST",
   GET_ME_REQUEST: "GET_ME_REQUEST",
   LOGOUT_REQUEST: "LOGOUT REQUEST",
+  USE_GET_ME : "USE_GET_ME",
 };
 
 export const syncFolderTypes = {

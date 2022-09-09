@@ -9,7 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import Folder from "./Folder";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
-import { loginDetails } from "../Redux/selector";
+import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   flex: 1;
@@ -102,11 +102,19 @@ const SaveButton = styled(Button)`
   height: 30px;
 `;
 
+const LoadingBox = styled(Box)`
+color: gray;
+font-family: Arial;
+font-size: 16px;
+margin-top: 21px;
+margin-left: 30px;
+`
+
 function Leftpanel() {
-  const initial = useSelector(loginDetails);
-  const { folderIds, folders } = initial;
+  const initial = useSelector(appReducers);
+  const { folderIds, folders, folderLoading } = initial;
   const { logout } = useAuthHooks();
-  const { createFolder} = useFolderHooks();
+  const { createFolder } = useFolderHooks();
   const navigate = useNavigate();
   const [folder, setFolder] = useState();
   const folderName = (e) => {
@@ -117,11 +125,15 @@ function Leftpanel() {
     <CustomBox>
       <CustomHeading>BOOKMARK</CustomHeading>
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
-      <FolderBox>
-        {/* folders mapping */}
-        {Object.keys(folderIds).length !== 0 &&
-          folderIds.map((item) => <Folder key={item} item={folders[item]} />)}
-      </FolderBox>
+      {folderLoading === "inProgress" ? (
+        <LoadingBox>...Loading</LoadingBox>
+      ) : (
+        <FolderBox>
+          {/* folders mapping */}
+          {Object.keys(folderIds).length !== 0 &&
+            folderIds.map((item) => <Folder key={item} item={folders[item]} />)}
+        </FolderBox>
+      )}
       <NewFolderInput
         type="text"
         onChange={folderName}

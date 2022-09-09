@@ -20,13 +20,13 @@ function App() {
 
   const login = "/login";
   const dashboard = "/dashboard";
-  const exact ="/";
+  
   return (
     <Router>
       <AppContainer>
         <RouteBox>
           <Routes>
-            <Route exact path={exact} element={<SignUp />} />
+            <Route exact path="/" element={<SignUp />} />
             <Route path={login} element={<Login />} />
             <Route path={dashboard} element={<Dashboard />} />
           </Routes>

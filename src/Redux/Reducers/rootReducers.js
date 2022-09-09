@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { loginDetails } from "./reducers";
+import { appReducers } from "./reducers";
 export default combineReducers({
-  loginDetails,
+  appReducers,
 });

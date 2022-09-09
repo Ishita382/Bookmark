@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
-import { loginDetails } from "../Redux/selector";
+import { appReducers } from "../Redux/selector";
 
 const CustomBox = styled(Box)`
   display: flex;
@@ -58,14 +58,14 @@ const Name = styled(Box)`
   color: #808080;
 `;
 function Bookmark() {
-  const initial = useSelector(loginDetails);
+  const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
 
   return (
     <CustomBox>
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
-          <LoadingBox>No Bookmarks</LoadingBox>
+          <LoadingBox>Please Select Folder</LoadingBox>
         ) : !bookmarkFolder.isEmpty  && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
@@ -77,7 +77,8 @@ function Bookmark() {
             </Card>
           ))
         ) : (
-          <LoadingBox>...Loading</LoadingBox>
+          bookmarkLoading==="inProgress"?
+          <LoadingBox>...Loading Bookmarks</LoadingBox>: <LoadingBox>No Bookmarks</LoadingBox>
         )}
       </BookmarkBox>
     </CustomBox>
