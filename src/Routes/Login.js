@@ -92,6 +92,12 @@ const LoginLink = styled(Link)`
   color: #5352ed;
 `;
 
+const EmailBox = styled(Box)`
+padding-bottom: 70px;
+`
+const PassBox = styled(Box)`
+padding-bottom: 70px;
+`
 
 function Login() {
   const { loginUser } = useAuthHooks();
@@ -128,30 +134,24 @@ function Login() {
       ) : (
         <RightBox>
           <SignUpBox>
-            <Box>
+            <EmailBox>
               <CustomInput
                 placeholder="Email"
                 type="email"
                 onChange={setEmailValue}
                 disableUnderline
               ></CustomInput>
-            </Box>
-            <br />
-            <br />
-            <br />
-            <br />
-            <Box>
+            </EmailBox>
+           
+            <PassBox>
               <CustomInput
                 placeholder="Password"
                 type="password"
                 onChange={setPasswordValue}
                 disableUnderline
               ></CustomInput>
-            </Box>
-            <br />
-            <br />
-            <br />
-            <br />
+            </PassBox>
+            
 
            
 

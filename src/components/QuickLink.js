@@ -123,10 +123,19 @@ const CustomButton = styled(Button)`
   }
 `;
 
+const Img = styled.img`
+  width: 250px;
+  height: 200px;
+  border-radius: 15px;
+  margin: 20px 20px 0px 20px;
+`;
+
 function Quicklink() {
   const { bookmarkFolder, folders } = useSelector(loginDetails);
   const [link, setLink] = useState();
   const { createBookmark } = useBookmarkHooks();
+  //const imgUrl = card;
+  //<Img src={imgUrl} />
   const setBookmarkLink = (e) => {
     return setLink(e.target.value);
   };
@@ -152,6 +161,7 @@ function Quicklink() {
           Save
         </CustomButton>
       </CustomLinkBox>
+
     </CustomBox>
   );
 }

@@ -91,6 +91,13 @@ const LoginLink = styled(Link)`
   color: #5352ed;
 `;
 
+const NameBox = styled(Box)`
+padding-bottom: 70px;
+`
+const EmailBox = styled(Box)`
+padding-bottom: 70px;
+`
+
 function SignUp() {
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
@@ -124,30 +131,24 @@ function SignUp() {
       {localStorage.getItem("auth")?(<Navigate to="/dashboard" />):(
       <RightBox>
         <SignUpBox>
-          <Box>
+          <NameBox>
             <CustomInput
               type="text"
               onChange={registerName}
               placeholder="Name"
               disableUnderline
             ></CustomInput>
-          </Box>
-          <br />
-          <br />
-          <br />
-          <br />
-          <Box>
+          </NameBox>
+         
+          <EmailBox>
             <CustomInput
               type="email"
               onChange={registerEmail}
               placeholder="Email"
               disableUnderline
             ></CustomInput>
-          </Box>
-          <br />
-          <br />
-          <br />
-          <br />
+          </EmailBox>
+         
           <Box>
             <CustomInput
               type="password"

@@ -31,9 +31,9 @@ const CustomBox = styled(Box)`
 const ModalBox = styled(Box)`
   align-items: center;
   margin-left: 600px;
-  margin-top: 300px;
-  height: 120px;
-  width: 320px;
+  margin-top: 260px;
+  height: 250px;
+  width: 300px;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
@@ -41,23 +41,42 @@ const ModalBox = styled(Box)`
 `;
 
 const CloseButton = styled(Button)`
-  margin-top: -140px;
-  margin-left: 260px;
+  margin-top: -380px;
+  margin-left: 240px;
   color: red;
 `;
 const Name = styled(Box)`
   color: gray;
   font-size: 16px;
-  font-weight: 600;
+  
   padding: 30px 0px 0px 20px;
   font-family: Arial;
 `;
 const CustomInput = styled(Input)`
+margin-top: 15px;
   margin-left: 20px;
+  border-radius: 8px;
+  border: solid 1px #6C6BF9;
+  width: 240px;
+  
 `;
 const CustomButton = styled(Button)`
-  margin-left: 15px;
+  margin-left: 115px;
+  margin-top: 15px;
+  color: white;
+  background: #5352ED;
+border-radius: 11px;
 `;
+
+const Heading = styled(Box)`
+color: black;
+font-family: Arial;
+font-weight: bold;
+padding-top: 20px;
+margin-left: 20px;
+font-size: 15px;
+width: 30px;
+`
 
 function Dashboard() {
   const initial = useSelector(loginDetails);
@@ -101,8 +120,8 @@ function Dashboard() {
           <Leftpanel />
           <Modal open={openModal}>
             <ModalBox>
-              <Name>Enter Folder Name</Name>{" "}
-              <CustomInput type="text" onChange={newFolderName} />
+              <Heading>SUB FOLDER</Heading><Name> Folder Name</Name>{" "}
+              <CustomInput type="text" onChange={newFolderName} placeholder="Enter Folder Name" disableUnderline />
               <CustomButton onClick={newFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeModal()}>
                 <Close />
@@ -111,8 +130,9 @@ function Dashboard() {
           </Modal>
           <Modal open={setFolderIdToRename}>
             <ModalBox>
-              <Name>Enter New Name</Name>{" "}
-              <CustomInput type="text" onChange={newFolderName} />
+              <Heading>RENAME FOLDER</Heading>
+              <Name>Folder Name</Name>{" "}
+              <CustomInput type="text" onChange={newFolderName} placeholder="Enter New Name" disableUnderline/>
               <CustomButton onClick={renameFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeRenameModal()}>
                 <Close />
