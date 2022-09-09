@@ -18,7 +18,7 @@ export const initialState = {
   setFolderIdToRename: false,
   renameFolderId: "",
   parentId: "",
-
+  isOpen: {},
   bookmarkFolder: "",
   bookmarks: {},
   rootBookmarks: [],
@@ -67,6 +67,7 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
+      state.isOpen[payload.id] = true;
       return { ...state, parentId: payload };
     }
 

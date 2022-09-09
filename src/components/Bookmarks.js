@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
@@ -57,12 +57,20 @@ const Name = styled(Box)`
   margin-bottom: -20px;
   color: #808080;
 `;
+
+const AddLinkButton = styled(Button)`
+margin-left: 900px;
+margin-top: 10px;
+border: 2px solid #5352ED;
+border-radius: 10px;
+`
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
 
   return (
     <CustomBox>
+      <AddLinkButton>+Add Link</AddLinkButton>
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
           <LoadingBox>Please Select Folder</LoadingBox>
