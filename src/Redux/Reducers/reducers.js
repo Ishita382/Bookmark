@@ -67,22 +67,26 @@ export const loginDetails = (state = initialState, action) => {
 
     case asyncFolderTypes.GET_FOLDER_CHILDREN_SUCCESS:
       const arr = [];
-      payload.response.map((item) => (state.folders[item.id] = item));
+      let cloneFolders = {};
+      cloneFolders = state.folders;
+      payload.response.map((item) => (cloneFolders[item.id] = item));
       payload.response.map((item) => arr.push(item.id));
-      state.folders[state.parentId].childIds = arr;
-      return { ...state };
+      cloneFolders[state.parentId].childIds = arr;
+      return { ...state , folders: cloneFolders};
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
-      state.folders[payload.response.id] = payload.response;
+      let updatedFolders = {};
+      updatedFolders = state.folders;
+      updatedFolders[payload.response.id] = payload.response;
       if (state.currentParentFolderId === "") {
         state.folderIds.push(payload.response.id);
       } else {
         
-        state.folders[state.currentParentFolderId].childIds.push(
+        updatedFolders[state.currentParentFolderId].childIds.push(
           payload.response.id
         );
       }
-      return { ...state };
+      return { ...state, folders: updatedFolders };
 
     case asyncAuthTypes.LOGOUT_SUCCESS:
       return { ...initialState };
