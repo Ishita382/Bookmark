@@ -155,11 +155,11 @@ function Login() {
 
            
 
-            <Box>
+           
               <CustomButton onClick={() => loginUser(data)}>
                 {loginLoading === "inProgress" ? "Loading..." : "Login"}
               </CustomButton>
-            </Box>
+           
             <LoginBox>
               Don't have an account? <LoginLink to="/">Sign Up</LoginLink>
             </LoginBox>
