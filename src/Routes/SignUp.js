@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import { useSelector } from "react-redux";
-
+import { loginDetails } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomHeading = styled(Box)`
   color: white;
@@ -95,7 +95,7 @@ function SignUp() {
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
-  const initial = useSelector((state)=>state.loginDetails);
+  const initial = useSelector(loginDetails);
   const { registrationLoading} = initial;
   const { registerUser } = useAuthHooks();
   const registerName = (e) => {

@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import Rightpanel from "../components/Rightpanel";
 import Leftpanel from "../components/Leftpanel";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
-
+import { loginDetails } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   display: grid;
@@ -60,7 +60,7 @@ const CustomButton = styled(Button)`
 `;
 
 function Dashboard() {
-  const initial = useSelector((state) => state.loginDetails);
+  const initial = useSelector(loginDetails);
   const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } = initial;
 
   const { getMe } = useAuthHooks();

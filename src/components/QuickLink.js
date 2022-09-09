@@ -5,7 +5,7 @@ import { Button, Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-
+import { loginDetails } from "../Redux/selector";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 
 const CustomBox = styled(Box)`
@@ -124,9 +124,7 @@ const CustomButton = styled(Button)`
 `;
 
 function Quicklink() {
-  const { bookmarkFolder, folders } = useSelector(
-    (state) => state.loginDetails
-  );
+  const { bookmarkFolder, folders } = useSelector(loginDetails);
   const [link, setLink] = useState();
   const { createBookmark } = useBookmarkHooks();
   const setBookmarkLink = (e) => {
@@ -148,7 +146,9 @@ function Quicklink() {
         <RootFolder>
           {bookmarkFolder === "" ? "Root" : folders[bookmarkFolder].name}
         </RootFolder>
-        <CustomButton onClick={() => createBookmark(link, folders[bookmarkFolder].name)}>
+        <CustomButton
+          onClick={() => createBookmark(link, folders[bookmarkFolder].name)}
+        >
           Save
         </CustomButton>
       </CustomLinkBox>

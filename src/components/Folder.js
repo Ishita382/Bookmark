@@ -9,7 +9,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux/es/exports";
-
+import { loginDetails } from "../Redux/selector";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 
@@ -43,7 +43,7 @@ function Folder(props) {
   const { openModal, openRenameModal, getFolderChildren } =
     useFolderHooks();
     const { getBookmarks } = useBookmarkHooks();
-  const { folders } = useSelector((state) => state.loginDetails);
+  const { folders } = useSelector(loginDetails);
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

@@ -9,7 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Box from "@mui/material/Box";
 import Folder from "./Folder";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
-
+import { loginDetails } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomBox = styled(Box)`
   flex: 1;
@@ -103,7 +103,7 @@ const SaveButton = styled(Button)`
 `;
 
 function Leftpanel() {
-  const initial = useSelector((state) => state.loginDetails);
+  const initial = useSelector(loginDetails);
   const { folderIds, folders } = initial;
   const { logout } = useAuthHooks();
   const { createFolder} = useFolderHooks();

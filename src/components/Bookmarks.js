@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
+import { loginDetails } from "../Redux/selector";
 
 const CustomBox = styled(Box)`
   display: flex;
@@ -57,7 +58,7 @@ const Name = styled(Box)`
   color: #808080;
 `;
 function Bookmark() {
-  const initial = useSelector((state) => state.loginDetails);
+  const initial = useSelector(loginDetails);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
 
   return (
