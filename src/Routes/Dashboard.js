@@ -89,6 +89,11 @@ function Dashboard() {
     closeRenameModal();
   });
 
+  const newFolderModal = useCallback(() => {
+    createFolder(folderName, createFolderParent);
+    closeModal();
+  });
+
   return (
     <Box>
       {localStorage.getItem("auth") ? (
@@ -98,15 +103,7 @@ function Dashboard() {
             <ModalBox>
               <Name>Enter Folder Name</Name>{" "}
               <CustomInput type="text" onChange={newFolderName} />
-              <CustomButton
-                onClick={() => {
-                  createFolder(folderName, createFolderParent);
-
-                  closeModal();
-                }}
-              >
-                Submit
-              </CustomButton>
+              <CustomButton onClick={newFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeModal()}>
                 <Close />
               </CloseButton>
