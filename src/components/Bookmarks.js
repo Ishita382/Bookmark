@@ -66,7 +66,7 @@ function Bookmark() {
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
           <LoadingBox>No Bookmarks</LoadingBox>
-        ) : bookmarkFolder !== "" && bookmarkLoading === "false" ? (
+        ) : !bookmarkFolder.isEmpty  && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
               <Name>{bookmarks[item].name}</Name>

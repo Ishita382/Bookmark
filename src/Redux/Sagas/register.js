@@ -6,7 +6,7 @@ const register_api = "https://bookmarks-app-server.herokuapp.com/register";
 export function* getRegistrationDetails(action) {
   const data = action.payload;
   const { regName: name, regEmail: email, regPassword: password } = data;
-  if (data !== "") {
+  if (!data.isEmpty) {
     let response = yield fetch(register_api, {
       method: "post",
       headers: {

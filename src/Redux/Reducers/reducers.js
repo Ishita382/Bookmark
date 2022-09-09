@@ -128,7 +128,7 @@ export const loginDetails = (state = initialState, action) => {
       );
       const object = {};
       payload.response.map((item) => (object[item.id] = item));
-      if (state.bookmarkFolder !== "") {
+      if (!state.bookmarkFolder.isEmpty) {
         state.folders[state.bookmarkFolder].bIds = bookmarkId;
       }
 
@@ -142,7 +142,7 @@ export const loginDetails = (state = initialState, action) => {
 
     case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
       state.bookmarks[payload.response.id] = payload.response;
-      if (state.bookmarkFolder === "") {
+      if (state.bookmarkFolder.isEmpty) {
         state.rootBookmarks.push(payload.response.id);
       } else {
         state.folders[state.bookmarkFolder].bIds.push(

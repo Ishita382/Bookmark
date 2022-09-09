@@ -6,7 +6,7 @@ const login_api = "https://bookmarks-app-server.herokuapp.com/login";
 
 export function* getLoginDetails(action) {
   let data = action.payload;
-  if (data !== "") {
+  if (!data.isEmpty) {
     let response = yield fetch(login_api, {
       method: "post",
       headers: {

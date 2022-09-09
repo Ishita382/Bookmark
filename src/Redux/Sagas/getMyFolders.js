@@ -8,7 +8,7 @@ export function* getUserFolders() {
     try {
       let response = yield sendRequest("folders", "GET", {});
       yield put({ type: asyncFolderTypes.GET_MY_FOLDERS_SUCCESS, payload: { response } });
-      console.log(response);
+      
     } catch (error) {
       yield put({ type: asyncFolderTypes.GET_MY_FOLDERS_FAILURE }, error);
     }
