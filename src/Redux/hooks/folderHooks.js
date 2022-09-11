@@ -64,11 +64,20 @@ export const useFolderHooks = () => {
     });
   };
 
+  const setParent = (id) => {
+    return dispatch({
+      type: syncFolderTypes.SET_PARENT_ID,
+      payload: {
+        id: id,
+      },
+    })
+  }
+
 
   return {
     getMyFolders,
     renameFolder,
-    
+    setParent,
     getFolderChildren,
     closeModal,
     openModal,

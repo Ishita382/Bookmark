@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@mui/material";
 import styled from "@emotion/styled";
@@ -11,6 +10,8 @@ import Folder from "./Folder";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
+import image from "../assets/logo.png";
+
 const CustomBox = styled(Box)`
   flex: 1;
   height: 100%;
@@ -109,6 +110,13 @@ font-size: 16px;
 margin-top: 21px;
 margin-left: 30px;
 `
+const Img = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  margin-bottom: -23px;
+  margin-top: 10px;
+`;
 
 function Leftpanel() {
   const initial = useSelector(appReducers);
@@ -123,6 +131,7 @@ function Leftpanel() {
 
   return (
     <CustomBox>
+       <Img src={image} alt="AddLink" />
       <CustomHeading>BOOKMARK</CustomHeading>
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
       {folderLoading === "inProgress" ? (

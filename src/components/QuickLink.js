@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { Button, Input } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-
+import image from "../assets/quickLink.png";
 import { appReducers } from "../Redux/selector";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 
@@ -124,10 +124,10 @@ const CustomButton = styled(Button)`
 `;
 
 const Img = styled.img`
-  width: 250px;
-  height: 200px;
+  width: 300px;
+  height: 280px;
   border-radius: 15px;
-  margin: 20px 20px 0px 20px;
+  margin: -60px 20px 0px 700px;
 `;
 
 function Quicklink() {
@@ -160,8 +160,9 @@ function Quicklink() {
         >
           Save
         </CustomButton>
+        <Img src={image} alt="AddLink" />
       </CustomLinkBox>
-
+      
     </CustomBox>
   );
 }

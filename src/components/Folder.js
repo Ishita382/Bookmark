@@ -12,7 +12,7 @@ import { useSelector } from "react-redux/es/exports";
 import { appReducers } from "../Redux/selector";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 const FolderButton = styled(Button)`
   margin-top: 3px;
@@ -47,7 +47,7 @@ const style = {
 
 function Folder(props) {
   const { item } = props;
-  const { openModal, openRenameModal, getFolderChildren } = useFolderHooks();
+  const { openModal, openRenameModal, getFolderChildren, setParent } = useFolderHooks();
   const { getBookmarks } = useBookmarkHooks();
   const { folders, bookmarkFolder, isOpen } = useSelector(appReducers);
   const [anchorEl, setAnchorEl] = React.useState();
@@ -59,12 +59,18 @@ function Folder(props) {
     setAnchorEl(null);
   };
 
+  const folderClick = () => {
+    !item.hasOwnProperty("cIds")
+      ? (getFolderChildren(item.id))
+      : (setParent(item.id));
+  };
+
   return (
     <Box>
       
           <FolderBox style={bookmarkFolder === item.id ? style : {}}>
-            <ArrowButton onClick={() => getFolderChildren(item.id)}>
-            {isOpen[item.id]==="true" ? <ArrowDropDownIcon /> : <ArrowDropUpIcon />}
+            <ArrowButton onClick={() => folderClick()}>
+            {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
             </ArrowButton>
             <FolderButton onClick={() => getBookmarks(item.id)}>
               <FolderIcon />

@@ -67,7 +67,9 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      state.isOpen[payload.id] = true;
+      state.isOpen.hasOwnProperty(payload.id)
+      ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
+      : (state.isOpen[payload.id] = true);
       return { ...state, parentId: payload };
     }
 
@@ -79,6 +81,12 @@ export const appReducers = (state = initialState, action) => {
       payload.response.map((item) => arr.push(item.id));
       cloneFolders[state.parentId].childIds = arr;
       return { ...state, folders: cloneFolders };
+
+      case syncFolderTypes.SET_PARENT_ID:
+        state.isOpen.hasOwnProperty(payload.id)
+          ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
+          : (state.isOpen[payload.id] = true);
+        return { ...state, parentId: payload.id };
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
       let updatedFolders = {};

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import image from "../assets/login.png";
 import { Input } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
@@ -98,6 +98,13 @@ padding-bottom: 70px;
 const PassBox = styled(Box)`
 padding-bottom: 70px;
 `
+const Img = styled.img`
+  width: 450px;
+  height: 450px;
+  border-radius: 15px;
+ margin-left: 200px;
+`;
+
 
 function Login() {
   const { loginUser } = useAuthHooks();
@@ -127,7 +134,7 @@ function Login() {
             <br /> Get Started
           </CustomHeading>
         </HeadingBox>
-       
+        <Img src={image} alt="AddLink" />
       </LeftBox>
       {localStorage.getItem("auth") ? (
         <Navigate to="/dashboard" />

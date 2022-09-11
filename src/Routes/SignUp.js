@@ -1,7 +1,7 @@
 import React from "react";
 import { Link,  Navigate } from "react-router-dom";
 import { useState } from "react";
-
+import image from "../assets/login.png";
 import { Input } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
@@ -86,6 +86,12 @@ const LoginBox = styled(Box)`
   color: #91919f;
 `;
 
+const Img = styled.img`
+  width: 450px;
+  height: 450px;
+  border-radius: 15px;
+ margin-left: 200px;
+`;
 
 const LoginLink = styled(Link)`
   color: #5352ed;
@@ -127,6 +133,7 @@ function SignUp() {
             <br /> Get Started
           </CustomHeading>
         </HeadingBox>
+        <Img src={image} alt="AddLink" />
       </LeftBox>
       {localStorage.getItem("auth")?(<Navigate to="/dashboard" />):(
       <RightBox>

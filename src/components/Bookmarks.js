@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
 import Link from '@mui/material/Link';
+import image from "../assets/card.png";
 
 const CustomBox = styled(Box)`
   display: flex;
@@ -65,10 +66,18 @@ margin-top: 10px;
 border: 2px solid #5352ED;
 border-radius: 10px;
 `
+const Img = styled.img`
+  width: 170px;
+  height: 80px;
+  border-radius: 15px;
+  margin: 20px 20px 0px 20px;
+  margin-bottom: -30px;
+  margin-left: -4px;
+`;
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
-
+const imgUrl = image;
   return (
     <CustomBox>
       <AddLinkButton>+Add Link</AddLinkButton>
@@ -77,14 +86,15 @@ function Bookmark() {
           <LoadingBox>Please Select Folder</LoadingBox>
         ) : !bookmarkFolder.isEmpty  && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
-            <Link href={item.url}><Card key={item}>
+            <Card key={item}>
+              <Img src={imgUrl} alt="title" />
               <Name>{bookmarks[item].name}</Name>
               <Description>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </Description>
             </Card>
-            </Link>
+           
           ))
         ) : (
           bookmarkLoading==="inProgress"?
