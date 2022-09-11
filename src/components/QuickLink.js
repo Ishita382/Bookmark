@@ -156,7 +156,7 @@ function Quicklink() {
           {bookmarkFolder === "" ? "Root" : folders[bookmarkFolder].name}
         </RootFolder>
         <CustomButton
-          onClick={() => createBookmark(link, folders[bookmarkFolder].name)}
+          onClick={() => createBookmark(link, bookmarkFolder)}
         >
           Save
         </CustomButton>

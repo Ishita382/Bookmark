@@ -10,12 +10,12 @@ export const useBookmarkHooks = () => {
     });
   };
 
-  const createBookmark = (url, name) => {
+  const createBookmark = (link, selectedFolder) => {
     return dispatch({
       type: syncBookmarkTypes.CREATE_BOOKMARK_REQUEST,
       payload: {
-        url: url,
-        name : name,
+       link: link,
+       folder: selectedFolder
       },
     });
   };
