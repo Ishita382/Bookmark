@@ -41,7 +41,7 @@ const ModalBox = styled(Box)`
 `;
 
 const CloseButton = styled(Button)`
-  margin-top: -380px;
+  margin-top: -350px;
   margin-left: 240px;
   color: red;
 `;
@@ -121,7 +121,7 @@ function Dashboard() {
           <Leftpanel />
           <Modal open={openModal}>
             <ModalBox>
-              <Heading>SUB FOLDER</Heading><Name> Folder Name</Name>{" "}
+              <Heading>SUBFOLDER</Heading><Name> Folder Name</Name>{" "}
               <CustomInput type="text" onChange={newFolderName} placeholder="Enter Folder Name" disableUnderline />
               <CustomButton onClick={newFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeModal()}>
