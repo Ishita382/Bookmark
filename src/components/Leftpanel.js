@@ -18,6 +18,7 @@ const CustomBox = styled(Box)`
   width: 100%;
   flex-direction: row;
   overflow: hidden;
+  padding-right: 40px;
 `;
 
 const FolderBox = styled(Box)`

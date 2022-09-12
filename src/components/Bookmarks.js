@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
 import image from "../assets/card.png";
-
+import BookIcon from '@mui/icons-material/Book';
+import Typography from '@mui/material/Typography';
 const CustomBox = styled(Box)`
   display: flex;
   flex-direction: row;
@@ -35,13 +36,12 @@ const Card = styled(Box)`
 `;
 
 const LoadingBox = styled(Box)`
-  font-size: 30px;
-  color: gray;
+  font-size: 20px;
+  color: #5352ED;
   font-family: Arial;
-  margin-top: 200px;
-  margin-left: 370px;
-  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
-    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
+  margin-top: 150px;
+  margin-left: 540px;
+  
 `;
 
 const Description = styled(Box)`
@@ -73,6 +73,19 @@ const Img = styled.img`
   margin-bottom: -30px;
   margin-left: -4px;
 `;
+
+const Text = styled(Box)`
+text-align: center;
+color: black;
+font-size: 15px;
+margin-left: -60px;
+`
+const SecondText = styled(Box)`
+text-align: center;
+color: black;
+font-size: 10px;
+margin-left: -60px;
+`
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
@@ -82,7 +95,10 @@ function Bookmark() {
       <AddLinkButton>+Add Link</AddLinkButton>
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
-          <LoadingBox>Please Select Folder</LoadingBox>
+          <LoadingBox><BookIcon/>
+          <Text>No Bookmarks Found</Text>
+          <SecondText>Keep content organised <br/>with folders and subfolders</SecondText>
+          </LoadingBox>
         ) : !bookmarkFolder.isEmpty && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
@@ -97,7 +113,7 @@ function Bookmark() {
         ) : bookmarkLoading === "inProgress" ? (
           <LoadingBox>...Loading Bookmarks</LoadingBox>
         ) : (
-          <LoadingBox>No Bookmarks</LoadingBox>
+          <LoadingBox></LoadingBox>
         )}
       </BookmarkBox>
     </CustomBox>

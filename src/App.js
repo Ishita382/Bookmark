@@ -9,8 +9,8 @@ import Login from "./routes/Login";
 import Dashboard from "./routes/Dashboard";
 
 const AppContainer = styled(Container)`
-  display: flex;
- 
+margin-left: 0px;
+ min-width: 1200px;
 `;
 
 const RouteBox = styled(Box)`

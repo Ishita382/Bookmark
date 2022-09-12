@@ -21,7 +21,7 @@ const CustomBox = styled(Box)`
   width: 100vw;
   overflow-y: hidden;
   overflow-x: hidden;
-  max-width: 1320px;
+  max-width: 1450px;
 `;
 
 const ModalBox = styled(Box)`

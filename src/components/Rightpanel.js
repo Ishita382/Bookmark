@@ -10,6 +10,7 @@ const CustomBox = styled(Box)`
   height: 100%;
   widht: 100%;
   overflow: hidden;
+  margin-left: 30px;
 `;
 function Rightpanel() {
   return (
