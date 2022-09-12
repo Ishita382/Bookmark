@@ -1,6 +1,4 @@
 import { put } from "redux-saga/effects";
-
-
 import { asyncAuthTypes } from "../actions/asyncTypes";
 const register_api = "https://bookmarks-app-server.herokuapp.com/register";
 export function* getRegistrationDetails(action) {
@@ -20,7 +18,7 @@ export function* getRegistrationDetails(action) {
 
     if ("token" in response) {
       yield put({ type: asyncAuthTypes.REGISTRATION_SUCCESS, response });
-      
+
       localStorage.setItem("auth", JSON.stringify(response.token));
     } else {
       yield put({ type: asyncAuthTypes.REGISTRATION_FAILED });

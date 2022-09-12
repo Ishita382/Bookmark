@@ -1,5 +1,5 @@
 import React from "react";
-import { Link,  Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import image from "../assets/login.png";
 import { Input } from "@mui/material";
@@ -90,7 +90,7 @@ const Img = styled.img`
   width: 450px;
   height: 450px;
   border-radius: 15px;
- margin-left: 200px;
+  margin-left: 200px;
 `;
 
 const LoginLink = styled(Link)`
@@ -98,18 +98,18 @@ const LoginLink = styled(Link)`
 `;
 
 const NameBox = styled(Box)`
-padding-bottom: 70px;
-`
+  padding-bottom: 70px;
+`;
 const EmailBox = styled(Box)`
-padding-bottom: 70px;
-`
+  padding-bottom: 70px;
+`;
 
 function SignUp() {
   const [regName, setRegName] = useState("");
   const [regEmail, setRegEmail] = useState("");
   const [regPassword, setRegPassword] = useState("");
   const initial = useSelector(appReducers);
-  const { registrationLoading} = initial;
+  const { registrationLoading } = initial;
   const { registerUser } = useAuthHooks();
   const registerName = (e) => {
     return setRegName(e.target.value);
@@ -135,47 +135,51 @@ function SignUp() {
         </HeadingBox>
         <Img src={image} alt="AddLink" />
       </LeftBox>
-      {localStorage.getItem("auth")?(<Navigate to="/dashboard" />):(
-      <RightBox>
-        <SignUpBox>
-          <NameBox>
-            <CustomInput
-              type="text"
-              onChange={registerName}
-              placeholder="Name"
-              disableUnderline
-            ></CustomInput>
-          </NameBox>
-         
-          <EmailBox>
-            <CustomInput
-              type="email"
-              onChange={registerEmail}
-              placeholder="Email"
-              disableUnderline
-            ></CustomInput>
-          </EmailBox>
-         
-          <Box>
-            <CustomInput
-              type="password"
-              onChange={registerPassword}
-              placeholder="Password"
-              disableUnderline
-            ></CustomInput>
-          </Box>
-          <Box></Box>
+      {localStorage.getItem("auth") ? (
+        <Navigate to="/dashboard" />
+      ) : (
+        <RightBox>
+          <SignUpBox>
+            <NameBox>
+              <CustomInput
+                type="text"
+                onChange={registerName}
+                placeholder="Name"
+                disableUnderline
+              ></CustomInput>
+            </NameBox>
 
-          <Box>
-            <CustomButton onClick={() => registerUser(data)}>
-              {registrationLoading==="inProgress"?"...Loading":"Sign Up"}
-            </CustomButton>
-          </Box>
-          <LoginBox>
-            Already have an account? <LoginLink to="/login">Login</LoginLink>
-          </LoginBox>
-        </SignUpBox>
-      </RightBox>
+            <EmailBox>
+              <CustomInput
+                type="email"
+                onChange={registerEmail}
+                placeholder="Email"
+                disableUnderline
+              ></CustomInput>
+            </EmailBox>
+
+            <Box>
+              <CustomInput
+                type="password"
+                onChange={registerPassword}
+                placeholder="Password"
+                disableUnderline
+              ></CustomInput>
+            </Box>
+            <Box></Box>
+
+            <Box>
+              <CustomButton onClick={() => registerUser(data)}>
+                {registrationLoading === "inProgress"
+                  ? "...Loading"
+                  : "Sign Up"}
+              </CustomButton>
+            </Box>
+            <LoginBox>
+              Already have an account? <LoginLink to="/login">Login</LoginLink>
+            </LoginBox>
+          </SignUpBox>
+        </RightBox>
       )}
     </CustomBox>
   );

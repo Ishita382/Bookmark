@@ -29,8 +29,6 @@ export const useFolderHooks = () => {
     });
   };
 
-
-
   const openModal = (id) => {
     return dispatch({
       type: syncFolderTypes.OPEN_MODAL,
@@ -70,9 +68,8 @@ export const useFolderHooks = () => {
       payload: {
         id: id,
       },
-    })
-  }
-
+    });
+  };
 
   return {
     getMyFolders,
@@ -83,7 +80,7 @@ export const useFolderHooks = () => {
     openModal,
     closeRenameModal,
     openRenameModal,
-   
+
     createFolder,
   };
 };

@@ -30,17 +30,16 @@ export const useAuthHooks = () => {
     });
   };
 
-  const useGetMe = () =>{
+  const useGetMe = () => {
     return dispatch({
       type: syncAuthTypes.USE_GET_ME,
-    })
-  }
+    });
+  };
   return {
     loginUser,
     logout,
     getMe,
     registerUser,
-    useGetMe
+    useGetMe,
   };
 };
-

@@ -104,12 +104,12 @@ const SaveButton = styled(Button)`
 `;
 
 const LoadingBox = styled(Box)`
-color: gray;
-font-family: Arial;
-font-size: 16px;
-margin-top: 21px;
-margin-left: 30px;
-`
+  color: gray;
+  font-family: Arial;
+  font-size: 16px;
+  margin-top: 21px;
+  margin-left: 30px;
+`;
 const Img = styled.img`
   width: 50px;
   height: 50px;
@@ -131,7 +131,7 @@ function Leftpanel() {
 
   return (
     <CustomBox>
-       <Img src={image} alt="AddLink" />
+      <Img src={image} alt="AddLink" />
       <CustomHeading>BOOKMARK</CustomHeading>
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
       {folderLoading === "inProgress" ? (

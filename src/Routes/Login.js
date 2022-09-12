@@ -7,7 +7,6 @@ import { Input } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
-
 import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 const CustomHeading = styled(Box)`
@@ -93,18 +92,17 @@ const LoginLink = styled(Link)`
 `;
 
 const EmailBox = styled(Box)`
-padding-bottom: 70px;
-`
+  padding-bottom: 70px;
+`;
 const PassBox = styled(Box)`
-padding-bottom: 70px;
-`
+  padding-bottom: 70px;
+`;
 const Img = styled.img`
   width: 450px;
   height: 450px;
   border-radius: 15px;
- margin-left: 200px;
+  margin-left: 200px;
 `;
-
 
 function Login() {
   const { loginUser } = useAuthHooks();
@@ -149,7 +147,7 @@ function Login() {
                 disableUnderline
               ></CustomInput>
             </EmailBox>
-           
+
             <PassBox>
               <CustomInput
                 placeholder="Password"
@@ -158,15 +156,11 @@ function Login() {
                 disableUnderline
               ></CustomInput>
             </PassBox>
-            
 
-           
+            <CustomButton onClick={() => loginUser(data)}>
+              {loginLoading === "inProgress" ? "Loading..." : "Login"}
+            </CustomButton>
 
-           
-              <CustomButton onClick={() => loginUser(data)}>
-                {loginLoading === "inProgress" ? "Loading..." : "Login"}
-              </CustomButton>
-           
             <LoginBox>
               Don't have an account? <LoginLink to="/">Sign Up</LoginLink>
             </LoginBox>

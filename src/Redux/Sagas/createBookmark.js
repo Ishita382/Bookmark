@@ -8,7 +8,7 @@ function* createBookmark(action) {
     if (action.payload.folder !== "") {
       item.folderId = action.payload.folder;
     }
-   
+
     let response = sendRequest("bookmark", "POST", item);
     yield put({
       type: asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS,

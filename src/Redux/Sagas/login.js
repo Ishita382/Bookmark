@@ -1,8 +1,6 @@
 import { put } from "redux-saga/effects";
 import sendRequest from "../Request";
-
 import { asyncAuthTypes } from "../actions/asyncTypes";
-
 export function* getLoginDetails(action) {
   let data = action.payload;
   if (!data.isEmpty) {

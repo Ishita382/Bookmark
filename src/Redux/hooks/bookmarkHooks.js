@@ -14,8 +14,8 @@ export const useBookmarkHooks = () => {
     return dispatch({
       type: syncBookmarkTypes.CREATE_BOOKMARK_REQUEST,
       payload: {
-       link: link,
-       folder: selectedFolder
+        link: link,
+        folder: selectedFolder,
       },
     });
   };

@@ -1,18 +1,14 @@
 import React, { useCallback } from "react";
 import { useEffect } from "react";
-
 import Modal from "@mui/material/Modal";
-
 import { Navigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { Box } from "@mui/system";
-
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { Close } from "@mui/icons-material";
 import { Input } from "@mui/material";
 import Button from "@mui/material/Button";
-
 import Rightpanel from "../components/Rightpanel";
 import Leftpanel from "../components/Leftpanel";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
@@ -48,35 +44,34 @@ const CloseButton = styled(Button)`
 const Name = styled(Box)`
   color: gray;
   font-size: 16px;
-  
+
   padding: 30px 0px 0px 20px;
   font-family: Arial;
 `;
 const CustomInput = styled(Input)`
-margin-top: 15px;
+  margin-top: 15px;
   margin-left: 20px;
   border-radius: 8px;
-  border: solid 1px #6C6BF9;
+  border: solid 1px #6c6bf9;
   width: 240px;
-  
 `;
 const CustomButton = styled(Button)`
   margin-left: 115px;
   margin-top: 15px;
   color: white;
-  background: #5352ED;
-border-radius: 11px;
+  background: #5352ed;
+  border-radius: 11px;
 `;
 
 const Heading = styled(Box)`
-color: black;
-font-family: Arial;
-font-weight: bold;
-padding-top: 20px;
-margin-left: 20px;
-font-size: 15px;
-width: 30px;
-`
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  padding-top: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+  width: 30px;
+`;
 
 function Dashboard() {
   const initial = useSelector(appReducers);
@@ -93,10 +88,10 @@ function Dashboard() {
   } = useFolderHooks();
 
   useGetMe(
-  useEffect(() => {
-    getMe();
-    getMyFolders();
-  }, [])
+    useEffect(() => {
+      getMe();
+      getMyFolders();
+    }, [])
   );
   const [folderName, setFolderName] = useState();
 
@@ -121,8 +116,14 @@ function Dashboard() {
           <Leftpanel />
           <Modal open={openModal}>
             <ModalBox>
-              <Heading>SUBFOLDER</Heading><Name> Folder Name</Name>{" "}
-              <CustomInput type="text" onChange={newFolderName} placeholder="Enter Folder Name" disableUnderline />
+              <Heading>SUBFOLDER</Heading>
+              <Name> Folder Name</Name>{" "}
+              <CustomInput
+                type="text"
+                onChange={newFolderName}
+                placeholder="Enter Folder Name"
+                disableUnderline
+              />
               <CustomButton onClick={newFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeModal()}>
                 <Close />
@@ -133,7 +134,12 @@ function Dashboard() {
             <ModalBox>
               <Heading>RENAME FOLDER</Heading>
               <Name>Folder Name</Name>{" "}
-              <CustomInput type="text" onChange={newFolderName} placeholder="Enter New Name" disableUnderline/>
+              <CustomInput
+                type="text"
+                onChange={newFolderName}
+                placeholder="Enter New Name"
+                disableUnderline
+              />
               <CustomButton onClick={renameFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeRenameModal()}>
                 <Close />

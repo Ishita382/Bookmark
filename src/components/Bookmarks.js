@@ -2,7 +2,6 @@ import { Box, Button } from "@mui/material";
 import styled from "@emotion/styled";
 import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
-import Link from '@mui/material/Link';
 import image from "../assets/card.png";
 
 const CustomBox = styled(Box)`
@@ -25,7 +24,7 @@ const Card = styled(Box)`
   gap: 25px;
   margin-right: 66px;
   margin-top: 30px;
- 
+
   width: 170px;
   height: 140px;
   background: #ffffff;
@@ -61,11 +60,11 @@ const Name = styled(Box)`
 `;
 
 const AddLinkButton = styled(Button)`
-margin-left: 900px;
-margin-top: 10px;
-border: 2px solid #5352ED;
-border-radius: 10px;
-`
+  margin-left: 900px;
+  margin-top: 10px;
+  border: 2px solid #5352ed;
+  border-radius: 10px;
+`;
 const Img = styled.img`
   width: 170px;
   height: 80px;
@@ -77,14 +76,14 @@ const Img = styled.img`
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
-const imgUrl = image;
+  const imgUrl = image;
   return (
     <CustomBox>
       <AddLinkButton>+Add Link</AddLinkButton>
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
           <LoadingBox>Please Select Folder</LoadingBox>
-        ) : !bookmarkFolder.isEmpty  && bookmarkLoading === "false" ? (
+        ) : !bookmarkFolder.isEmpty && bookmarkLoading === "false" ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
               <Img src={imgUrl} alt="title" />
@@ -94,11 +93,11 @@ const imgUrl = image;
                 industry.
               </Description>
             </Card>
-           
           ))
+        ) : bookmarkLoading === "inProgress" ? (
+          <LoadingBox>...Loading Bookmarks</LoadingBox>
         ) : (
-          bookmarkLoading==="inProgress"?
-          <LoadingBox>...Loading Bookmarks</LoadingBox>: <LoadingBox>No Bookmarks</LoadingBox>
+          <LoadingBox>No Bookmarks</LoadingBox>
         )}
       </BookmarkBox>
     </CustomBox>

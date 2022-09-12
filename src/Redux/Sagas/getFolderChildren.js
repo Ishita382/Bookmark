@@ -1,7 +1,5 @@
-
 import { put } from "redux-saga/effects";
 import sendRequest from "../Request";
-
 import { asyncFolderTypes } from "../actions/asyncTypes";
 function* getFolderChildren(action) {
   try {
@@ -10,7 +8,10 @@ function* getFolderChildren(action) {
       "GET",
       {}
     );
-    yield put({ type: asyncFolderTypes.GET_FOLDER_CHILDREN_SUCCESS, payload: { response } });
+    yield put({
+      type: asyncFolderTypes.GET_FOLDER_CHILDREN_SUCCESS,
+      payload: { response },
+    });
   } catch (error) {
     yield put({ type: asyncFolderTypes.GET_FOLDER_CHILDREN_FAILURE }, error);
   }

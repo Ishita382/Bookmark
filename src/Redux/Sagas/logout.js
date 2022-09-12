@@ -1,6 +1,4 @@
 import { put } from "redux-saga/effects";
-
-
 import { asyncAuthTypes } from "../actions/asyncTypes";
 function* logoutUser(action) {
   try {

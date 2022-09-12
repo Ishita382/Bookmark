@@ -9,7 +9,10 @@ function* getMyBookmarks(action) {
       "GET",
       {}
     );
-    yield put({ type: asyncBookmarkTypes.GET_BOOKMARKS_SUCCESS, payload: { response } });
+    yield put({
+      type: asyncBookmarkTypes.GET_BOOKMARKS_SUCCESS,
+      payload: { response },
+    });
   } catch (error) {
     yield put({ type: asyncBookmarkTypes.GET_BOOKMARKS_FAILURE }, error);
   }
