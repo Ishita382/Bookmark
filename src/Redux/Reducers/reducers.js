@@ -10,20 +10,19 @@ import {
 } from "../actions/asyncTypes";
 export const initialState = {
   folders: {},
-  folderLoading: "initial",
-  loginLoading: "initial",
+  bookmarks: {},
+  isOpen: {},
   folderIds: [],
-  openModal: false,
-  currentParentFolderId: "",
-  setFolderIdToRename: false,
+  rootBookmarks: [],
   renameFolderId: "",
   parentId: "",
-  isOpen: {},
   bookmarkFolder: "",
-  bookmarks: {},
-  rootBookmarks: [],
+  currentParentFolderId: "",
+  setFolderIdToRename: false,
+  openModal: false,
   bookmarkLoading: "initial",
-
+  folderLoading: "initial",
+  loginLoading: "initial",
   registrationLoading: "initial",
 };
 export const appReducers = (state = initialState, action) => {
