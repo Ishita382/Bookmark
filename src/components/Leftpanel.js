@@ -11,7 +11,9 @@ import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 import image from "../assets/logo.png";
-
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Close } from "@mui/icons-material";
 const CustomBox = styled(Box)`
   flex: 1;
   height: 100%;
@@ -56,21 +58,12 @@ const CustomInput = styled(Input)`
 `;
 
 const NewFolderInput = styled(Input)`
-  margin-top: 25px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 93px 8px 16px;
-  gap: 8px;
-  width: 157px;
-  height: 35px;
-  background: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  order: 1;
-  flex-grow: 0;
+  margin-top: 15px;
+  margin-left: 20px;
+  border-radius: 8px;
+  border: solid 1px #6c6bf9;
+  width: 240px;
+  color: #6c6bf9;
 `;
 
 const LogoutButton = styled(Button)`
@@ -119,20 +112,72 @@ const Img = styled.img`
   margin-top: 10px;
 `;
 
+const ModalBox = styled(Box)`
+  align-items: center;
+  margin-left: 600px;
+  margin-top: 260px;
+  height: 250px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
+    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
+`;
+const Heading = styled(Box)`
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  padding-top: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+  width: 30px;
+`;
+
+const Name = styled(Box)`
+  color: gray;
+  font-size: 16px;
+
+  padding: 30px 0px 0px 20px;
+  font-family: Arial;
+`;
+
+const CustomButton = styled(Button)`
+  margin-left: 115px;
+  margin-top: 15px;
+  color: white;
+  background: #5352ed;
+  border-radius: 11px;
+`;
+
+const CloseButton = styled(Button)`
+  margin-top: -350px;
+  margin-left: 240px;
+  color: red;
+`;
+
+const ImageButton = styled(Button)``;
 function Leftpanel() {
   const initial = useSelector(appReducers);
   const { folderIds, folders, folderLoading } = initial;
   const { logout } = useAuthHooks();
-  const { createFolder } = useFolderHooks();
+  const { openFolderModal } = useFolderHooks();
   const navigate = useNavigate();
   const [folder, setFolder] = useState();
   const folderName = (e) => {
     setFolder(e.target.value);
   };
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   return (
     <CustomBox>
-      <Img src={image} alt="AddLink" />
+      <ImageButton onClick={refreshPage}>
+        <Img src={image} alt="AddLink" />
+      </ImageButton>
       <CustomHeading>BOOKMARK</CustomHeading>
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
       {folderLoading === "inProgress" ? (
@@ -144,13 +189,8 @@ function Leftpanel() {
             folderIds.map((item) => <Folder key={item} item={folders[item]} />)}
         </FolderBox>
       )}
-      <NewFolderInput
-        type="text"
-        onChange={folderName}
-        disableUnderline
-        placeholder="+ New"
-      />
-      <SaveButton onClick={() => createFolder(folder)}>Save</SaveButton>
+
+      <SaveButton onClick={() => openFolderModal()}>Add Folder</SaveButton>
 
       <LogoutBox>
         <LogoutButton onClick={() => logout(navigate)}>
