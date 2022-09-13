@@ -113,7 +113,7 @@ const CustomButton = styled(Button)`
   width: 100px;
   height: 40px;
   top: 190px;
-  left: 630px;
+  left: 520px;
   background: #ffffff;
   border-radius: 16px;
   font-size: 13px;

@@ -20,6 +20,7 @@ export const initialState = {
   currentParentFolderId: "",
   setFolderIdToRename: false,
   openModal: false,
+  openNewFolderModal: false,
   bookmarkLoading: "initial",
   folderLoading: "initial",
   loginLoading: "initial",
@@ -66,9 +67,10 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      state.isOpen.hasOwnProperty(payload.id)
-        ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
-        : (state.isOpen[payload.id] = true);
+      // state.isOpen.hasOwnProperty(payload.id)
+      //   ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
+      //   : (state.isOpen[payload.id] = true);
+      state.isOpen[payload.id] = payload.id;
       return { ...state, parentId: payload };
     }
 
@@ -162,6 +164,10 @@ export const appReducers = (state = initialState, action) => {
 
       return { ...state };
     }
+    case syncFolderTypes.OPEN_FOLDER_MODAL:
+      return { ...state, openNewFolderModal: true };
+    case syncFolderTypes.CLOSE_FOLDER_MODAL:
+      return { ...state, openNewFolderModal: false };
 
     default:
       return state;

@@ -28,7 +28,9 @@ function App() {
           <Routes>
             <Route exact path="/" element={<SignUp />} />
             <Route path={login} element={<Login />} />
-            <Route path={dashboard} element={<Dashboard />} />
+            <Route path={dashboard} element={<Dashboard />} >
+            <Route path=":id" element={<Dashboard />} />
+            </Route>
           </Routes>
         </RouteBox>
       </AppContainer>

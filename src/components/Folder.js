@@ -13,9 +13,10 @@ import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import "./App.css";
 const FolderButton = styled(Button)`
   margin-top: 3px;
-  font-weight: bold;
+  
   color: #5352ed;
 `;
 
@@ -27,13 +28,14 @@ const ArrowButton = styled(Button)`
 const FolderBox = styled(Box)`
   :hover {
     background-color: #e4e3ff;
+    display: block;
   }
   width: 200px;
   border-radius: 5px;
 `;
 const FolderName = styled(Box)`
   color: #77757f;
-  font-weight: 500;
+  margin-left: 10px;
 `;
 const SubFolderBox = styled(Box)`
   margin-left: 20px;
@@ -43,6 +45,7 @@ const style = {
   borderRadius: "5px",
   backgroundColor: "#E4E3FF",
 };
+
 
 function Folder(props) {
   const { item } = props;
@@ -65,26 +68,29 @@ function Folder(props) {
       : setParent(item.id);
   };
 
+
   return (
     <Box>
-      <FolderBox style={bookmarkFolder === item.id ? style : {}}>
+      <FolderBox className= "hoverfolder" style={bookmarkFolder === item.id ? style : {}}>
         <ArrowButton onClick={() => folderClick()}>
-          {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
+        {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
         </ArrowButton>
         <FolderButton onClick={() => getBookmarks(item.id)}>
           <FolderIcon />
           <FolderName>{item.name}</FolderName>
         </FolderButton>
-        <IconButton
+        <IconButton 
           aria-label="more"
           id="long-button"
           aria-controls={open ? "long-menu" : undefined}
           aria-expanded={open ? "true" : undefined}
           aria-haspopup="true"
           onClick={handleClick}
+          className="hide"
         >
           <MoreVertIcon />
         </IconButton>
+        
         <Menu
           id="long-menu"
           MenuListProps={{
@@ -112,6 +118,7 @@ function Folder(props) {
             Rename
           </MenuItem>
         </Menu>
+       
       </FolderBox>
       <SubFolderBox>
         {item.hasOwnProperty("childIds") &&

@@ -34,10 +34,11 @@ const CustomBox = styled(Box)`
   grid-template-columns: 30% 70%;
   height: 100vh;
   width: 100vw;
+  max-width: 1450px;
 `;
 const SignUpBox = styled(Box)`
-  padding-left: 200px;
-  padding-top: 150px;
+  padding-left: 350px;
+  padding-top: 180px;
 `;
 const HeadingBox = styled(Box)`
   padding-left: 30px;

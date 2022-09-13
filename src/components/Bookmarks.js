@@ -4,17 +4,19 @@ import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
 import image from "../assets/card.png";
 import BookIcon from '@mui/icons-material/Book';
-import Typography from '@mui/material/Typography';
+import {Input } from "@mui/material";
 const CustomBox = styled(Box)`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+
 `;
 
 const BookmarkBox = styled(Box)`
   margin-bottom: 400px;
   display: flex;
   flex-wrap: wrap;
+  margin-left: 50px;
 `;
 
 const Card = styled(Box)`
@@ -23,11 +25,10 @@ const Card = styled(Box)`
   justify-content: flex-end;
   padding: 20px;
   gap: 25px;
-  margin-right: 66px;
+  margin-right: 40px;
   margin-top: 30px;
-
-  width: 170px;
-  height: 140px;
+  width: 200px;
+  height: 155px;
   background: #ffffff;
   box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
     0px 8px 24px -4px rgba(24, 39, 75, 0.08);
@@ -60,7 +61,7 @@ const Name = styled(Box)`
 `;
 
 const AddLinkButton = styled(Button)`
-  margin-left: 900px;
+  margin-left: 1100px;
   margin-top: 10px;
   border: 2px solid #5352ed;
   border-radius: 10px;
@@ -70,8 +71,9 @@ const Img = styled.img`
   height: 80px;
   border-radius: 15px;
   margin: 20px 20px 0px 20px;
-  margin-bottom: -30px;
+  margin-bottom: -25px;
   margin-left: -4px;
+  padding-bottom: 10px;
 `;
 
 const Text = styled(Box)`
@@ -86,12 +88,39 @@ color: black;
 font-size: 10px;
 margin-left: -60px;
 `
+const LoadingBookmarkBox = styled(Box)`
+font-size: 20px;
+  color: gray;
+  font-family: Arial;
+  margin-top: 170px;
+  margin-left: 420px;
+  
+`
+const CustomInput = styled(Input)`
+  margin-top: -30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 93px 8px 16px;
+  gap: 8px;
+  width: 170px;
+  height: 35px;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  order: 1;
+  flex-grow: 0;
+`;
+
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
   const imgUrl = image;
   return (
     <CustomBox>
+      {/* <CustomInput placeholder="Search" disableUnderline></CustomInput> */}
       <AddLinkButton>+Add Link</AddLinkButton>
       <BookmarkBox>
         {bookmarkLoading === "initial" ? (
@@ -111,7 +140,7 @@ function Bookmark() {
             </Card>
           ))
         ) : bookmarkLoading === "inProgress" ? (
-          <LoadingBox>...Loading Bookmarks</LoadingBox>
+          <LoadingBookmarkBox>...Loading Bookmarks</LoadingBookmarkBox>
         ) : (
           <LoadingBox></LoadingBox>
         )}

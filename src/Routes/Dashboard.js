@@ -54,6 +54,7 @@ const CustomInput = styled(Input)`
   border-radius: 8px;
   border: solid 1px #6c6bf9;
   width: 240px;
+  color: #6c6bf9;
 `;
 const CustomButton = styled(Button)`
   margin-left: 115px;
@@ -70,13 +71,26 @@ const Heading = styled(Box)`
   padding-top: 20px;
   margin-left: 20px;
   font-size: 15px;
-  width: 30px;
+  width: 31px;
 `;
 
+const CustomFolderButton = styled(Button)`
+  margin-left: 105px;
+  margin-top: 15px;
+  color: white;
+  background: #5352ed;
+  border-radius: 11px;
+  
+`;
 function Dashboard() {
   const initial = useSelector(appReducers);
-  const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } =
-    initial;
+  const {
+    openModal,
+    createFolderParent,
+    setFolderIdToRename,
+    renameFolderId,
+    openNewFolderModal,
+  } = initial;
 
   const { getMe, useGetMe } = useAuthHooks();
   const {
@@ -85,14 +99,15 @@ function Dashboard() {
     closeModal,
     renameFolder,
     closeRenameModal,
+    closeFolderModal,
   } = useFolderHooks();
-
-  useGetMe(
+  const current = window.location.pathname.slice(11);
+  
     useEffect(() => {
       getMe();
       getMyFolders();
-    }, [])
-  );
+    }, [current])
+
   const [folderName, setFolderName] = useState();
 
   const newFolderName = (e) => {
@@ -108,7 +123,11 @@ function Dashboard() {
     createFolder(folderName, createFolderParent);
     closeModal();
   });
-
+  const [folder, setFolder] = useState();
+  const folderNewName = (e) => {
+    setFolder(e.target.value);
+  };
+ 
   return (
     <Box>
       {localStorage.getItem("auth") ? (
@@ -133,7 +152,7 @@ function Dashboard() {
           <Modal open={setFolderIdToRename}>
             <ModalBox>
               <Heading>RENAME FOLDER</Heading>
-              <Name>Folder Name</Name>{" "}
+              <Name>Folder Name</Name>
               <CustomInput
                 type="text"
                 onChange={newFolderName}
@@ -142,6 +161,24 @@ function Dashboard() {
               />
               <CustomButton onClick={renameFolderModal}>Submit</CustomButton>
               <CloseButton onClick={() => closeRenameModal()}>
+                <Close />
+              </CloseButton>
+            </ModalBox>
+          </Modal>
+          <Modal open={openNewFolderModal}>
+            <ModalBox>
+              <Heading>Add Folder</Heading>
+              <Name>Folder Name</Name>
+              <CustomInput
+                type="text"
+                onChange={folderNewName}
+                placeholder="Enter New Name"
+                disableUnderline
+              />
+              <CustomFolderButton onClick={() => createFolder(folder)}>
+                Submit
+              </CustomFolderButton>
+              <CloseButton onClick={() => closeFolderModal()}>
                 <Close />
               </CloseButton>
             </ModalBox>

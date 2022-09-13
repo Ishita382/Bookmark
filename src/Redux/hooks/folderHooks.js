@@ -71,6 +71,18 @@ export const useFolderHooks = () => {
     });
   };
 
+  const openFolderModal = () => {
+    return dispatch({
+      type: syncFolderTypes.OPEN_FOLDER_MODAL,
+    });
+  };
+
+  const closeFolderModal = () => {
+    return dispatch({
+      type: syncFolderTypes.CLOSE_FOLDER_MODAL,
+    });
+  };
+
   return {
     getMyFolders,
     renameFolder,
@@ -80,7 +92,8 @@ export const useFolderHooks = () => {
     openModal,
     closeRenameModal,
     openRenameModal,
-
+    openFolderModal,
+    closeFolderModal,
     createFolder,
   };
 };
