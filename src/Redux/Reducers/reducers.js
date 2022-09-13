@@ -67,9 +67,7 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, folderLoading: "true" };
 
     case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      // state.isOpen.hasOwnProperty(payload.id)
-      //   ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
-      //   : (state.isOpen[payload.id] = true);
+      
       state.isOpen[payload.id] = payload.id;
       return { ...state, parentId: payload };
     }
@@ -155,14 +153,18 @@ export const appReducers = (state = initialState, action) => {
     }
 
     case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
-      state.bookmarks[payload.response.id] = payload.response;
+      let cloneBookmarks = {};
+      let cloneFolders ={};
+      cloneFolders = state.folders;
+      cloneBookmarks = state.bookmarks;
+      cloneBookmarks[payload.response.id] = payload.response;
       if (state.bookmarkFolder.isEmpty) {
         state.rootBookmarks.push(payload.response.id);
       } else {
-        state.folders[state.bookmarkFolder].bIds.push(payload.response.id);
+        cloneFolders[state.bookmarkFolder].bIds.push(payload.response.id);
       }
 
-      return { ...state };
+      return { ...state, bookmarks: cloneBookmarks, folders: cloneFolders };
     }
     case syncFolderTypes.OPEN_FOLDER_MODAL:
       return { ...state, openNewFolderModal: true };
