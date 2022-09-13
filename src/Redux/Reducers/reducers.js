@@ -21,34 +21,34 @@ export const initialState = {
   setFolderIdToRename: false,
   openModal: false,
   openNewFolderModal: false,
-  bookmarkLoading: "initial",
-  folderLoading: "initial",
-  loginLoading: "initial",
-  registrationLoading: "initial",
+  bookmarkLoading: false,
+  folderLoading: false,
+  loginLoading: false,
+  registrationLoading: false,
 };
 export const appReducers = (state = initialState, action) => {
   const payload = action.payload;
   switch (action.type) {
     case asyncAuthTypes.LOGIN_SUCCESS:
-      return { ...state, loginLoading: "false" };
+      return { ...state, loginLoading: false };
 
     case asyncAuthTypes.LOGIN_FAILED:
-      return { ...state, loginLoading: "true" };
+      return { ...state, loginLoading: true };
 
     case syncAuthTypes.LOGIN_REQUEST:
-      return { ...state, loginLoading: "inProgress" };
+      return { ...state, loginLoading: true };
 
     case syncAuthTypes.REGISTRATION_REQUEST:
-      return { ...state, registrationLoading: "inProgress" };
+      return { ...state, registrationLoading: true };
 
     case asyncAuthTypes.REGISTRATION_SUCCESS:
-      return { ...state, registrationLoading: "false" };
+      return { ...state, registrationLoading: false };
 
     case asyncAuthTypes.REGISTRATION_FAILURE:
-      return { ...state, registrationLoading: "true" };
+      return { ...state, registrationLoading: true };
 
     case syncFolderTypes.GET_MY_FOLDERS_REQUEST:
-      return { ...state, folderLoading: "inProgress" };
+      return { ...state, folderLoading: true };
 
     case asyncFolderTypes.GET_MY_FOLDERS_SUCCESS: {
       const temp = [];
@@ -59,7 +59,7 @@ export const appReducers = (state = initialState, action) => {
         ...state,
         folders: obj,
         folderIds: temp,
-        folderLoading: "false",
+        folderLoading: false,
       };
     }
 
@@ -129,7 +129,7 @@ export const appReducers = (state = initialState, action) => {
         ...state,
 
         bookmarkFolder: payload,
-        bookmarkLoading: "inProgress",
+        bookmarkLoading: true,
       };
 
     case asyncBookmarkTypes.GET_BOOKMARKS_SUCCESS: {
@@ -150,7 +150,7 @@ export const appReducers = (state = initialState, action) => {
         ...state,
         rootBookmarks: rootBookmarkId,
         bookmarks: { ...state.bookmarks, ...object },
-        bookmarkLoading: "false",
+        bookmarkLoading: false,
       };
     }
 

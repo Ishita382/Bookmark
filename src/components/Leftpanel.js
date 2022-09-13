@@ -180,7 +180,7 @@ function Leftpanel() {
       </ImageButton>
       <CustomHeading>BOOKMARK</CustomHeading>
       <CustomInput placeholder="Search" disableUnderline></CustomInput>
-      {folderLoading === "inProgress" ? (
+      {folderLoading === true ? (
         <LoadingBox>...Loading</LoadingBox>
       ) : (
         <FolderBox>

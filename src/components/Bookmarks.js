@@ -123,12 +123,14 @@ function Bookmark() {
       {/* <CustomInput placeholder="Search" disableUnderline></CustomInput> */}
       <AddLinkButton>+Add Link</AddLinkButton>
       <BookmarkBox>
-        {bookmarkLoading === "initial" ? (
+        {bookmarkFolder==="" ? (
           <LoadingBox><BookIcon/>
           <Text>No Bookmarks Found</Text>
           <SecondText>Keep content organised <br/>with folders and subfolders</SecondText>
           </LoadingBox>
-        ) : !bookmarkFolder.isEmpty && bookmarkLoading === "false" ? (
+        ) :bookmarkLoading === true ? (
+          <LoadingBookmarkBox>...Loading Bookmarks</LoadingBookmarkBox>
+        )  :  !bookmarkFolder.isEmpty && bookmarkLoading === false ? (
           folders[bookmarkFolder].bIds.map((item) => (
             <Card key={item}>
               <Img src={imgUrl} alt="title" />
@@ -139,9 +141,7 @@ function Bookmark() {
               </Description>
             </Card>
           ))
-        ) : bookmarkLoading === "inProgress" ? (
-          <LoadingBookmarkBox>...Loading Bookmarks</LoadingBookmarkBox>
-        ) : (
+        ): (
           <LoadingBox></LoadingBox>
         )}
       </BookmarkBox>

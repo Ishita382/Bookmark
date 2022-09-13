@@ -159,7 +159,7 @@ function Login() {
             </PassBox>
 
             <CustomButton onClick={() => loginUser(data)}>
-              {loginLoading === "inProgress" ? "Loading..." : "Login"}
+              {loginLoading === true ? "Loading..." : "Login"}
             </CustomButton>
 
             <LoginBox>

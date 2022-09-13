@@ -171,7 +171,7 @@ function SignUp() {
 
             <Box>
               <CustomButton onClick={() => registerUser(data)}>
-                {registrationLoading === "inProgress"
+                {registrationLoading === true
                   ? "...Loading"
                   : "Sign Up"}
               </CustomButton>
