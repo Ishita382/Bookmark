@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { appReducers } from "../Redux/selector";
 import image from "../assets/card.png";
 import BookIcon from '@mui/icons-material/Book';
-import {Input } from "@mui/material";
+//import { useSearchParams } from "react-router-dom";
 const CustomBox = styled(Box)`
   display: flex;
   flex-direction: row;
@@ -61,10 +61,13 @@ const Name = styled(Box)`
 `;
 
 const AddLinkButton = styled(Button)`
-  margin-left: 1100px;
-  margin-top: 10px;
+  margin-left: 1070px;
+  margin-top: 20px;
   border: 2px solid #5352ed;
   border-radius: 10px;
+  padding-right: 28px;
+  padding-left: 17px;
+  color: #5352ED;
 `;
 const Img = styled.img`
   width: 170px;
@@ -96,32 +99,19 @@ font-size: 20px;
   margin-left: 420px;
   
 `
-const CustomInput = styled(Input)`
-  margin-top: -30px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 93px 8px 16px;
-  gap: 8px;
-  width: 170px;
-  height: 35px;
-  background: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  order: 1;
-  flex-grow: 0;
-`;
+
 
 function Bookmark() {
   const initial = useSelector(appReducers);
   const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
   const imgUrl = image;
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const  = searchParams.get('folder');
+  console.log(bookmarkFolder);
   return (
     <CustomBox>
-      {/* <CustomInput placeholder="Search" disableUnderline></CustomInput> */}
-      <AddLinkButton>+Add Link</AddLinkButton>
+      
+      <AddLinkButton>+ Add Link</AddLinkButton>
       <BookmarkBox>
         {bookmarkFolder==="" ? (
           <LoadingBox><BookIcon/>
@@ -142,7 +132,7 @@ function Bookmark() {
             </Card>
           ))
         ): (
-          <LoadingBox></LoadingBox>
+          <LoadingBox>a</LoadingBox>
         )}
       </BookmarkBox>
     </CustomBox>

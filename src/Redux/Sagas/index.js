@@ -5,10 +5,10 @@ import { getUser } from "./getMe";
 import { getUserFolders } from "./getMyFolders";
 import { createMyFolder } from "./createFolder";
 import {
-  syncAuthTypes,
-  syncBookmarkTypes,
-  syncFolderTypes,
-} from "../actions/syncTypes";
+  asyncAuthTypes,
+  asyncBookmarkTypes,
+  asyncFolderTypes,
+} from "../actions/asyncTypes";
 import logoutUser from "./logout";
 import renameFolder from "./rename";
 import getFolderChildren from "./getFolderChildren";
@@ -16,19 +16,19 @@ import getMyBookmarks from "./getBookmarks";
 import createBookmark from "./createBookmark";
 
 function* mySaga() {
-  yield takeLatest(syncAuthTypes.LOGIN_REQUEST, getLoginDetails);
-  yield takeLatest(syncAuthTypes.REGISTRATION_REQUEST, getRegistrationDetails);
-  yield takeLatest(syncAuthTypes.GET_ME_REQUEST, getUser);
-  yield takeLatest(syncAuthTypes.LOGOUT_REQUEST, logoutUser);
-  yield takeEvery(syncFolderTypes.CREATE_FOLDER_REQUEST, createMyFolder);
-  yield takeLatest(syncFolderTypes.GET_MY_FOLDERS_REQUEST, getUserFolders);
-  yield takeLatest(syncFolderTypes.RENAME_FOLDER_REQUEST, renameFolder);
+  yield takeLatest(asyncAuthTypes.LOGIN_REQUEST, getLoginDetails);
+  yield takeLatest(asyncAuthTypes.REGISTRATION_REQUEST, getRegistrationDetails);
+  yield takeLatest(asyncAuthTypes.GET_ME_REQUEST, getUser);
+  yield takeLatest(asyncAuthTypes.LOGOUT_REQUEST, logoutUser);
+  yield takeEvery(asyncFolderTypes.CREATE_FOLDER_REQUEST, createMyFolder);
+  yield takeLatest(asyncFolderTypes.GET_MY_FOLDERS_REQUEST, getUserFolders);
+  yield takeLatest(asyncFolderTypes.RENAME_FOLDER_REQUEST, renameFolder);
   yield takeLatest(
-    syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST,
+    asyncFolderTypes.GET_FOLDER_CHILDREN_REQUEST,
     getFolderChildren
   );
-  yield takeLatest(syncBookmarkTypes.GET_BOOKMARKS_REQUEST, getMyBookmarks);
-  yield takeEvery(syncBookmarkTypes.CREATE_BOOKMARK_REQUEST, createBookmark);
+  yield takeLatest(asyncBookmarkTypes.GET_BOOKMARKS_REQUEST, getMyBookmarks);
+  yield takeEvery(asyncBookmarkTypes.CREATE_BOOKMARK_REQUEST, createBookmark);
 }
 
 export default mySaga;

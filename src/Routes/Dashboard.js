@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import { Navigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import Leftpanel from "../components/Leftpanel";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
+
 const CustomBox = styled(Box)`
   display: grid;
   grid-template-columns: 15% 85%;
@@ -45,7 +46,7 @@ const Name = styled(Box)`
   color: gray;
   font-size: 16px;
   margin-left: 6px;
-  margin-top: 20px;
+  margin-top: 7px;
   padding: 30px 0px 0px 20px;
   font-family: Arial;
 `;
@@ -69,7 +70,7 @@ const CustomInput = styled(Input)`
 `;
 const CustomButton = styled(Button)`
   margin-left: 95px;
-  margin-top: 21px;
+  margin-top: 28px;
   color: white;
   background: #5352ed;
   border-radius: 11px;
@@ -92,51 +93,30 @@ const Heading = styled(Box)`
   text-align: center;
 `;
 
-
 function Dashboard() {
   const initial = useSelector(appReducers);
-  const {
-    openModal,
-    createFolderParent,
-    setFolderIdToRename,
-    renameFolderId,
-    openNewFolderModal,
-  } = initial;
+  const { openModal, createFolderParent, setFolderIdToRename, renameFolderId } =
+    initial;
 
-  const { getMe, useGetMe } = useAuthHooks();
+  const { getMe } = useAuthHooks();
   const {
     getMyFolders,
     createFolder,
     closeModal,
     renameFolder,
     closeRenameModal,
-    closeFolderModal,
   } = useFolderHooks();
-  const current = window.location.pathname.slice(11);
 
   useEffect(() => {
     getMe();
     getMyFolders();
-  }, [current]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [folderName, setFolderName] = useState();
 
   const newFolderName = (e) => {
     return setFolderName(e.target.value);
-  };
-
-  const renameFolderModal = useCallback(() => {
-    renameFolder(renameFolderId, folderName);
-    closeRenameModal();
-  });
-
-  const newFolderModal = useCallback(() => {
-    createFolder(folderName, createFolderParent);
-    closeModal();
-  });
-  const [folder, setFolder] = useState();
-  const folderNewName = (e) => {
-    setFolder(e.target.value);
   };
 
   return (
@@ -154,7 +134,14 @@ function Dashboard() {
                 placeholder="Enter Folder Name"
                 disableUnderline
               />
-              <CustomButton onClick={newFolderModal}>Submit</CustomButton>
+              <CustomButton
+                onClick={() => {
+                  createFolder(folderName, createFolderParent);
+                  closeModal();
+                }}
+              >
+                Submit
+              </CustomButton>
               <CloseButton onClick={() => closeModal()}>
                 <Close />
               </CloseButton>
@@ -170,26 +157,15 @@ function Dashboard() {
                 placeholder="Enter New Name"
                 disableUnderline
               />
-              <CustomButton onClick={renameFolderModal}>Submit</CustomButton>
-              <CloseButton onClick={() => closeRenameModal()}>
-                <Close />
-              </CloseButton>
-            </ModalBox>
-          </Modal>
-          <Modal open={openNewFolderModal}>
-            <ModalBox>
-              <Heading>Add Folder</Heading>
-              <Name>Folder Name</Name>
-              <CustomInput
-                type="text"
-                onChange={folderNewName}
-                placeholder="Enter New Name"
-                disableUnderline
-              />
-              <CustomButton onClick={() => createFolder(folder)}>
+              <CustomButton
+                onClick={() => {
+                  renameFolder(renameFolderId, folderName);
+                  closeRenameModal();
+                }}
+              >
                 Submit
               </CustomButton>
-              <CloseButton onClick={() => closeFolderModal()}>
+              <CloseButton onClick={() => closeRenameModal()}>
                 <Close />
               </CloseButton>
             </ModalBox>

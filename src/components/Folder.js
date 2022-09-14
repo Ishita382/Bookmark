@@ -12,9 +12,8 @@ import { appReducers } from "../Redux/selector";
 import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useSearchParams } from "react-router-dom";
-import "./App.css";
+
 const FolderButton = styled(Button)`
   margin-top: 3px;
 
@@ -50,12 +49,13 @@ const style = {
 
 function Folder(props) {
   const { item } = props;
-  const { openModal, openRenameModal, getFolderChildren, setParent } =
+  const { setSubFolderId, setRenameFolderId, getFolderChildren, setParent } =
     useFolderHooks();
   const { getBookmarks } = useBookmarkHooks();
-  const { folders, bookmarkFolder, isOpen } = useSelector(appReducers);
+  const { folders, bookmarkFolder } = useSelector(appReducers);
   const [anchorEl, setAnchorEl] = React.useState();
   const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -77,16 +77,13 @@ function Folder(props) {
         style={bookmarkFolder === item.id ? style : {}}
       >
         <ArrowButton onClick={() => folderClick()}>
-          {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
+          <ArrowRightIcon />
         </ArrowButton>
         <FolderButton
           onClick={() => {
-            {
-              getBookmarks(item.id);
-            }
-            {
-              setSearchParams({ folder: item.name });
-            }
+            getBookmarks(item.id);
+
+            setSearchParams({ folder: item.id });
           }}
         >
           <FolderIcon />
@@ -116,7 +113,7 @@ function Folder(props) {
           <MenuItem
             onClick={() => {
               handleClose();
-              openModal(item.id);
+              setSubFolderId(item.id);
             }}
           >
             Add Subfolder
@@ -125,7 +122,7 @@ function Folder(props) {
           <MenuItem
             onClick={() => {
               handleClose();
-              openRenameModal(item.id);
+              setRenameFolderId(item.id);
             }}
           >
             Rename

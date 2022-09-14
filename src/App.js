@@ -7,30 +7,27 @@ import Box from "@mui/material/Box";
 import SignUp from "./routes/SignUp";
 import Login from "./routes/Login";
 import Dashboard from "./routes/Dashboard";
-
+import { asyncAuthTypes } from "./Redux/actions/asyncTypes";
 const AppContainer = styled(Container)`
-margin-left: 0px;
- min-width: 1200px;
+  margin-left: 0px;
+  min-width: 1200px;
 `;
 
 const RouteBox = styled(Box)`
   flex: 2;
 `;
 function App() {
-
-  const login = "/login";
-  const dashboard = "/dashboard";
-  
   return (
     <Router>
       <AppContainer>
         <RouteBox>
           <Routes>
             <Route exact path="/" element={<SignUp />} />
-            <Route path={login} element={<Login />} />
-            <Route path={dashboard} element={<Dashboard />} >
-            <Route path=":id" element={<Dashboard />} />
-            </Route>
+            <Route path={asyncAuthTypes.LOGIN} element={<Login />} />
+            <Route
+              path={asyncAuthTypes.DASHBOARD}
+              element={<Dashboard />}
+            ></Route>
           </Routes>
         </RouteBox>
       </AppContainer>

@@ -1,17 +1,17 @@
 import { useDispatch } from "react-redux";
-import { syncFolderTypes } from "../actions/syncTypes";
+import { asyncFolderTypes } from "../actions/asyncTypes";
 export const useFolderHooks = () => {
   const dispatch = useDispatch();
 
   const getMyFolders = () => {
     return dispatch({
-      type: syncFolderTypes.GET_MY_FOLDERS_REQUEST,
+      type: asyncFolderTypes.GET_MY_FOLDERS_REQUEST,
     });
   };
 
   const createFolder = (name, createFolderParent) => {
     return dispatch({
-      type: syncFolderTypes.CREATE_FOLDER_REQUEST,
+      type: asyncFolderTypes.CREATE_FOLDER_REQUEST,
       payload: {
         name: name,
         id: createFolderParent,
@@ -21,7 +21,7 @@ export const useFolderHooks = () => {
 
   const renameFolder = (renameFolderId, folderName) => {
     return dispatch({
-      type: syncFolderTypes.RENAME_FOLDER_REQUEST,
+      type: asyncFolderTypes.RENAME_FOLDER_REQUEST,
       payload: {
         folderId: renameFolderId,
         name: folderName,
@@ -29,57 +29,45 @@ export const useFolderHooks = () => {
     });
   };
 
-  const openModal = (id) => {
+  const setSubFolderId = (id) => {
     return dispatch({
-      type: syncFolderTypes.OPEN_MODAL,
+      type: asyncFolderTypes.SET_SUBFOLDER_ID,
       payload: id,
     });
   };
 
   const closeModal = () => {
     return dispatch({
-      type: syncFolderTypes.CLOSE_MODAL,
+      type: asyncFolderTypes.CLOSE_MODAL,
     });
   };
 
-  const openRenameModal = (id) => {
+  const setRenameFolderId = (id) => {
     return dispatch({
-      type: syncFolderTypes.OPEN_RENAME_MODAL,
+      type: asyncFolderTypes.SET_RENAMEFOLDER_ID,
       payload: id,
     });
   };
 
   const closeRenameModal = () => {
     return dispatch({
-      type: syncFolderTypes.CLOSE_RENAME_MODAL,
+      type: asyncFolderTypes.CLOSE_RENAME_MODAL,
     });
   };
 
   const getFolderChildren = (id) => {
     return dispatch({
-      type: syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST,
+      type: asyncFolderTypes.GET_FOLDER_CHILDREN_REQUEST,
       payload: id,
     });
   };
 
   const setParent = (id) => {
     return dispatch({
-      type: syncFolderTypes.SET_PARENT_ID,
+      type: asyncFolderTypes.SET_PARENT_ID,
       payload: {
         id: id,
       },
-    });
-  };
-
-  const openFolderModal = () => {
-    return dispatch({
-      type: syncFolderTypes.OPEN_FOLDER_MODAL,
-    });
-  };
-
-  const closeFolderModal = () => {
-    return dispatch({
-      type: syncFolderTypes.CLOSE_FOLDER_MODAL,
     });
   };
 
@@ -89,11 +77,9 @@ export const useFolderHooks = () => {
     setParent,
     getFolderChildren,
     closeModal,
-    openModal,
+    setSubFolderId,
     closeRenameModal,
-    openRenameModal,
-    openFolderModal,
-    closeFolderModal,
+    setRenameFolderId,
     createFolder,
   };
 };

@@ -12,7 +12,7 @@ export function* getLoginDetails(action) {
         localStorage.setItem("auth", JSON.stringify(response.token));
       }
     } catch (error) {
-      yield put({ type: asyncAuthTypes.LOGIN_FAILED }, error);
+      yield put({ type: asyncAuthTypes.LOGIN_FAILURE }, error);
     }
   }
 }

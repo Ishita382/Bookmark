@@ -1,9 +1,4 @@
 import {
-  syncFolderTypes,
-  syncAuthTypes,
-  syncBookmarkTypes,
-} from "../actions/syncTypes";
-import {
   asyncBookmarkTypes,
   asyncAuthTypes,
   asyncFolderTypes,
@@ -11,16 +6,13 @@ import {
 export const initialState = {
   folders: {},
   bookmarks: {},
-  isOpen: {},
   folderIds: [],
-  rootBookmarks: [],
   renameFolderId: "",
   parentId: "",
   bookmarkFolder: "",
   currentParentFolderId: "",
   setFolderIdToRename: false,
   openModal: false,
-  openNewFolderModal: false,
   bookmarkLoading: false,
   folderLoading: false,
   loginLoading: false,
@@ -32,13 +24,13 @@ export const appReducers = (state = initialState, action) => {
     case asyncAuthTypes.LOGIN_SUCCESS:
       return { ...state, loginLoading: false };
 
-    case asyncAuthTypes.LOGIN_FAILED:
+    case asyncAuthTypes.LOGIN_FAILURE:
       return { ...state, loginLoading: true };
 
-    case syncAuthTypes.LOGIN_REQUEST:
+    case asyncAuthTypes.LOGIN_REQUEST:
       return { ...state, loginLoading: true };
 
-    case syncAuthTypes.REGISTRATION_REQUEST:
+    case asyncAuthTypes.REGISTRATION_REQUEST:
       return { ...state, registrationLoading: true };
 
     case asyncAuthTypes.REGISTRATION_SUCCESS:
@@ -47,7 +39,7 @@ export const appReducers = (state = initialState, action) => {
     case asyncAuthTypes.REGISTRATION_FAILURE:
       return { ...state, registrationLoading: true };
 
-    case syncFolderTypes.GET_MY_FOLDERS_REQUEST:
+    case asyncFolderTypes.GET_MY_FOLDERS_REQUEST:
       return { ...state, folderLoading: true };
 
     case asyncFolderTypes.GET_MY_FOLDERS_SUCCESS: {
@@ -66,9 +58,7 @@ export const appReducers = (state = initialState, action) => {
     case asyncFolderTypes.GET_MY_FOLDERS_FAILURE:
       return { ...state, folderLoading: "true" };
 
-    case syncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
-      
-      state.isOpen[payload.id] = payload.id;
+    case asyncFolderTypes.GET_FOLDER_CHILDREN_REQUEST: {
       return { ...state, parentId: payload };
     }
 
@@ -81,10 +71,7 @@ export const appReducers = (state = initialState, action) => {
       cloneFolders[state.parentId].childIds = arr;
       return { ...state, folders: cloneFolders };
 
-    case syncFolderTypes.SET_PARENT_ID:
-      state.isOpen.hasOwnProperty(payload.id)
-        ? (state.isOpen[payload.id] = !state.isOpen[payload.id])
-        : (state.isOpen[payload.id] = true);
+    case asyncFolderTypes.SET_PARENT_ID:
       return { ...state, parentId: payload.id };
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
@@ -103,26 +90,26 @@ export const appReducers = (state = initialState, action) => {
     case asyncAuthTypes.LOGOUT_SUCCESS:
       return { ...initialState };
 
-    case syncFolderTypes.OPEN_MODAL:
+    case asyncFolderTypes.SET_SUBFOLDER_ID:
       return { ...state, openModal: true, currentParentFolderId: payload };
 
-    case syncFolderTypes.CLOSE_MODAL:
+    case asyncFolderTypes.CLOSE_MODAL:
       return { ...state, openModal: false };
 
-    case syncFolderTypes.OPEN_RENAME_MODAL:
+    case asyncFolderTypes.SET_RENAMEFOLDER_ID:
       return { ...state, setFolderIdToRename: true, renameFolderId: payload };
 
-    case syncFolderTypes.CLOSE_RENAME_MODAL:
+    case asyncFolderTypes.CLOSE_RENAME_MODAL:
       return { ...state, setFolderIdToRename: false };
 
     case asyncFolderTypes.RENAME_FOLDER_SUCCESS:
       state.folders[state.renameFolderId].name = payload.response.name;
       return { ...state };
 
-    case syncFolderTypes.CREATE_FOLDER_REQUEST:
+    case asyncFolderTypes.CREATE_FOLDER_REQUEST:
       return { ...state, create: false };
 
-    case syncBookmarkTypes.GET_BOOKMARKS_REQUEST:
+    case asyncBookmarkTypes.GET_BOOKMARKS_REQUEST:
       return {
         ...state,
 
@@ -146,7 +133,7 @@ export const appReducers = (state = initialState, action) => {
 
       return {
         ...state,
-        rootBookmarks: rootBookmarkId,
+
         bookmarks: { ...state.bookmarks, ...object },
         bookmarkLoading: false,
       };
@@ -154,22 +141,13 @@ export const appReducers = (state = initialState, action) => {
 
     case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
       let cloneBookmarks = {};
-      let cloneFolders ={};
+      let cloneFolders = {};
       cloneFolders = state.folders;
       cloneBookmarks = state.bookmarks;
       cloneBookmarks[payload.response.id] = payload.response;
-      if (state.bookmarkFolder.isEmpty) {
-        state.rootBookmarks.push(payload.response.id);
-      } else {
-        cloneFolders[state.bookmarkFolder].bIds.push(payload.response.id);
-      }
-
+      cloneFolders[state.bookmarkFolder].bIds.push(payload.response.id);
       return { ...state, bookmarks: cloneBookmarks, folders: cloneFolders };
     }
-    case syncFolderTypes.OPEN_FOLDER_MODAL:
-      return { ...state, openNewFolderModal: true };
-    case syncFolderTypes.CLOSE_FOLDER_MODAL:
-      return { ...state, openNewFolderModal: false };
 
     default:
       return state;

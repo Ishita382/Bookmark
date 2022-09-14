@@ -11,9 +11,10 @@ import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { appReducers } from "../Redux/selector";
 import { useAuthHooks } from "../Redux/hooks/authHooks";
 import image from "../assets/logo.png";
-import Typography from "@mui/material/Typography";
+import { useSearchParams } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Close } from "@mui/icons-material";
+
 const CustomBox = styled(Box)`
   flex: 1;
   height: 100%;
@@ -55,15 +56,6 @@ const CustomInput = styled(Input)`
   border-radius: 10px;
   order: 1;
   flex-grow: 0;
-`;
-
-const NewFolderInput = styled(Input)`
-  margin-top: 15px;
-  margin-left: 20px;
-  border-radius: 8px;
-  border: solid 1px #6c6bf9;
-  width: 240px;
-  color: #6c6bf9;
 `;
 
 const LogoutButton = styled(Button)`
@@ -115,21 +107,102 @@ const Img = styled.img`
   margin-top: 10px;
 `;
 
-const ImageButton = styled(Button)``;
+const ModalBox = styled(Box)`
+  align-items: center;
+  margin-left: 600px;
+  margin-top: 260px;
+  height: 250px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
+    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
+`;
+
+const CloseButton = styled(Button)`
+  margin-top: -384px;
+  margin-left: 240px;
+  color: black;
+`;
+const Name = styled(Box)`
+  color: gray;
+  font-size: 16px;
+  margin-left: 6px;
+  margin-top: 7px;
+  padding: 30px 0px 0px 20px;
+  font-family: Arial;
+`;
+const CustomModalInput = styled(Input)`
+  margin-top: 7px;
+  margin-left: 25px;
+  border-radius: 10px;
+  border: solid 1px #6c6bf9;
+  width: 250px;
+  height: 37px;
+  color: #5352ed;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-indent: 5px;
+  font-size: 13px;
+  padding-left: 5px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+`;
+const CustomButton = styled(Button)`
+  margin-left: 95px;
+  margin-top: 28px;
+  color: white;
+  background: #5352ed;
+  border-radius: 11px;
+  padding: 8px 25px 8px 25px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const Heading = styled(Box)`
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  padding-top: 30px;
+  margin-top: 20px;
+  margin-left: 26px;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+
+const ImageButton = styled(Button)`
+:active{
+  background-color: white;
+}
+:hover{
+  background-color: white;
+}
+`;
 function Leftpanel() {
   const initial = useSelector(appReducers);
   const { folderIds, folders, folderLoading } = initial;
   const { logout } = useAuthHooks();
-  const { openFolderModal } = useFolderHooks();
+  const { createFolder } = useFolderHooks();
   const navigate = useNavigate();
+
   const [folder, setFolder] = useState();
-  const folderName = (e) => {
+  const folderNewName = (e) => {
     setFolder(e.target.value);
   };
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const refreshPage = () => {
+    if (searchParams.has("folder")) {
+      searchParams.delete("folder");
+      setSearchParams(searchParams);
+    }
     window.location.reload();
   };
 
@@ -150,8 +223,25 @@ function Leftpanel() {
         </FolderBox>
       )}
 
-      <SaveButton onClick={() => openFolderModal()}>+ Add Folder</SaveButton>
-
+      <SaveButton onClick={() => handleOpen()}>+ Add Folder</SaveButton>
+      <Modal open={open}>
+        <ModalBox>
+          <Heading>Add Folder</Heading>
+          <Name>Folder Name</Name>
+          <CustomModalInput
+            type="text"
+            onChange={folderNewName}
+            placeholder="Enter New Name"
+            disableUnderline
+          />
+          <CustomButton onClick={() => createFolder(folder)}>
+            Submit
+          </CustomButton>
+          <CloseButton onClick={() => handleClose()}>
+            <Close />
+          </CloseButton>
+        </ModalBox>
+      </Modal>
       <LogoutBox>
         <LogoutButton onClick={() => logout(navigate)}>
           <LogoutIcon />
