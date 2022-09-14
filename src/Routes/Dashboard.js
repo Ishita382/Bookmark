@@ -37,51 +37,62 @@ const ModalBox = styled(Box)`
 `;
 
 const CloseButton = styled(Button)`
-  margin-top: -350px;
+  margin-top: -384px;
   margin-left: 240px;
-  color: red;
+  color: black;
 `;
 const Name = styled(Box)`
   color: gray;
   font-size: 16px;
-
+  margin-left: 6px;
+  margin-top: 20px;
   padding: 30px 0px 0px 20px;
   font-family: Arial;
 `;
 const CustomInput = styled(Input)`
-  margin-top: 15px;
-  margin-left: 20px;
-  border-radius: 8px;
+  margin-top: 7px;
+  margin-left: 25px;
+  border-radius: 10px;
   border: solid 1px #6c6bf9;
-  width: 240px;
-  color: #6c6bf9;
+  width: 250px;
+  height: 37px;
+  color: #5352ed;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-indent: 5px;
+  font-size: 13px;
+  padding-left: 5px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
 `;
 const CustomButton = styled(Button)`
-  margin-left: 115px;
-  margin-top: 15px;
+  margin-left: 95px;
+  margin-top: 21px;
   color: white;
   background: #5352ed;
   border-radius: 11px;
+  padding: 8px 25px 8px 25px;
+  font-size: 12px;
+  font-weight: 600;
 `;
 
 const Heading = styled(Box)`
   color: black;
   font-family: Arial;
   font-weight: bold;
-  padding-top: 20px;
-  margin-left: 20px;
+  padding-top: 30px;
+  margin-top: 20px;
+  margin-left: 26px;
   font-size: 15px;
-  width: 31px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 `;
 
-const CustomFolderButton = styled(Button)`
-  margin-left: 105px;
-  margin-top: 15px;
-  color: white;
-  background: #5352ed;
-  border-radius: 11px;
-  
-`;
+
 function Dashboard() {
   const initial = useSelector(appReducers);
   const {
@@ -102,11 +113,11 @@ function Dashboard() {
     closeFolderModal,
   } = useFolderHooks();
   const current = window.location.pathname.slice(11);
-  
-    useEffect(() => {
-      getMe();
-      getMyFolders();
-    }, [current])
+
+  useEffect(() => {
+    getMe();
+    getMyFolders();
+  }, [current]);
 
   const [folderName, setFolderName] = useState();
 
@@ -127,7 +138,7 @@ function Dashboard() {
   const folderNewName = (e) => {
     setFolder(e.target.value);
   };
- 
+
   return (
     <Box>
       {localStorage.getItem("auth") ? (
@@ -135,7 +146,7 @@ function Dashboard() {
           <Leftpanel />
           <Modal open={openModal}>
             <ModalBox>
-              <Heading>SUBFOLDER</Heading>
+              <Heading>SUB FOLDER</Heading>
               <Name> Folder Name</Name>{" "}
               <CustomInput
                 type="text"
@@ -175,9 +186,9 @@ function Dashboard() {
                 placeholder="Enter New Name"
                 disableUnderline
               />
-              <CustomFolderButton onClick={() => createFolder(folder)}>
+              <CustomButton onClick={() => createFolder(folder)}>
                 Submit
-              </CustomFolderButton>
+              </CustomButton>
               <CloseButton onClick={() => closeFolderModal()}>
                 <Close />
               </CloseButton>

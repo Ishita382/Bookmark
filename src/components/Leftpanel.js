@@ -85,16 +85,19 @@ const LogoutBox = styled(Box)`
 `;
 
 const SaveButton = styled(Button)`
-  background-color: #5352ed;
-  color: white;
+  background-color: white;
+  color: #5352ed;
   font-weight: 400;
   :hover {
     color: #5352ed;
     background-color: white;
   }
-  margin-top: 7px;
+  margin-top: 15px;
+  margin-left: 12px;
   border-radius: 9px;
-  height: 30px;
+  height: 40px;
+  border: solid 2px #5352ed;
+  padding: 7px 18px 7px 13px;
 `;
 
 const LoadingBox = styled(Box)`
@@ -110,49 +113,6 @@ const Img = styled.img`
   border-radius: 15px;
   margin-bottom: -23px;
   margin-top: 10px;
-`;
-
-const ModalBox = styled(Box)`
-  align-items: center;
-  margin-left: 600px;
-  margin-top: 260px;
-  height: 250px;
-  width: 300px;
-  border-radius: 15px;
-  background-color: white;
-  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
-    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
-`;
-const Heading = styled(Box)`
-  color: black;
-  font-family: Arial;
-  font-weight: bold;
-  padding-top: 20px;
-  margin-left: 20px;
-  font-size: 15px;
-  width: 30px;
-`;
-
-const Name = styled(Box)`
-  color: gray;
-  font-size: 16px;
-
-  padding: 30px 0px 0px 20px;
-  font-family: Arial;
-`;
-
-const CustomButton = styled(Button)`
-  margin-left: 115px;
-  margin-top: 15px;
-  color: white;
-  background: #5352ed;
-  border-radius: 11px;
-`;
-
-const CloseButton = styled(Button)`
-  margin-top: -350px;
-  margin-left: 240px;
-  color: red;
 `;
 
 const ImageButton = styled(Button)``;
@@ -190,7 +150,7 @@ function Leftpanel() {
         </FolderBox>
       )}
 
-      <SaveButton onClick={() => openFolderModal()}>Add Folder</SaveButton>
+      <SaveButton onClick={() => openFolderModal()}>+ Add Folder</SaveButton>
 
       <LogoutBox>
         <LogoutButton onClick={() => logout(navigate)}>

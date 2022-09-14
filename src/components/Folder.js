@@ -13,10 +13,11 @@ import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useSearchParams } from "react-router-dom";
 import "./App.css";
 const FolderButton = styled(Button)`
   margin-top: 3px;
-  
+
   color: #5352ed;
 `;
 
@@ -36,6 +37,7 @@ const FolderBox = styled(Box)`
 const FolderName = styled(Box)`
   color: #77757f;
   margin-left: 10px;
+  font-size: 13px;
 `;
 const SubFolderBox = styled(Box)`
   margin-left: 20px;
@@ -46,7 +48,6 @@ const style = {
   backgroundColor: "#E4E3FF",
 };
 
-
 function Folder(props) {
   const { item } = props;
   const { openModal, openRenameModal, getFolderChildren, setParent } =
@@ -54,6 +55,7 @@ function Folder(props) {
   const { getBookmarks } = useBookmarkHooks();
   const { folders, bookmarkFolder, isOpen } = useSelector(appReducers);
   const [anchorEl, setAnchorEl] = React.useState();
+  const [searchParams, setSearchParams] = useSearchParams();
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -68,18 +70,29 @@ function Folder(props) {
       : setParent(item.id);
   };
 
-
   return (
     <Box>
-      <FolderBox className= "hoverfolder" style={bookmarkFolder === item.id ? style : {}}>
+      <FolderBox
+        className="hoverfolder"
+        style={bookmarkFolder === item.id ? style : {}}
+      >
         <ArrowButton onClick={() => folderClick()}>
-        {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
+          {isOpen[item.id] ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
         </ArrowButton>
-        <FolderButton onClick={() => getBookmarks(item.id)}>
+        <FolderButton
+          onClick={() => {
+            {
+              getBookmarks(item.id);
+            }
+            {
+              setSearchParams({ folder: item.name });
+            }
+          }}
+        >
           <FolderIcon />
           <FolderName>{item.name}</FolderName>
         </FolderButton>
-        <IconButton 
+        <IconButton
           aria-label="more"
           id="long-button"
           aria-controls={open ? "long-menu" : undefined}
@@ -90,7 +103,7 @@ function Folder(props) {
         >
           <MoreVertIcon />
         </IconButton>
-        
+
         <Menu
           id="long-menu"
           MenuListProps={{
@@ -118,7 +131,6 @@ function Folder(props) {
             Rename
           </MenuItem>
         </Menu>
-       
       </FolderBox>
       <SubFolderBox>
         {item.hasOwnProperty("childIds") &&
