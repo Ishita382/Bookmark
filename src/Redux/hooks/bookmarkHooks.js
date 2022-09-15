@@ -10,12 +10,13 @@ export const useBookmarkHooks = () => {
     });
   };
 
-  const createBookmark = (link, selectedFolder) => {
+  const createBookmark = (link, selectedFolder, description) => {
     return dispatch({
       type: asyncBookmarkTypes.CREATE_BOOKMARK_REQUEST,
       payload: {
         link: link,
         folder: selectedFolder,
+        description: description,
       },
     });
   };

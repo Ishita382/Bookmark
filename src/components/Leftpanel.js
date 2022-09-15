@@ -176,12 +176,12 @@ const Heading = styled(Box)`
 `;
 
 const ImageButton = styled(Button)`
-:active{
-  background-color: white;
-}
-:hover{
-  background-color: white;
-}
+  :active {
+    background-color: white;
+  }
+  :hover {
+    background-color: white;
+  }
 `;
 function Leftpanel() {
   const initial = useSelector(appReducers);
