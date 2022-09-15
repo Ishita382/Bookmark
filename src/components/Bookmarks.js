@@ -44,8 +44,8 @@ const LoadingBox = styled(Box)`
   font-size: 20px;
   color: #5352ed;
   font-family: Arial;
-  margin-top: 150px;
-  margin-left: 540px;
+  margin-top: 135px;
+  margin-left: 500px;
 `;
 
 const Description = styled(Box)`
@@ -203,6 +203,7 @@ function Bookmark() {
   const { createBookmark } = useBookmarkHooks();
   const imgUrl = image;
   const [searchParams, setSearchParams] = useSearchParams();
+  
   const param = searchParams.get("folder");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -219,6 +220,7 @@ function Bookmark() {
   return (
     <CustomBox>
       <AddLinkButton onClick={() => handleOpen()}>+ Add Link</AddLinkButton>
+
       <Modal open={open}>
         <ModalBox>
           {bookmarkFolder === "" ? (
@@ -231,7 +233,7 @@ function Bookmark() {
           ) : (
             <>
               <FolderName>{folders[param].name}</FolderName>
-              <h2></h2>
+              
               <URL>URL</URL>
               <CustomInput
                 onChange={addUrl}
@@ -259,6 +261,7 @@ function Bookmark() {
           )}
         </ModalBox>
       </Modal>
+
       <BookmarkBox>
         {bookmarkFolder === "" ? (
           <LoadingBox>

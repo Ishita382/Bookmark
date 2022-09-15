@@ -54,9 +54,9 @@ function Folder(props) {
   const { getBookmarks } = useBookmarkHooks();
   const { folders, bookmarkFolder } = useSelector(appReducers);
   const [anchorEl, setAnchorEl] = React.useState();
-
+  
   const [searchParams, setSearchParams] = useSearchParams();
-
+ 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
