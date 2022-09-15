@@ -3,6 +3,8 @@ import {
   asyncAuthTypes,
   asyncFolderTypes,
 } from "../actions/asyncTypes";
+import { useSearchParams } from "react-router-dom";
+import { clone } from "ramda";
 export const initialState = {
   folders: {},
   bookmarks: {},
@@ -11,14 +13,14 @@ export const initialState = {
   parentId: "",
   bookmarkFolder: "",
   currentParentFolderId: "",
-  setFolderIdToRename: false,
-  openModal: false,
   bookmarkLoading: false,
   folderLoading: false,
   loginLoading: false,
   registrationLoading: false,
 };
 export const appReducers = (state = initialState, action) => {
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const param = searchParams.get("folder");
   const payload = action.payload;
   switch (action.type) {
     case asyncAuthTypes.LOGIN_SUCCESS:
@@ -64,8 +66,7 @@ export const appReducers = (state = initialState, action) => {
 
     case asyncFolderTypes.GET_FOLDER_CHILDREN_SUCCESS:
       const arr = [];
-      let cloneFolders = {};
-      cloneFolders = state.folders;
+      const cloneFolders = clone(state.folders);
       payload.response.map((item) => (cloneFolders[item.id] = item));
       payload.response.map((item) => arr.push(item.id));
       cloneFolders[state.parentId].childIds = arr;
@@ -75,10 +76,9 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, parentId: payload.id };
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
-      let updatedFolders = {};
-      updatedFolders = state.folders;
+      const updatedFolders = clone(state.folders);
       updatedFolders[payload.response.id] = payload.response;
-      if (state.currentParentFolderId === "") {
+      if (state.currentParentFolderId.isEmpty) {
         state.folderIds.push(payload.response.id);
       } else {
         updatedFolders[state.currentParentFolderId].childIds.push(
@@ -91,16 +91,10 @@ export const appReducers = (state = initialState, action) => {
       return { ...initialState };
 
     case asyncFolderTypes.SET_SUBFOLDER_ID:
-      return { ...state, openModal: true, currentParentFolderId: payload };
-
-    case asyncFolderTypes.CLOSE_MODAL:
-      return { ...state, openModal: false };
+      return { ...state, currentParentFolderId: payload };
 
     case asyncFolderTypes.SET_RENAMEFOLDER_ID:
-      return { ...state, setFolderIdToRename: true, renameFolderId: payload };
-
-    case asyncFolderTypes.CLOSE_RENAME_MODAL:
-      return { ...state, setFolderIdToRename: false };
+      return { ...state, renameFolderId: payload };
 
     case asyncFolderTypes.RENAME_FOLDER_SUCCESS:
       state.folders[state.renameFolderId].name = payload.response.name;
@@ -121,7 +115,7 @@ export const appReducers = (state = initialState, action) => {
       let bookmarkId = [];
       let rootBookmarkId = [];
       payload.response.map((item) =>
-        state.bookmarkFolder === ""
+        state.bookmarkFolder.isEmpty
           ? rootBookmarkId.push(item.id)
           : bookmarkId.push(item.id)
       );
@@ -140,10 +134,8 @@ export const appReducers = (state = initialState, action) => {
     }
 
     case asyncBookmarkTypes.CREATE_BOOKMARK_SUCCESS: {
-      let cloneBookmarks = {};
-      let cloneFolders = {};
-      cloneFolders = state.folders;
-      cloneBookmarks = state.bookmarks;
+      const cloneFolders = clone(state.folders);
+      const cloneBookmarks = clone(state.bookmarks);
       cloneBookmarks[payload.response.id] = payload.response;
       cloneFolders[state.bookmarkFolder].bIds.push(payload.response.id);
       return { ...state, bookmarks: cloneBookmarks, folders: cloneFolders };

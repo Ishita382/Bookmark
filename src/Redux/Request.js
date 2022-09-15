@@ -1,7 +1,7 @@
+import { URL } from "../utils/constants";
+
 const sendRequest = async (path, method, item) => {
   const auth = JSON.parse(localStorage.getItem("auth"));
-
-  const url = "https://bookmarks-app-server.herokuapp.com/";
 
   const getMethods = {
     method: "GET",
@@ -39,7 +39,7 @@ const sendRequest = async (path, method, item) => {
   };
 
   let result = fetch(
-    url.concat(path),
+    URL.concat(path),
     method === "GET"
       ? getMethods
       : method === "POST"

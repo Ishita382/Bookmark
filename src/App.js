@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import SignUp from "./routes/SignUp";
 import Login from "./routes/Login";
 import Dashboard from "./routes/Dashboard";
-import { asyncAuthTypes } from "./Redux/actions/asyncTypes";
+import { DASHBOARD, LOGIN } from "./utils/constants";
 const AppContainer = styled(Container)`
   margin-left: 0px;
   min-width: 1200px;
@@ -23,9 +23,9 @@ function App() {
         <RouteBox>
           <Routes>
             <Route exact path="/" element={<SignUp />} />
-            <Route path={asyncAuthTypes.LOGIN} element={<Login />} />
+            <Route path={LOGIN} element={<Login />} />
             <Route
-              path={asyncAuthTypes.DASHBOARD}
+              path={DASHBOARD}
               element={<Dashboard />}
             ></Route>
           </Routes>

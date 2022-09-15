@@ -13,7 +13,10 @@ import { useFolderHooks } from "../Redux/hooks/folderHooks";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useSearchParams } from "react-router-dom";
-
+import Modal from "@mui/material/Modal";
+import { Close } from "@mui/icons-material";
+import { Input } from "@mui/material";
+import { useState } from "react";
 const FolderButton = styled(Button)`
   margin-top: 3px;
 
@@ -47,16 +50,91 @@ const style = {
   backgroundColor: "#E4E3FF",
 };
 
+const ModalBox = styled(Box)`
+  align-items: center;
+  margin-left: 600px;
+  margin-top: 260px;
+  height: 250px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 6px 12px -6px rgba(24, 39, 75, 0.12),
+    0px 8px 24px -4px rgba(24, 39, 75, 0.08);
+`;
+
+const CloseButton = styled(Button)`
+  margin-top: -384px;
+  margin-left: 240px;
+  color: black;
+`;
+const Name = styled(Box)`
+  color: gray;
+  font-size: 16px;
+  margin-left: 6px;
+  margin-top: 7px;
+  padding: 30px 0px 0px 20px;
+  font-family: Arial;
+`;
+const CustomInput = styled(Input)`
+  margin-top: 7px;
+  margin-left: 25px;
+  border-radius: 10px;
+  border: solid 1px #6c6bf9;
+  width: 250px;
+  height: 37px;
+  color: #5352ed;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  text-indent: 5px;
+  font-size: 13px;
+  padding-left: 5px;
+  flex: none;
+  order: 0;
+  flex-grow: 1;
+`;
+const CustomButton = styled(Button)`
+  margin-left: 95px;
+  margin-top: 28px;
+  color: white;
+  background: #5352ed;
+  border-radius: 11px;
+  padding: 8px 25px 8px 25px;
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const Heading = styled(Box)`
+  color: black;
+  font-family: Arial;
+  font-weight: bold;
+  padding-top: 30px;
+  margin-top: 20px;
+  margin-left: 26px;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+
 function Folder(props) {
   const { item } = props;
-  const { setSubFolderId, setRenameFolderId, getFolderChildren, setParent } =
-    useFolderHooks();
+  const {
+    setSubFolderId,
+    setRenameFolderId,
+    getFolderChildren,
+    setParent,
+    createFolder,
+    renameFolder,
+  } = useFolderHooks();
   const { getBookmarks } = useBookmarkHooks();
-  const { folders, bookmarkFolder } = useSelector(appReducers);
+  const { folders, createFolderParent, renameFolderId } =
+    useSelector(appReducers);
   const [anchorEl, setAnchorEl] = React.useState();
-  
+
   const [searchParams, setSearchParams] = useSearchParams();
- 
+  const param = searchParams.get("folder");
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,12 +149,16 @@ function Folder(props) {
       : setParent(item.id);
   };
 
+  const [folderName, setFolderName] = useState();
+  const [openfolder, setOpenfolder] = useState();
+  const handleCloseFolder = () => setOpenfolder(false);
+  const handleOpen = () => setOpenfolder(true);
+  const newFolderName = (e) => {
+    return setFolderName(e.target.value);
+  };
   return (
     <Box>
-      <FolderBox
-        className="hoverfolder"
-        style={bookmarkFolder === item.id ? style : {}}
-      >
+      <FolderBox className="hoverfolder" style={param === item.id ? style : {}}>
         <ArrowButton onClick={() => folderClick()}>
           <ArrowRightIcon />
         </ArrowButton>
@@ -115,6 +197,7 @@ function Folder(props) {
             onClick={() => {
               handleClose();
               setSubFolderId(item.id);
+              handleOpen();
             }}
           >
             Add Subfolder
@@ -124,6 +207,7 @@ function Folder(props) {
             onClick={() => {
               handleClose();
               setRenameFolderId(item.id);
+              handleOpen();
             }}
           >
             Rename
@@ -137,6 +221,52 @@ function Folder(props) {
             <Folder key={item} item={folders[item]} />
           ))}
       </SubFolderBox>
+      <Modal open={openfolder}>
+        <ModalBox>
+          <Heading>SUB FOLDER</Heading>
+          <Name> Folder Name</Name>{" "}
+          <CustomInput
+            type="text"
+            onChange={newFolderName}
+            placeholder="Enter Folder Name"
+            disableUnderline
+          />
+          <CustomButton
+            onClick={() => {
+              createFolder(folderName, createFolderParent);
+              handleCloseFolder();
+            }}
+          >
+            Submit
+          </CustomButton>
+          <CloseButton onClick={() => handleCloseFolder()}>
+            <Close />
+          </CloseButton>
+        </ModalBox>
+      </Modal>
+      <Modal open={openfolder}>
+        <ModalBox>
+          <Heading>RENAME FOLDER</Heading>
+          <Name>Folder Name</Name>
+          <CustomInput
+            type="text"
+            onChange={newFolderName}
+            placeholder="Enter New Name"
+            disableUnderline
+          />
+          <CustomButton
+            onClick={() => {
+              renameFolder(renameFolderId, folderName);
+              handleCloseFolder();
+            }}
+          >
+            Submit
+          </CustomButton>
+          <CloseButton onClick={() => handleCloseFolder()}>
+            <Close />
+          </CloseButton>
+        </ModalBox>
+      </Modal>
     </Box>
   );
 }

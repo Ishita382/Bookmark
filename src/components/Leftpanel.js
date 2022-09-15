@@ -14,6 +14,7 @@ import image from "../assets/logo.png";
 import { useSearchParams } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import { Close } from "@mui/icons-material";
+import { FOLDER } from "../utils/constants";
 
 const CustomBox = styled(Box)`
   flex: 1;
@@ -199,8 +200,8 @@ function Leftpanel() {
   const handleClose = () => setOpen(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const refreshPage = () => {
-    if (searchParams.has("folder")) {
-      searchParams.delete("folder");
+    if (searchParams.has(FOLDER)) {
+      searchParams.delete(FOLDER);
       setSearchParams(searchParams);
     }
     window.location.reload();

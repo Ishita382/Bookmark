@@ -7,6 +7,7 @@ import { useState } from "react";
 import image from "../assets/quickLink.png";
 import { appReducers } from "../Redux/selector";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
+import { useSearchParams } from "react-router-dom";
 
 const CustomBox = styled(Box)`
   flex: 1;
@@ -131,13 +132,14 @@ const Img = styled.img`
 `;
 
 function Quicklink() {
-  const { bookmarkFolder, folders } = useSelector(appReducers);
+  const { folders } = useSelector(appReducers);
   const [link, setLink] = useState();
   const { createBookmark } = useBookmarkHooks();
   const setBookmarkLink = (e) => {
     return setLink(e.target.value);
   };
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const param = searchParams.get("folder");
   return (
     <CustomBox>
       <CustomLinkBox>
@@ -150,10 +152,8 @@ function Quicklink() {
           onChange={setBookmarkLink}
         ></URLInput>
         <FolderHeading>Folder</FolderHeading>
-        <RootFolder>
-          {bookmarkFolder === "" ? "Root" : folders[bookmarkFolder].name}
-        </RootFolder>
-        <CustomButton onClick={() => createBookmark(link, bookmarkFolder)}>
+        <RootFolder>{param === null ? "Root" : folders[param].name}</RootFolder>
+        <CustomButton onClick={() => createBookmark(link, param)}>
           Save
         </CustomButton>
         <Img src={image} alt="AddLink" />

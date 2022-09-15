@@ -14,9 +14,6 @@ export const asyncAuthTypes = {
   LOGOUT_SUCCESS: "LOGOUT_SUCCESS",
   LOGOUT_FAILURE: "LOGOUT_FAILURE",
   LOGOUT_REQUEST: "LOGOUT REQUEST",
-
-  LOGIN: "/login",
-  DASHBOARD: "/dashboard",
 };
 
 export const asyncFolderTypes = {
@@ -42,8 +39,6 @@ export const asyncFolderTypes = {
 
   SET_SUBFOLDER_ID: "SET_SUBFOLDER_ID",
   SET_RENAMEFOLDER_ID: "SET_RENAMEFOLDER_ID",
-  CLOSE_MODAL: "CLOSE_MODAL",
-  CLOSE_RENAME_MODAL: "CLOSE_RENAME_MODAL",
 };
 
 export const asyncBookmarkTypes = {

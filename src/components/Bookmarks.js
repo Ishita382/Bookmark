@@ -199,11 +199,11 @@ const CloseFolderButton = styled(Button)`
 `;
 function Bookmark() {
   const initial = useSelector(appReducers);
-  const { bookmarks, folders, bookmarkFolder, bookmarkLoading } = initial;
+  const { bookmarks, folders, bookmarkLoading } = initial;
   const { createBookmark } = useBookmarkHooks();
   const imgUrl = image;
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
   const param = searchParams.get("folder");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -223,7 +223,7 @@ function Bookmark() {
 
       <Modal open={open}>
         <ModalBox>
-          {bookmarkFolder === "" ? (
+          {param === null ? (
             <>
               <Select>Select Folder</Select>
               <CloseButton onClick={() => handleClose()}>
@@ -233,7 +233,7 @@ function Bookmark() {
           ) : (
             <>
               <FolderName>{folders[param].name}</FolderName>
-              
+
               <URL>URL</URL>
               <CustomInput
                 onChange={addUrl}
@@ -248,7 +248,7 @@ function Bookmark() {
               ></CustomInput>
               <SaveButton
                 onClick={() => {
-                  createBookmark(url, bookmarkFolder, description);
+                  createBookmark(url, param);
                   handleClose();
                 }}
               >
@@ -263,7 +263,7 @@ function Bookmark() {
       </Modal>
 
       <BookmarkBox>
-        {bookmarkFolder === "" ? (
+        {param === null ? (
           <LoadingBox>
             <BookIcon />
             <Text>No Bookmarks Found</Text>
@@ -274,8 +274,8 @@ function Bookmark() {
           </LoadingBox>
         ) : bookmarkLoading === true ? (
           <LoadingBookmarkBox>...Loading Bookmarks</LoadingBookmarkBox>
-        ) : !bookmarkFolder.isEmpty && bookmarkLoading === false ? (
-          folders[bookmarkFolder].bIds.map((item) => (
+        ) : !param.isEmpty && bookmarkLoading === false ? (
+          folders[param].bIds.map((item) => (
             <Card key={item}>
               <Img src={imgUrl} alt="title" />
               <Name>{bookmarks[item].name}</Name>
@@ -285,9 +285,9 @@ function Bookmark() {
               </Description>
             </Card>
           ))
-        ) : !bookmarkFolder.isEmpty &&
+        ) : !param.isEmpty &&
           bookmarkLoading === false &&
-          folders[bookmarkFolder].bIds.length === 0 ? (
+          folders[param].bIds.length === 0 ? (
           <LoadingBox>No Bookmarks</LoadingBox>
         ) : (
           <></>
