@@ -124,7 +124,7 @@ const CustomInput = styled(Input)`
 `;
 const SaveButton = styled(Button)`
   margin-left: 95px;
-  margin-top: 28px;
+  margin-top: 38px;
   color: white;
   background: #5352ed;
   border-radius: 11px;
@@ -171,7 +171,7 @@ const URL = styled(Box)`
   font-family: Arial;
   font-weight: bold;
   padding-top: 30px;
-  margin-top: -40px;
+  margin-top: 10px;
   margin-left: 26px;
   font-size: 13px;
   line-height: 24px;
@@ -179,21 +179,9 @@ const URL = styled(Box)`
   align-items: center;
   text-align: center;
 `;
-const FolderDescription = styled(Box)`
-  color: gray;
-  font-family: Arial;
-  font-weight: bold;
-  padding-top: 30px;
-  margin-top: -20px;
-  margin-left: 26px;
-  font-size: 13px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-`;
+
 const CloseFolderButton = styled(Button)`
-  margin-top: -450px;
+  margin-top: -370px;
   margin-left: 240px;
   color: black;
 `;
@@ -209,12 +197,9 @@ function Bookmark() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [url, setUrl] = useState();
-  const [description, setDescription] = useState();
+
   const addUrl = (e) => {
     return setUrl(e.target.value);
-  };
-  const addDescription = (e) => {
-    return setDescription(e.target.value);
   };
 
   return (
@@ -240,12 +225,7 @@ function Bookmark() {
                 placeholder="Enter URL"
                 disableUnderline
               ></CustomInput>
-              <FolderDescription>Description</FolderDescription>
-              <CustomInput
-                onChange={addDescription}
-                placeholder="Enter Description"
-                disableUnderline
-              ></CustomInput>
+
               <SaveButton
                 onClick={() => {
                   createBookmark(url, param);

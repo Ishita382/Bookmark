@@ -3,8 +3,9 @@ import {
   asyncAuthTypes,
   asyncFolderTypes,
 } from "../actions/asyncTypes";
-import { useSearchParams } from "react-router-dom";
+
 import { clone } from "ramda";
+
 export const initialState = {
   folders: {},
   bookmarks: {},
@@ -18,9 +19,9 @@ export const initialState = {
   loginLoading: false,
   registrationLoading: false,
 };
+
 export const appReducers = (state = initialState, action) => {
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const param = searchParams.get("folder");
+ 
   const payload = action.payload;
   switch (action.type) {
     case asyncAuthTypes.LOGIN_SUCCESS:
