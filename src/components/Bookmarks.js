@@ -6,10 +6,9 @@ import image from "../assets/card.png";
 import BookIcon from "@mui/icons-material/Book";
 import Modal from "@mui/material/Modal";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { Close } from "@mui/icons-material";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
-//import { useSearchParams } from "react-router-dom";
+
 const CustomBox = styled(Box)`
   display: flex;
   flex-direction: row;
@@ -190,9 +189,6 @@ function Bookmark() {
   const { bookmarks, folders, bookmarkLoading, bookmarkFolder } = initial;
   const { createBookmark } = useBookmarkHooks();
   const imgUrl = image;
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const param = searchParams.get("folder");
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

@@ -7,7 +7,6 @@ import { useState } from "react";
 import image from "../assets/quickLink.png";
 import { appReducers } from "../Redux/selector";
 import { useBookmarkHooks } from "../Redux/hooks/bookmarkHooks";
-import { useSearchParams } from "react-router-dom";
 
 const CustomBox = styled(Box)`
   flex: 1;
@@ -138,8 +137,6 @@ function Quicklink() {
   const setBookmarkLink = (e) => {
     return setLink(e.target.value);
   };
-  const [searchParams, setSearchParams] = useSearchParams();
-  const param = searchParams.get("folder");
   return (
     <CustomBox>
       <CustomLinkBox>
