@@ -132,7 +132,7 @@ const Img = styled.img`
 `;
 
 function Quicklink() {
-  const { folders } = useSelector(appReducers);
+  const { folders, bookmarkFolder } = useSelector(appReducers);
   const [link, setLink] = useState();
   const { createBookmark } = useBookmarkHooks();
   const setBookmarkLink = (e) => {
@@ -152,8 +152,8 @@ function Quicklink() {
           onChange={setBookmarkLink}
         ></URLInput>
         <FolderHeading>Folder</FolderHeading>
-        <RootFolder>{param === null ? "Root" : folders[param].name}</RootFolder>
-        <CustomButton onClick={() => createBookmark(link, param)}>
+        <RootFolder>{bookmarkFolder === "" ? "Root" : folders[bookmarkFolder].name}</RootFolder>
+        <CustomButton onClick={() => createBookmark(link, bookmarkFolder)}>
           Save
         </CustomButton>
         <Img src={image} alt="AddLink" />

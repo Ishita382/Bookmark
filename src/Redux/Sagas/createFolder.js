@@ -7,7 +7,7 @@ export function* createMyFolder(action) {
       let item = {
         name: action.payload.name,
       };
-      if (!action.payload.id.isEmpty) {
+      if (action.payload.id!=="") {
         item.parentId = action.payload.id;
       }
       let response = yield sendRequest("folder", "POST", item);

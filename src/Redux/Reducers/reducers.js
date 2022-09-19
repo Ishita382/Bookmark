@@ -21,7 +21,6 @@ export const initialState = {
 };
 
 export const appReducers = (state = initialState, action) => {
- 
   const payload = action.payload;
   switch (action.type) {
     case asyncAuthTypes.LOGIN_SUCCESS:
@@ -77,16 +76,15 @@ export const appReducers = (state = initialState, action) => {
       return { ...state, parentId: payload.id };
 
     case asyncFolderTypes.CREATE_FOLDER_SUCCESS:
-      const updatedFolders = clone(state.folders);
-      updatedFolders[payload.response.id] = payload.response;
-      if (state.currentParentFolderId.isEmpty) {
+      state.folders[payload.response.id] = payload.response;
+      if (state.currentParentFolderId === "") {
         state.folderIds.push(payload.response.id);
       } else {
-        updatedFolders[state.currentParentFolderId].childIds.push(
+        state.folders[state.currentParentFolderId].childIds.push(
           payload.response.id
         );
       }
-      return { ...state, folders: updatedFolders };
+      return { ...state };
 
     case asyncAuthTypes.LOGOUT_SUCCESS:
       return { ...initialState };

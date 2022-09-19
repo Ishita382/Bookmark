@@ -150,9 +150,12 @@ function Folder(props) {
   };
 
   const [folderName, setFolderName] = useState();
-  const [openfolder, setOpenfolder] = useState();
-  const handleCloseFolder = () => setOpenfolder(false);
-  const handleOpen = () => setOpenfolder(true);
+  const [openRenameModal, setOpenRenameModal] = useState();
+  const [openSubModal, setOpenSubModal] = useState();
+  const openSubFolder = () => setOpenSubModal(true);
+  const openRenameFolder = () => setOpenRenameModal(true);
+  const closeRenameFolder = () => setOpenRenameModal(false);
+  const closeSubFolder = () => setOpenSubModal(false);
   const newFolderName = (e) => {
     return setFolderName(e.target.value);
   };
@@ -197,7 +200,7 @@ function Folder(props) {
             onClick={() => {
               handleClose();
               setSubFolderId(item.id);
-              handleOpen();
+              openSubFolder();
             }}
           >
             Add Subfolder
@@ -207,7 +210,7 @@ function Folder(props) {
             onClick={() => {
               handleClose();
               setRenameFolderId(item.id);
-              handleOpen();
+              openRenameFolder();
             }}
           >
             Rename
@@ -221,7 +224,7 @@ function Folder(props) {
             <Folder key={item} item={folders[item]} />
           ))}
       </SubFolderBox>
-      <Modal open={openfolder}>
+      <Modal open={openSubModal}>
         <ModalBox>
           <Heading>SUB FOLDER</Heading>
           <Name> Folder Name</Name>{" "}
@@ -234,17 +237,17 @@ function Folder(props) {
           <CustomButton
             onClick={() => {
               createFolder(folderName, createFolderParent);
-              handleCloseFolder();
+              closeSubFolder();
             }}
           >
             Submit
           </CustomButton>
-          <CloseButton onClick={() => handleCloseFolder()}>
+          <CloseButton onClick={() => closeSubFolder()}>
             <Close />
           </CloseButton>
         </ModalBox>
       </Modal>
-      <Modal open={openfolder}>
+      <Modal open={openRenameModal}>
         <ModalBox>
           <Heading>RENAME FOLDER</Heading>
           <Name>Folder Name</Name>
@@ -257,12 +260,12 @@ function Folder(props) {
           <CustomButton
             onClick={() => {
               renameFolder(renameFolderId, folderName);
-              handleCloseFolder();
+              closeRenameFolder();
             }}
           >
             Submit
           </CustomButton>
-          <CloseButton onClick={() => handleCloseFolder()}>
+          <CloseButton onClick={() => closeRenameFolder()}>
             <Close />
           </CloseButton>
         </ModalBox>
