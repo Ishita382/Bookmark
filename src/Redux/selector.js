@@ -1,0 +1,1 @@
+export const appReducers = (state) => state.appReducers;
